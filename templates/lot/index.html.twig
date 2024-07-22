@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des lots de demandes{% endblock %}
+{% block breadcrumb %}Lots{% endblock %}
+{% block breadcrumbActive %}Liste{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Message :</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <table class="table table-bordered table-hover myTable">
+        <thead class="table-light">
+        <tr>
+            <th>N°</th>
+            <th>Date de création</th>
+            <th>Nombre de demandes associées</th>
+            <th>Statut</th>
+            <th>Rapport</th>
+            <th>Décision</th>
+            {% if is_granted('ROLE_AUTORITE') %}
+                <th>Actions</th>
+            {% endif %}
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for lot in lots %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ lot.dateCreation ? lot.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lot.demandes|length }}</td>
+                <td>
+                    {% if lot.statut=="En attente" %}
+                        <span class="badge bg-warning">
+
+                              {{ lot.statut }}
+                        </span>
+                    {% else %}
+                        <span class="badge bg-primary">
+
+                            {{ lot.statut }}
+                        </span>
+                    {% endif %}
+                    </td>
+                <td>
+                    {% if lot.rapport %}
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewRapportModal-{{ lot.id }}">
+                            Voir
+                        </button>
+                    {% else %}
+                        Pas encore disponible
+                    {% endif %}
+                </td>
+                <td>
+                    {% if lot.decision %}
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewDecisionModal-{{ lot.id }}">
+                            Voir
+                        </button>
+                    {% else %}
+                        Pas encore validée
+                    {% endif %}
+                </td>
+                {% if is_granted('ROLE_AUTORITE') %}
+
+                <td>
+
+                    {% if lot.statut == "En attente" %}
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#validateModal-{{ lot.id }}">
+                            Valider
+                        </button>
+
+
+                    {% else %}
+                        Déjà validé
+                    {% endif %}
+
+
+                </td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% for lot in lots %}
+        <!-- Modal for Validation -->
+        <div class="modal fade" id="validateModal-{{ lot.id }}" tabindex="-1" aria-labelledby="validateModalLabel-{{ lot.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="validateModalLabel-{{ lot.id }}">Valider le Lot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="{{ path('app_lot_edit', {'id': lot.id}) }}" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="decision" class="form-label">Décision</label>
+                                <input type="file" class="form-control" id="decision" name="decision" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Viewing Rapport -->
+        <div class="modal fade" id="viewRapportModal-{{ lot.id }}" tabindex="-1" aria-labelledby="viewRapportModalLabel-{{ lot.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewRapportModalLabel-{{ lot.id }}">Rapport du Lot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src="{{ asset('uploads/rapports/' ~ lot.rapport) }}" width="100%" height="500px"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Viewing Decision -->
+        <div class="modal fade" id="viewDecisionModal-{{ lot.id }}" tabindex="-1" aria-labelledby="viewDecisionModalLabel-{{ lot.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewDecisionModalLabel-{{ lot.id }}">Décision du Lot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src="{{ asset('uploads/decisions/' ~ lot.decision) }}" width="100%" height="500px"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

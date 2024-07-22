@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}President{% endblock %}
+
+{% block body %}
+    <h1>President</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ president.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ president.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenoms</th>
+                <td>{{ president.prenoms }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ president.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Signature</th>
+                <td>{{ president.signature }}</td>
+            </tr>
+            <tr>
+                <th>Cachet</th>
+                <td>{{ president.cachet }}</td>
+            </tr>
+            <tr>
+                <th>DatePriseFonction</th>
+                <td>{{ president.datePriseFonction }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_president_index') }}">back to list</a>
+
+    <a href="{{ path('app_president_edit', {'id': president.id}) }}">edit</a>
+
+    {{ include('president/_delete_form.html.twig') }}
+{% endblock %}

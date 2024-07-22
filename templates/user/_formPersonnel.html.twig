@@ -1,0 +1,58 @@
+{{ form_start(form) }}
+
+
+<div class="card">
+    <div class="card-title">
+        <h4>Informations personnelles</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.prenoms) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.nom) }}
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.dateNaissance) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.lieuNaissance) }}
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                {{ form_row(form.sexe) }}
+            </div>
+        </div>
+        <div class="row mb-3">
+
+            <div class="col-md-12">
+                {{ form_row(form.photo )}}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">
+        <h4>Informations de connexion</h4>
+    </div>
+    <div class="card-body">
+        {{ form_widget(form) }}
+    </div>
+</div>
+
+
+
+
+    <button class="btn btn-primary">{{ button_label|default('Créer le compte') }}</button>
+{{ form_end(form) }}
+

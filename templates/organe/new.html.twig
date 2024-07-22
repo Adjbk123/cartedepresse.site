@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ajout d'un organe{% endblock %}
+{% block breadcrumb %}Organe {% endblock %}
+{% block breadcrumbActive %}Ajout {% endblock %}
+
+{% block body %}
+
+    {{ include('organe/_form.html.twig') }}
+
+{% endblock %}

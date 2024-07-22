@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+  <div class="row">
+      <div class="col-md-6">
+          {{ form_row(form.nom) }}
+      </div>
+      <div class="col-md-6">
+          {{ form_row(form.prenoms) }}
+
+      </div>
+  </div>
+<div class="row">
+      <div class="col-md-6">
+          {{ form_row(form.dateNaissance) }}
+      </div>
+      <div class="col-md-6">
+          {{ form_row(form.lieuNaissance) }}
+
+      </div>
+  </div>
+<div class="row">
+      <div class="col-md-6">
+          {{ form_row(form.contact) }}
+      </div>
+      <div class="col-md-6">
+          {{ form_row(form.adresse) }}
+
+      </div>
+  </div>
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

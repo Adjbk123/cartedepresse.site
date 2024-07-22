@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %} {% endblock%} | Système Automatique de Gestion des Cartes de Presse</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse" />
+    <meta name="keywords" content="Carte de presse, Demande, HAAC" />
+    <meta name="author" content="HAAC" />
+    <meta name="email" content="contact@haac.bj" />
+    <meta name="website" content="https://haac.bj/" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="http://haac.bj/wp-content/uploads/2024/07/logo-icon.png" />
+    <!-- Css -->
+    <link href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets-landing/css/bootstrap-green.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
+    <!-- Style Css-->
+    <link href="{{ asset('assets/css/style.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('select2/custom.css') }}">
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+    <style>
+        .features.feature-success .icon {
+            color: #11832B !important;
+            background-color: rgba(46, 202, 139, .04) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div class="page-wrapper toggled">
+    <!-- sidebar-wrapper -->
+{{ include('partials/sidebar.html.twig') }}
+    <!-- sidebar-wrapper  -->
+
+    <!-- Start Page Content -->
+    <main class="page-content bg-light" id="swup">
+        <!-- Top Header -->
+       {{ include('partials/navbar.html.twig') }}
+        <!-- Top Header -->
+
+        <div class="container-fluid">
+            <div class="layout-specing">
+                <div class="d-md-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ block('title') }}</h5>
+
+                    <nav aria-label="breadcrumb" class="d-inline-block mt-2 mt-sm-0">
+                        <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                            <li class="breadcrumb-item text-capitalize"><a href="javascript:void(0)">{% block breadcrumb %}{% endblock %}</a></li>
+                            <li class="breadcrumb-item text-capitalize active" aria-current="page"> {% block breadcrumbActive %}{% endblock %}</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <div class="  {% if app.current_route != "app_admin" %}card border-0 rounded shadow p-4{% endif %} ">
+                            <div class="  {% if app.current_route != "app_admin" %}card-body{% endif %}">
+                                {% block body %}{% endblock %}
+                            </div>
+
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div>
+        </div><!--end container-->
+
+        <!-- Footer Start -->
+        <footer class="shadow py-3">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="text-sm-start text-center mx-md-2">
+                            <p class="mb-0 text-muted">© {{ date()|date('Y')}} SGACP.  <i class="mdi mdi-network text-danger"></i> Conçu par <a href="haac.bj" target="_blank" class="text-reset">HAAC</a>.</p>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </footer><!--end footer-->
+        <!-- End -->
+    </main>
+    <!--End page-content" -->
+</div>
+<!-- page-wrapper -->
+
+<!-- Offcanvas Start -->
+<div class="offcanvas offcanvas-end shadow" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header p-4 border-bottom">
+        <h5 id="offcanvasLeftLabel" class="mb-0">
+            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
+        </h5>
+        <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
+    </div>
+    <div class="offcanvas-body p-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <h6 class="fw-bold">Theme Options</h6>
+
+                    <ul class="text-center style-switcher list-unstyled mt-4">
+                        <li class="d-grid"><a href="javascript:void(0)" class="rtl-version t-rtl-light" onclick="setTheme('style-rtl')"><img src="assets/images/demos/rtl.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">RTL Version</span></a></li>
+                        <li class="d-grid"><a href="javascript:void(0)" class="ltr-version t-ltr-light" onclick="setTheme('style')"><img src="assets/images/demos/ltr.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">LTR Version</span></a></li>
+                        <li class="d-grid"><a href="javascript:void(0)" class="dark-rtl-version t-rtl-dark" onclick="setTheme('style-dark-rtl')"><img src="assets/images/demos/dark-rtl.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">RTL Version</span></a></li>
+                        <li class="d-grid"><a href="javascript:void(0)" class="dark-ltr-version t-ltr-dark" onclick="setTheme('style-dark')"><img src="assets/images/demos/dark.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">LTR Version</span></a></li>
+                        <li class="d-grid"><a href="javascript:void(0)" class="dark-version t-dark mt-4" onclick="setTheme('style-dark')"><img src="assets/images/demos/dark.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">Dark Version</span></a></li>
+                        <li class="d-grid"><a href="javascript:void(0)" class="light-version t-light mt-4" onclick="setTheme('style')"><img src="assets/images/demos/ltr.png" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 230px;" alt=""><span class="text-dark fw-medium mt-3 d-block">Light Version</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas-footer p-4 border-top text-center">
+        <ul class="list-unstyled social-icon social mb-0">
+            <li class="list-inline-item mb-0"><a href="https://1.envato.market/landrick" target="_blank" class="rounded"><i class="uil uil-shopping-cart align-middle" title="Buy Now"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://dribbble.com/shreethemes" target="_blank" class="rounded"><i class="uil uil-dribbble align-middle" title="dribbble"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://www.behance.net/shreethemes" target="_blank" class="rounded"><i class="uil uil-behance align-middle" title="behance"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://www.facebook.com/shreethemes" target="_blank" class="rounded"><i class="uil uil-facebook-f align-middle" title="facebook"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://www.instagram.com/shreethemes/" target="_blank" class="rounded"><i class="uil uil-instagram align-middle" title="instagram"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://twitter.com/shreethemes" target="_blank" class="rounded"><i class="uil uil-twitter align-middle" title="twitter"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="mailto:support@shreethemes.in" class="rounded"><i class="uil uil-envelope align-middle" title="email"></i></a></li>
+            <li class="list-inline-item mb-0"><a href="https://shreethemes.in" target="_blank" class="rounded"><i class="uil uil-globe align-middle" title="website"></i></a></li>
+        </ul><!--end icon-->
+    </div>
+</div>
+<!-- Offcanvas End -->
+
+
+<!-- JAVASCRIPT -->
+{% if block('datatables') is defined %}
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            let table = $('.myTable').DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    'excelHtml5',
+                    'pdfHtml5',
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude last column during export
+                        }
+                    },
+
+                ]
+            });
+        });
+    </script>
+{% endif %}
+
+<script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+<script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+<!-- Main Js -->
+<script src="{{ asset('assets/js/plugins.init.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2(
+            {
+                language: {
+                    noResults: function() {
+                        return "Aucun résultat trouvé";
+                    },
+                    searching: function() {
+                        return "Recherche en cours...";
+                    }
+                }
+            }
+        );
+    });
+</script>
+
+
+<script>
+    document.addEventListener('turbo:load', function() {
+        initializeDropdowns();
+    });
+
+    function initializeDropdowns() {
+        var dropdowns = document.querySelectorAll('.dropdown-toggle');
+        dropdowns.forEach(function(dropdown) {
+            dropdown.addEventListener('click', function() {
+                var menu = this.nextElementSibling;
+                menu.classList.toggle('show');
+            });
+        });
+    }
+
+</script>
+</body>
+
+</html>

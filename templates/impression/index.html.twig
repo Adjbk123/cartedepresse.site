@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cartes Prêtes pour Impression{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+    <h1>Cartes Prêtes pour Impression</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover myTable">
+            <thead class="table-light">
+            <tr>
+                <th>Numéro de Demande</th>
+                <th>Nom</th>
+                <th>Prénoms</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for carte in cartePretes %}
+                <tr>
+                    <td>{{ carte.numDemande }}</td>
+                    <td>{{ carte.professionnel.nom }}</td>
+                    <td>{{ carte.professionnel.prenoms }}</td>
+                    <td>
+                        <a href="{{ path('app_print_card', { 'id': carte.id }) }}" class="btn btn-primary">Visualiser & Imprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune carte prête pour l'impression.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

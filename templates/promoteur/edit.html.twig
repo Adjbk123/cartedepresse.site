@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer le promoteur{% endblock %}
+{% block breadcrumb %}Promoteur{% endblock %}
+
+{% block body %}
+
+
+    {{ include('promoteur/_form.html.twig', {'button_label': 'Mettre'}) }}
+
+
+{% endblock %}

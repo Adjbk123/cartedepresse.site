@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+{% block breadcrumb %}Main{% endblock %}
+
+{% block body %}
+
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_AUTORITE') %}
+
+        {{ include('admin/_adminStatistiques.html.twig') }}
+    {% endif %}
+
+    {% if is_granted('ROLE_IMPRIMEUR') %}
+         {{ include('admin/_adminImpression.html.twig') }}
+    {% endif %}
+
+    {% if is_granted('ROLE_AGENT_TRAITEMENT') %}
+        {{ include('admin/_adminAgent.html.twig') }}
+    {% endif %}
+
+{% endblock %}

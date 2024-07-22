@@ -1,0 +1,58 @@
+{# templates/demande/creer_lot.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un lot de demandes{% endblock %}
+{% block datatables %}{% endblock %}
+{% block breadcrumb %} Lot {% endblock %}
+{% block breadcrumbActive %} Création {% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path('app_lot_new') }}">
+        <div class="my-3 text-end">
+            <button type="submit" class="btn btn-primary">Créer le lot</button>
+
+        </div>
+
+        <table class="table table-bordered table-striped myTable" data-page-length='100'>
+
+            <thead class="table-light">
+            <tr>
+                <th>N°</th>
+                <th>Numéro Demande</th>
+                <th>Professionnel</th>
+                <th>Organe</th>
+                <th>Profession</th>
+                <th>Statut</th>
+                <th>
+                    <input  type="checkbox" class="form-check-input border-1 border-success" id="selectAll" onclick="toggleSelectAll()">
+                    <label for="selectAll"> Tout coché</label>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for demande in demandes %}
+                <tr>
+                    <td>{{ loop.index}}</td>
+                    <td>{{ demande.numDemande }}</td>
+                    <td>{{ demande.professionnel.nom }} {{ demande.professionnel.prenoms }}</td>
+                    <td>{{ demande.historiqueOrganeActuel.organe.designation }}</td>
+                    <td>{{ demande.historiqueOrganeActuel.profession.libelle }}</td>
+                    <td>{{ demande.statut }}</td>
+                    <td><input type="checkbox"  name="demandes[]" value="{{ demande.id }}" class="demande-checkbox form-check-input border-success border-1"></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+
+    <script>
+        function toggleSelectAll() {
+            const checkboxes = document.querySelectorAll('.demande-checkbox');
+            const selectAllCheckbox = document.getElementById('selectAll');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+    </script>
+{% endblock %}

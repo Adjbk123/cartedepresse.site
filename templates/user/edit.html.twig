@@ -1,0 +1,12 @@
+{% extends 'baseAccueil.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+{% block breadcrumb %} Complèter mon profil{% endblock %}
+
+{% block body %}
+
+
+    {{ include('user/_form.html.twig', {'button_label': 'Valider les informations'}) }}
+
+
+{% endblock %}

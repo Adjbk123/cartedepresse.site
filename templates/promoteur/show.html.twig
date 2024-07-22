@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du promoteur{% endblock %}
+{% block breadcrumb %}Promoteur{% endblock %}
+{% block breadcrumbActive %}Détail{% endblock %}
+
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ promoteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ promoteur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenoms</th>
+                <td>{{ promoteur.prenoms }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ promoteur.contact }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ promoteur.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ promoteur.photo }}</td>
+            </tr>
+            <tr>
+                <th>DateNaissance</th>
+                <td>{{ promoteur.dateNaissance ? promoteur.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>LieuNaissance</th>
+                <td>{{ promoteur.lieuNaissance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_promoteur_index') }}">back to list</a>
+
+    <a href="{{ path('app_promoteur_edit', {'id': promoteur.id}) }}">edit</a>
+
+    {{ include('promoteur/_delete_form.html.twig') }}
+{% endblock %}

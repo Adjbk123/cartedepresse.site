@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}President index{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+      <table class="table myTable">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>Prénoms</th>
+                <th>Adresse</th>
+                <th>DatePriseFonction</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for president in presidents %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ president.nom }}</td>
+                <td>{{ president.prenoms }}</td>
+                <td>{{ president.adresse }}</td>
+                <td>{{ president.datePriseFonction|date('D, d M Y H:i:s') }}</td>
+                <td>
+                    <a href="{{ path('app_president_show', {'id': president.id}) }}">show</a>
+                    <a href="{{ path('app_president_edit', {'id': president.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

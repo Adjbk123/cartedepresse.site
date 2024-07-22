@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des organes{% endblock %}
+{% block breadcrumb %}Organe {% endblock %}
+{% block breadcrumbActive %}Liste {% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+    <table class="table myTable">
+        <thead class="table-secondary">
+            <tr>
+                <th>#</th>
+                <th>Designation</th>
+                <th>Type d'organe</th>
+                <th>Adresse</th>
+                <th>Contact</th>
+                <th>Commune</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organe in organes %}
+            <tr>
+                <td>{{ organe.id }}</td>
+                <td>{{ organe.designation }}</td>
+                <td>
+                    {% if organe.typeOrgane is not null %}
+                        {{ organe.typeOrgane.libelle }}
+                    {% endif %}
+
+                </td>
+                <td>{{ organe.adresse }}</td>
+                <td>{{ organe.contact }}</td>
+                <td>{{ organe.commune }}</td>
+                <td>
+                    <div class="dropdown mt-4 mt-sm-0">
+                        <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                        </a>
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item link-info" href="{{ path('app_organe_show', {'id': organe.id}) }}">Voir</a>
+                            <a class="dropdown-item link-primary" href="{{ path('app_organe_edit', {'id': organe.id}) }}">Editer</a>
+                            {{ include('organe/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_organe_new') }}">Create new</a>
+{% endblock %}

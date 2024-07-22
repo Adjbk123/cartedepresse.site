@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% endblock%} | Système Automatique de Gestion des Cartes de Presse</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse" />
+    <meta name="keywords" content="Carte de presse, Demande, HAAC" />
+    <meta name="author" content="HAAC" />
+    <meta name="email" content="contact@haac.bj" />
+    <meta name="website" content="https://haac.bj/" />
+
+
+
+    <link rel="shortcut icon" href="http://haac.bj/wp-content/uploads/2024/07/logo-icon.png">
+    <!-- Css -->
+    <link href="{{ asset('assets-landing/libs/tobii/css/tobii.min.css') }}" rel="stylesheet">
+
+
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Css -->
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+    <!-- Icons Css -->
+    <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
+    <!-- Style Css-->
+    <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('select2/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}"/>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style>
+        body{
+            margin-top:40px;
+        }
+
+        .stepwizard-step p {
+            margin-top: 10px;
+        }
+
+        .stepwizard-row {
+            display: table-row;
+        }
+
+        .stepwizard {
+            display: table;
+            width: 100%;
+            position: relative;
+        }
+
+        .stepwizard-step button[disabled] {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+
+        .stepwizard-row:before {
+            top: 14px;
+            bottom: 0;
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            z-order: 0;
+
+        }
+
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+    </style>
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+<!-- Loader -->
+<!-- <div id="preloader">
+    <div id="status">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</div> -->
+<!-- Loader -->
+
+
+
+<!-- Navbar Start -->
+<header id="topnav" class="defaultscroll sticky">
+    <div class="container">
+        <!-- Logo container-->
+        <a class="logo" href="{{ path('app_accueil') }}">
+            <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="36" class="logo-light-mode" alt="">
+            <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="24" class="logo-dark-mode" alt="">
+        </a>
+        <!-- Logo End -->
+
+        <!-- End Logo container-->
+        <div class="menu-extras">
+            <div class="menu-item">
+                <!-- Mobile menu toggle-->
+                <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <!-- End mobile menu toggle-->
+            </div>
+        </div>
+        <!--Login button Start-->
+        <ul class="buy-button list-inline mb-0">
+            <li class="list-inline-item mb-0">
+                <a href="javascript:void(0)">
+                    <span class="d-lg-block d-none ">
+                        {% if app.user %}
+                            {{ app.user.prenoms }} {{ app.user.nom }}
+                        {% endif %}
+                    </span>
+                    <span class="d-sm-block d-lg-none">
+                        {% if app.user %}
+                            {{ app.user.prenoms|slice(0, 1) }}. {{ app.user.nom|slice(0, 1) }}.
+                        {% endif %}
+                    </span>
+                </a>
+            </li>
+
+            <li class="list-inline-item ps-1 mb-0">
+                <a href="{{ path('app_logout') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Déconnexion">
+                    <div class="btn btn-icon btn-pills btn-primary"><i data-feather="log-out" class="fea icon-sm"></i></div>
+                </a>
+            </li>
+        </ul>
+        <!--Login button End-->
+        <div id="navigation">
+            <!-- Navigation Menu-->
+            <ul class="navigation-menu">
+                <li><a href="{{ path('app_accueil') }}" class="sub-menu-item">Mon compte</a></li>
+            </ul><!--end navigation menu-->
+        </div><!--end navigation-->
+    </div><!--end container-->
+</header><!--end header-->
+<!-- Navbar End -->
+
+<!-- Hero Start -->
+<section class="bg-half-170 bg-light d-table w-100">
+    <div class="container">
+        <div class="row mt-0 justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="pages-heading">
+                    <h4 class="title mb-0"> {{ block('title')}} </h4>
+                </div>
+            </div>  <!--end col-->
+        </div><!--end row-->
+
+        <div class="position-breadcrumb">
+            <nav aria-label="breadcrumb" class="d-inline-block">
+                <ul class="breadcrumb rounded shadow mb-0 px-4 py-2">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+
+                    <li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %} {% endblock %}</li>
+                </ul>
+            </nav>
+        </div>
+    </div> <!--end container-->
+</section><!--end section-->
+<!-- Hero End -->
+
+<!-- Shape Start -->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-color-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!--Shape End-->
+
+<!-- About Start -->
+<section class="my-5">
+    <div class="container">
+    {% block body  %}
+
+    {% endblock   %}
+    </div><!--end container-->
+
+</section><!--end section-->
+<!-- About End -->
+
+
+
+<!-- Footer Start -->
+<footer class="footer fixed-bottom mt">
+
+    <div class="footer-py-30 footer-bar">
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="text-sm-start">
+                        <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> SADCP. </p>
+                    </div>
+                </div><!--end col-->
+
+                <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <ul class="list-unstyled text-sm-end mb-0">
+                        Tous droits réservés <i class="mdi mdi-heart text-danger"></i>  <a href="http://haac.bj" target="_blank" class="text-reset">HAAC</a>.
+                    </ul>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </div>
+</footer><!--end footer-->
+<!-- Footer End -->
+
+
+<!-- Switcher Start -->
+<a href="javascript:void(0)" class="card switcher-btn shadow-md text-primary z-index-1 d-md-inline-flex d-none" data-bs-toggle="offcanvas" data-bs-target="#switcher-sidebar">
+    <i class="mdi mdi-cog mdi-24px mdi-spin align-middle"></i>
+</a>
+
+<div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
+    <div class="offcanvas-header p-4 border-bottom">
+        <h5 id="offcanvasLeftLabel" class="mb-0">
+            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
+        </h5>
+        <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
+    </div>
+    <div class="offcanvas-body p-4 pb-0">
+       <div class="row">
+
+       </div>
+    </div>
+
+    <div class="offcanvas-footer p-4 border-top text-center">
+
+    </div>
+</div>
+<!-- Switcher End -->
+
+<!-- Back to top -->
+<a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fs-5"><i data-feather="arrow-up" class="fea icon-sm icons align-middle"></i></a>
+<!-- Back to top -->
+
+<!-- javascript -->
+<!-- JAVASCRIPT -->
+<script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Lightbox -->
+<script src="{{ asset('assets-landing/libs/tobii/js/tobii.min.js') }}"></script>
+<!-- Main Js -->
+<script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+<script src="{{ asset('assets-landing/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+<!-- JAVASCRIPT -->
+{% if block('datatables') is defined %}
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            let table = $('.myTable').DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    'excelHtml5',
+                    'pdfHtml5',
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude last column during export
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2(
+            {
+                language: {
+                    noResults: function() {
+                        return "Aucun résultat trouvé";
+                    },
+                    searching: function() {
+                        return "Recherche en cours...";
+                    }
+                }
+            }
+        );
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-primary').addClass('btn-default');
+                $item.addClass('btn-primary');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+
+        allNextBtn.click(function(){
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for(var i=0; i<curInputs.length; i++){
+                if (!curInputs[i].validity.valid){
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+            }
+
+            if (isValid)
+                nextStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        $('div.setup-panel div a.btn-primary').trigger('click');
+    });
+</script>
+</body>
+</html>

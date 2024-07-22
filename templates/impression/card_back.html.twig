@@ -1,0 +1,33 @@
+<div>
+    <div style="width: 100%; display: table;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; text-align: start; padding-top:10px">
+            <img src="{{ absolute_url(asset('assets/images/logo-haac.png')) }}" alt="logo" height="20%">
+
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; text-align: end; padding-top:10px">
+            <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="logo" height="40%">
+        </div>
+    </div>
+    <!-- Texte -->
+    <div style="text-align: justify; font-size: 15px; margin: 0; width: 100%;">
+        Le titulaire de cette carte est un professionnel des médias. Les Autorités béninoises et celles des pays hôtes sont priées de faciliter au porteur de la présente carte l'exercice de sa profession.
+    </div>
+
+    <div style="width: 100%; display: table; margin:0; border:1px solid #ffffff; padding:0 ; margin-top: -100px; padding-top: 130px">
+
+        <div style="display: table-cell; width: 33%; vertical-align: top; text-align: center;">
+            <strong>Le Président</strong><br>
+            <img width="200px" src="{{ absolute_url(asset('uploads/')) }}{{ president.signature }}" alt="signPresident"><br>
+            <strong>{{ president.nom }} {{ president.prenoms }}</strong>
+        </div>
+        <div style="display: table-cell; width: 33%; vertical-align: top; text-align: center;">
+            <img src="{{ absolute_url(asset('uploads/')) }}{{ president.cachet }}" width="140px" alt="cachet HAAC">
+        </div>
+        <div style="display: table-cell; width: 33%; vertical-align: top; text-align: center;">
+            <img src="{{ qrCode }}" width="85%" alt="QR Code">
+        </div>
+    </div>
+
+
+</div>
+

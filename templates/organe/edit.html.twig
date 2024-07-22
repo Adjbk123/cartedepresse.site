@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer l'organe{% endblock %}
+{% block breadcrumb %}Organe {% endblock %}
+
+{% block body %}
+
+
+    {{ include('organe/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+
+
+{% endblock %}

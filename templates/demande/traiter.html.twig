@@ -1,0 +1,271 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Traitement de la demande de {{ demande.numDemande }} {% endblock %}
+
+{% block breadcrumb %} Demande {% endblock %}
+
+{% block breadcrumbActive %} Traitement {% endblock %}
+
+{% block body %}
+
+    <div class="text-end">
+
+    </div>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Opération réussie !</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="w-50">Type de pièce</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for pieceJointe in demande.pieceJointes %}
+                <tr id="piece-{{ pieceJointe.id }}">
+                    <td>{{ pieceJointe.typePiece.libelle }}</td>
+                    <td>{{ pieceJointe.statut }}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalConsulter{{ pieceJointe.id }}">Consulter</button>
+                        {% if pieceJointe.statut == 'En attente' %}
+
+
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalValider{{ pieceJointe.id }}">Valider</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalRejeter{{ pieceJointe.id }}">Rejeter</button>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Modal Valider -->
+                <div class="modal fade" id="modalValider{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalValider{{ pieceJointe.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalValider{{ pieceJointe.id }}Label">Valider le fichier</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" class="form-valider" data-id="{{ pieceJointe.id }}" action="{{ path('app_fichier_valider', {id: pieceJointe.id}) }}">
+                                    <div class="mb-3">
+                                        <label for="observationValider{{ pieceJointe.id }}" class="form-label">Observation</label>
+                                        <textarea class="form-control" id="observationValider{{ pieceJointe.id }}" name="observation" placeholder="Observation"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Rejeter -->
+                <div class="modal fade" id="modalRejeter{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalRejeter{{ pieceJointe.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalRejeter{{ pieceJointe.id }}Label">Rejeter le fichier</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" class="form-rejeter" data-id="{{ pieceJointe.id }}" action="{{ path('app_fichier_rejeter', {id: pieceJointe.id}) }}">
+                                    <div class="mb-3">
+                                        <label for="observationRejeter{{ pieceJointe.id }}" class="form-label">Observation</label>
+                                        <textarea class="form-control" id="observationRejeter{{ pieceJointe.id }}" name="observation" placeholder="Observation"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Rejeter</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Consulter -->
+                <div class="modal fade" id="modalConsulter{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalConsulter{{ pieceJointe.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalConsulter{{ pieceJointe.id }}Label">Consulter la pièce jointe</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <embed src="{{ asset('uploads/' ~ pieceJointe.dateSoumission|date('Y') ~ '/' ~ pieceJointe.dateSoumission|date('m') ~ '/' ~ pieceJointe.dateSoumission|date('d') ~ '/' ~ pieceJointe.url) }}" type="application/pdf" width="100%" height="600px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Modal Valider Toute La Demande -->
+            <div class="modal fade" id="modalValiderTout" tabindex="-1" aria-labelledby="modalValiderToutLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalValiderToutLabel">Valider toute la demande</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" class="form-valider-tout" action="{{ path('app_demande_valider', {id: demande.id}) }}">
+                                <div class="mb-3">
+                                    <label for="observationValiderTout" class="form-label">Observation</label>
+                                    <textarea class="form-control" id="observationValiderTout" name="observation" placeholder="Observation"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Valider toute la demande</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if demande.statut == 'En attente' %}
+
+            <button id="valider-tout" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalValiderTout">Valider toute la demande</button>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <!-- Modal Rejeter Toute La Demande -->
+            <div class="modal fade" id="modalRejeterTout" tabindex="-1" aria-labelledby="modalRejeterToutLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalRejeterToutLabel">Rejeter toute la demande</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" class="form-rejeter-tout" action="{{ path('app_demande_rejeter', {id: demande.id}) }}">
+                                <div class="mb-3">
+                                    <label for="observationRejeterTout" class="form-label">Observation</label>
+                                    <textarea class="form-control" id="observationRejeterTout" name="observation" placeholder="Observation"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Rejeter toute la demande</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if demande.statut == 'En attente' %}
+
+            <button id="rejeter-tout" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalRejeterTout">Rejeter toute la demande</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.form-valider').submit(function (event) {
+                event.preventDefault();
+                let id = $(this).data('id');
+                let formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        $('#modalValider' + id).modal('hide');
+                        $('#piece-' + id + ' .statut').text(data.statut);
+                        alert('Fichier validé avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Une erreur est survenue lors de la validation du fichier.');
+                    });
+            });
+
+            $('.form-rejeter').submit(function (event) {
+                event.preventDefault();
+                let id = $(this).data('id');
+                let formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        $('#modalRejeter' + id).modal('hide');
+                        $('#piece-' + id + ' .statut').text(data.statut);
+                        alert('Fichier rejeté avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Une erreur est survenue lors du rejet du fichier.');
+                    });
+            });
+
+            $('.form-valider-tout').submit(function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        $('#modalValiderTout').modal('hide');
+                        $('.modal').modal('hide');
+                        location.reload();
+                        alert('Toute la demande a été validée avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Une erreur est survenue lors de la validation de toute la demande.');
+                    });
+            });
+
+            $('.form-rejeter-tout').submit(function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        $('#modalRejeterTout').modal('hide');
+                        $('.modal').modal('hide');
+                        location.reload();
+                        alert('Toute la demande a été rejetée avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Une erreur est survenue lors du rejet de toute la demande.');
+                    });
+            });
+        });
+    </script>
+{% endblock %}

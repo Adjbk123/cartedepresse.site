@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des promoteurs{% endblock %}
+{% block breadcrumb %}Promoteur{% endblock %}
+{% block breadcrumbActive %}Liste{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+    <table class="table myTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prenoms</th>
+                <th>Contact</th>
+                <th>Adresse</th>
+                <th>Photo</th>
+                <th>Date de Naissance</th>
+                <th>Lieu de Naissance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for promoteur in promoteurs %}
+            <tr>
+                <td>{{ promoteur.id }}</td>
+                <td>{{ promoteur.nom }}</td>
+                <td>{{ promoteur.prenoms }}</td>
+                <td>{{ promoteur.contact }}</td>
+                <td>{{ promoteur.adresse }}</td>
+                <td>{{ promoteur.photo }}</td>
+                <td>{{ promoteur.dateNaissance ? promoteur.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ promoteur.lieuNaissance }}</td>
+                <td>
+                    <div class="dropdown mt-4 mt-sm-0">
+                        <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                        </a>
+
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item link-info" href="{{ path('app_promoteur_show', {'id': promoteur.id}) }}">Voir</a>
+                            <a class="dropdown-item link-primary" href="{{ path('app_promoteur_edit', {'id': promoteur.id}) }}">Editer</a>
+                            {{ include('promoteur/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_promoteur_new') }}">Create new</a>
+{% endblock %}

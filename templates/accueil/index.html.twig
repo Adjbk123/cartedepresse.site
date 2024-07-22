@@ -1,0 +1,306 @@
+{% extends 'baseAccueil.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+{% block breadcrumb %}Mon compte{% endblock %}
+
+
+{% block body %}
+
+    {% for message in app.flashes('error') %}
+        <div class="flash-notice">
+
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Message :</strong>     {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+
+
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Message :</strong>     {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if is_granted('ROLE_PROFESSIONNEL') %}
+
+        {% if app.user.sexe is null or app.user.photo is null or app.user.dateNaissance is null  %}
+         <div class="alert bg-soft-warning fw-medium text-center mb-5" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i>
+             Vous devez completer vos informations personnelles avant d'éffectuer une demande de carte
+
+             <p class="text-center">
+                 <a href="{{ path('app_professionnel_edit', { 'id' : app.user.id }) }}" class="btn btn-outline-primary">Completer</a>
+             </p>
+
+         </div>
+
+        {% else %}
+
+                     <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3">
+            <a href="{{ path('app_demande_new') }}">
+            <div class="d-flex features feature-primary key-feature align-items-center p-3 rounded shadow">
+                <div class="icon text-center rounded-circle me-3">
+                    <i class="mdi mdi-plus"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="title mb-0">Demande de carte de presse</h4>
+                </div>
+            </div>
+            </a>
+        </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills nav-justified flex-column flex-sm-row rounded" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link rounded active" id="pills-demandes-tab" data-bs-toggle="pill" href="#pills-demandes" role="tab" aria-controls="pills-demandes" aria-selected="true">
+                                <div class="text-center py-2">
+                                    <h6 class="mb-0">Statut des Demandes</h6>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link rounded non-active-tab" id="pills-documents-tab" data-bs-toggle="pill" href="#pills-documents" role="tab" aria-controls="pills-documents" aria-selected="false">
+                                <div class="text-center py-2">
+                                    <h6 class="mb-0">Documents</h6>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link rounded non-active-tab" id="pills-organe-tab" data-bs-toggle="pill" href="#pills-organe" role="tab" aria-controls="pills-organe" aria-selected="false">
+                                <div class="text-center py-2">
+                                    <h6 class="mb-0">Organe de Presse</h6>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row pt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-demandes" role="tabpanel" aria-labelledby="pills-demandes-tab">
+                                    <h2 class="mt-4">Statut des Demandes</h2>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="table-light">
+                                            <tr>
+
+                                                <th>N°</th>
+                                                <th>Type de demande</th>
+                                                <th>Date de Soumission</th>
+                                                <th>Statut</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for demande in demandes %}
+                                                <tr>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>
+                                                        {% if demande.typeDemande=='Etablissement' %}
+                                                            ETABLISSEMENT DE CARTE
+                                                        {% elseif demande.typeDemande=='Renouvellement' %}
+                                                            RENOUVELLEMENT DE CARTE
+
+                                                        {% endif %}
+
+                                                    </td>
+                                                    <td>{{demande.dateSoumission|date('d/m/Y H:i') }}</td>
+                                                    <td>{{ demande.statut|upper }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-outline-primary btn-sm">       Consulter</a>
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-documents-tab">
+                                    <h2>Documents  soumis</h2>
+                                    <div class="accordion" id="demandesAccordion">
+                                        {% for demande in demandes %}
+                                            <div class="accordion-item rounded mt-2">
+                                                <h2 class="accordion-header" id="heading{{ demande.id }}">
+                                                    <button class="accordion-button border-0 bg-light {% if not loop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ demande.id }}"
+                                                            aria-expanded="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ demande.id }}">
+                                                        Demande n°{{ demande.numDemande }}
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse{{ demande.id }}" class="accordion-collapse border-0 collapse {% if loop.first %}show{% endif %}" aria-labelledby="heading{{ demande.id }}" data-bs-parent="#demandesAccordion">
+                                                    <div class="accordion-body text-muted">
+                                                        <p><strong>Date de soumission :</strong> {{ demande.dateSoumission|date('d/m/Y') }}</p>
+                                                        <p><strong>Statut :</strong> {{ demande.statut }}</p>
+
+                                                        <h5>Pièces  associés :</h5>
+                                                        <table class="table table-hover">
+                                                            <thead class="table-light">
+                                                            <tr>
+                                                                <th>Type de Document</th>
+                                                                <th>Date de Soumission</th>
+                                                                <th>Statut</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for piece in demande.pieceJointes %}
+                                                                <tr>
+                                                                    <td>{{ piece.typePiece.libelle }}</td>
+                                                                    <td>{{ piece.dateSoumission|date('d/m/Y') }}</td>
+                                                                    <td>
+                                                                        {% if piece.statut == 'En attente' %}
+                                                                            <span class="badge bg-info">{{ piece.statut }}</span>
+                                                                        {% elseif piece.statut == 'Validé' %}
+                                                                            <span class="badge bg-success">{{ piece.statut }}</span>
+                                                                        {% elseif piece.statut == 'A corrigé' %}
+                                                                            <span class="badge bg-warning text-dark">{{ piece.statut }}</span>
+                                                                        {% elseif piece.statut == 'Rejetée' %}
+                                                                            <span class="badge bg-warning">A corrigée</span>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPiece{{ piece.id }}">
+                                                                            <i class="mdi mdi-eye"></i>
+                                                                        </button>
+
+                                                                        {% if piece.statut == 'Rejetée' and demande.statut != 'Rejetée' %}
+                                                                            <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalCorriger{{ piece.id }}">
+                                                                                <i class="mdi mdi-upload"></i> Corriger
+                                                                            </button>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                </tr>
+
+                                                                <!-- Modal de visualisation -->
+                                                                <div class="modal fade" id="modalPiece{{ piece.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Document: {{ piece.typePiece.libelle }}</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p><strong>Date de soumission :</strong> {{ piece.dateSoumission|date('d/m/Y') }}</p>
+                                                                                <p><strong>Statut :</strong>
+                                                                                    <span>
+                                {% if piece.statut == 'En attente' %}
+                                    <span class="badge bg-info">{{ piece.statut }}</span>
+                                {% elseif piece.statut == 'Validé' %}
+                                    <span class="badge bg-success">{{ piece.statut }}</span>
+                                {% elseif piece.statut == 'A corrigé' %}
+                                    <span class="badge bg-warning text-dark">{{ piece.statut }}</span>
+                                {% elseif piece.statut == 'Rejetée' %}
+                                    <span class="badge bg-danger">{{ piece.statut }}</span>
+                                {% endif %}
+                            </span>
+                                                                                </p>
+                                                                                <iframe src="{{ asset('uploads/' ~ piece.dateSoumission|date('Y') ~ '/' ~ piece.dateSoumission|date('m') ~ '/' ~ piece.dateSoumission|date('d') ~ '/' ~ piece.url) }}" frameborder="0" width="100%" height="400px"></iframe>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Modal de correction -->
+                                                                <div class="modal fade" id="modalCorriger{{ piece.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Corriger le document: {{ piece.typePiece.libelle }}</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form action="{{ path('app_piece_reupload', {'id': piece.id}) }}" method="post" enctype="multipart/form-data">
+                                                                                    <div class="mb-3">
+                                                                                        <label for="fichier" class="form-label">Choisir un fichier</label>
+                                                                                        <input type="file" class="form-control" id="fichier" name="fichier" required>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                                                        <button type="submit" class="btn btn-primary">Soumettre</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            {% else %}
+                                                                <tr>
+                                                                    <td colspan="4">Aucun document associé.</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="accordion-item rounded mt-2">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button border-0 bg-light collapsed" type="button">
+                                                        Aucune demande trouvée
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="pills-organe" role="tabpanel" aria-labelledby="pills-organe-tab">
+                                    <h2>Informations sur l'Organe de Presse</h2>
+
+                                    {% for historique in historiques %}
+                                        <div style="border-left: 2px solid #16A34A; padding-left: 10px;" class="mb-4 ms-3">
+                                            <p>Nom : {{ historique.organe.designation }} - {{ historique.organe.typeOrgane.libelle }}</p>
+                                            <p>Profession : {{ historique.profession.libelle}} </p>
+                                        </div>
+
+                                    {% endfor %}
+
+                                    <button class="btn btn-link">Changer d'organe de presse</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+
+
+    <style>
+        .non-active-tab {
+            background-color: #f8f9fa; /* Gris clair */
+            color: rgba(0, 0, 0, 0.6); /* Couleur de texte fade */
+        }
+
+        .non-active-tab:hover {
+            background-color: #e9ecef; /* Gris un peu plus foncé pour le hover */
+            color: rgba(0, 0, 0, 0.8); /* Couleur de texte légèrement moins fade au survol */
+        }
+    </style>
+
+{% endblock %}

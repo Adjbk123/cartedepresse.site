@@ -1,0 +1,149 @@
+<nav id="sidebar" class="sidebar-wrapper  sidebar-dark">
+    <div class="sidebar-content" data-simplebar style="height: calc(100% - 60px);">
+        <div class="sidebar-brand">
+            <a href="{{ path('app_admin') }}">
+                <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="24" class="logo-light-mode" alt="">
+                <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="24" class="logo-dark-mode" alt="">
+                <span class="sidebar-colored">
+                                <img src="{{ asset('assets/images/logo-light.png') }}" height="24" alt="">
+                    </span>
+            </a>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="">
+                <a href="{{ path('app_admin') }}"><i class="ti ti-home me-2"></i>Tableau de bord</a>
+            </li>
+
+            {% if is_granted('ROLE_AGENT_TRAITEMENT') or is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_ADMIN') %}
+                <li class="">
+                    <a href="{{ path('app_demande_en_attente') }}"><i class="uil uil-sync  me-2"></i>Liste des demandes en attente</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('app_demande_traitee') }}"><i class="mdi mdi-check-circle-outline me-2"></i>Liste des demandes validées</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('app_demande_rejetee') }}"><i class="mdi mdi-close-circle me-2"></i>Liste des demandes rejetées</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_AUTORITE') %}
+                <li class="">
+                    <a href="{{ path('app_lot_index') }}"><i class="ti ti-home me-2"></i>Liste des lots de demande </a>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_CHEF_SERVICE') %}
+
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-archive me-2"></i>Lot de demande</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_lot_new') }}">Créer un lot de demande</a></li>
+                        <li><a href="{{ path('app_lot_index') }}">Liste des lots de demande</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-user me-2"></i>Professionnels</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_user_professionnel') }}">Liste des professionnels</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            {% endif %}
+
+            {% if is_granted('ROLE_IMPRIMEUR') %}
+                <li class="">
+                    <a href="{{ path('app_impression') }}"><i class="mdi mdi-printer me-2"></i>Imprimer une carte</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('app_impression') }}"><i class="mdi mdi-check-circle-outline me-2"></i> Imprimer</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+
+
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-briefcase me-2"></i>Profession</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_profession_new') }}">Ajouter</a></li>
+                        <li><a href="{{ path('app_profession_index') }}">Liste des professions</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-folder me-2"></i>Pièce à fournir</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_type_piece_new') }}">Ajouter</a></li>
+                        <li><a href="{{ path('app_type_piece_index') }}">Liste des pièces</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-id-badge me-2"></i>Promoteur</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{path('app_promoteur_new')}}">Ajouter</a></li>
+                        <li><a href="{{ path('app_promoteur_index') }}">Liste des promoteurs</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-slice me-2"></i>Organe</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_organe_new') }}">Ajouter</a></li>
+                        <li><a href="{{ path('app_organe_index') }}">Liste des organes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-layout me-2"></i>Type d'organe</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_type_organe_new') }}">Ajouter</a></li>
+                        <li><a href="{{ path('app_type_organe_index') }}">Liste des types d'organes</a></li>
+
+                    </ul>
+                </div>
+            </li>
+                <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-layout me-2"></i>Président</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_president_new') }}">Ajouter</a></li>
+                        <li><a href="{{ path('app_president_index') }}">Liste des présidents</a></li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="ti ti-settings me-2"></i>Administration</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="{{ path('app_user_index') }}">Gestion des utilisateurs</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- sidebar-menu  -->
+    </div>
+
+    <!-- Sidebar Footer -->
+    <ul class="sidebar-footer list-unstyled mb-0">
+        <li class="list-inline-item mb-0">
+            <a href="{{ path('app_logout') }}" target="_blank" class="btn btn-icon btn-soft-light"><i class="ti ti-logout"></i></a> <small class="text-muted fw-medium ms-1">
+                <a class="text-white-50" href="{{ path('app_logout') }}">Déconnexion</a> </small>
+        </li>
+    </ul>
+</nav>
+

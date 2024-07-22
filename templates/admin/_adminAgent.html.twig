@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="col-md-3 mt-4">
+        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
+            <div class="d-flex align-items-center">
+                <div class="icon text-center rounded-pill">
+                    <i class="uil uil-file-alt fs-4 mb-0"></i>
+                </div>
+                <div class="flex-1 ms-3">
+                    <h6 class="mb-0 text-muted">Total des Demandes</h6>
+                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ totalDemandes }}">{{ totalDemandes }}</span></p>
+                </div>
+            </div>
+        </a>
+    </div><!--end col-->
+
+
+    <div class="col-md-3 mt-4">
+        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
+            <div class="d-flex align-items-center">
+                <div class="icon text-center rounded-pill">
+                    <i class="uil uil-sync fs-4 mb-0"></i>
+                </div>
+                <div class="flex-1 ms-3">
+                    <h6 class="mb-0 text-muted">Demandes en Cours</h6>
+                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesEnCours }}">{{ demandesEnCours }}</span></p>
+                </div>
+            </div>
+        </a>
+    </div><!--end col-->
+
+    <div class="col-md-3  mt-4">
+        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
+            <div class="d-flex align-items-center">
+                <div class="icon text-center rounded-pill">
+                    <i class="uil uil-times-circle fs-4 mb-0"></i>
+                </div>
+                <div class="flex-1 ms-3">
+                    <h6 class="mb-0 text-muted">Demandes Rejetées</h6>
+                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesRejetees }}">{{ demandesRejetees }}</span></p>
+                </div>
+            </div>
+        </a>
+    </div><!--end col-->
+    <div class="col-md-3  mt-4">
+        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
+            <div class="d-flex align-items-center">
+                <div class="icon text-center rounded-pill">
+                    <i class="uil uil-check-circle fs-4 mb-0"></i>
+                </div>
+                <div class="flex-1 ms-3">
+                    <h6 class="mb-0 text-muted">Demandes Validées</h6>
+                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesValidees }}">{{ demandesValidees }}</span></p>
+                </div>
+            </div>
+        </a>
+    </div><!--end col-->
+
+
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-title ">
+        <h3>Statistiques de l'évolution des demandes par mois selon l'année</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="year-select">Sélectionner une année :</label>
+            <select id="year-select" class="form-control border-dark">
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == "now"|date("Y") %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <canvas id="statistics-chart" height="80px"></canvas>
+    </div>
+</div>
+
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSelect = document.getElementById('year-select');
+            const chartCtx = document.getElementById('statistics-chart').getContext('2d');
+            let chart;
+
+            const backgroundColors = [
+                'rgb(17,131,43)',  // RoyalBlue
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+
+            ];
+
+            const borderColors = [
+                'rgb(17,131,43)',  // RoyalBlue
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+                'rgb(17,131,43)',  // DarkOliveGreen
+            ];
+
+            function fetchData(year) {
+                fetch(`/statistics/data/${year}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const labels = data.map(item => new Date(year, item.month - 1).toLocaleString('default', { month: 'long' }));
+                        const counts = data.map(item => item.count);
+
+                        if (chart) {
+                            chart.destroy();
+                        }
+
+                        chart = new Chart(chartCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: `Nombre de demandes en ${year}`,
+                                    data: counts,
+                                    backgroundColor: backgroundColors.slice(0, counts.length),
+                                    borderColor: borderColors.slice(0, counts.length),
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+                                plugins: {
+                                    datalabels: {
+                                        anchor: 'end',
+                                        align: 'end',
+                                        color: 'black',
+                                        font: {
+                                            weight: 'bold'
+                                        },
+                                        formatter: function(value) {
+                                            return value;
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: [ChartDataLabels]
+                        });
+                    });
+            }
+
+            yearSelect.addEventListener('change', function() {
+                const selectedYear = yearSelect.value;
+                fetchData(selectedYear);
+            });
+
+            fetchData(yearSelect.value); // Fetch data for the initial year
+        });
+    </script>
+{% endblock %}

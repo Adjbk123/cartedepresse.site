@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des demandes rejetées{% endblock %}
+{% block datatables %}{% endblock %}
+{% block breadcrumb %}Demande{% endblock %}
+{% block breadcrumbActive %}Rejetée{% endblock %}
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Message :</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="table-responsive">
+        <table class="table myTable table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th>N°</th>
+                <th>Demandeur</th>
+                <th>Numéro de la demande</th>
+                <th>Traitée par</th>
+                <th>Rejetée le</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for demande in demandes %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ demande.professionnel.nom }} {{ demande.professionnel.prenoms }}</td>
+                    <td>{{ demande.numDemande }}</td>
+                    <td>
+                        {{ demande.agentTraitant.prenoms }}     {{ demande.agentTraitant.nom }}
+
+                    </td>
+                    <td>{{ demande.dateTraitement ? demande.dateTraitement|date('Y-m-d à H:i:s') : '' }}</td>
+
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm" href="{{ path('app_demande_show', {'id': demande.id}) }}">Détails </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
