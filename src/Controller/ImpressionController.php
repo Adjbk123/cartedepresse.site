@@ -107,18 +107,40 @@ class ImpressionController extends AbstractController
         );
     }
 
-    #[Route('/card/detail/{numDemande}', name: 'app_card_detail')]
-    public function cardRequestDetail($numDemande, DemandeRepository $demandeRepository): Response
+    #[Route('/card/detail/{numDemande?}', name: 'app_card_detail')]
+    public function cardRequestDetail(?string $numDemande, DemandeRepository $demandeRepository): Response
     {
+        // Vérifier si le numDemande est fourni
+        if (is_null($numDemande)) {
+            // Retourner une vue avec un message d'erreur si numDemande est vide
+            return $this->render('impression/request_detail.html.twig', [
+                'carte' => null,
+                'numDemande' => null,
+                'error' => 'Le numéro de demande n\'a pas été fourni.'
+            ]);
+        }
+
         $numDemande = str_replace('-', '/', $numDemande);
 
         // Rechercher la demande à partir du numéro de demande
         $demande = $demandeRepository->findOneBy(['numDemande' => $numDemande]);
 
-        // Retourner une vue avec les détails de la demande de carte ou un message d'erreur
+        // Vérifier si la demande existe
+        if (!$demande) {
+            // Retourner une vue avec un message d'erreur si la demande n'existe pas
+            return $this->render('impression/request_detail.html.twig', [
+                'carte' => null,
+                'numDemande' => $numDemande,
+                'error' => 'La demande avec le numéro fourni est introuvable.'
+            ]);
+        }
+
+        // Retourner une vue avec les détails de la demande de carte
         return $this->render('impression/request_detail.html.twig', [
             'carte' => $demande,
-            'numDemande' => $numDemande
+            'numDemande' => $numDemande,
+            'error' => null
         ]);
     }
+
 }

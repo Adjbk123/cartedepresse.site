@@ -105,7 +105,7 @@
 <!-- Loader -->
 
 
-
+{% if app.user %}
 <!-- Navbar Start -->
 <header id="topnav" class="defaultscroll sticky">
     <div class="container">
@@ -115,7 +115,6 @@
             <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="24" class="logo-dark-mode" alt="">
         </a>
         <!-- Logo End -->
-
         <!-- End Logo container-->
         <div class="menu-extras">
             <div class="menu-item">
@@ -132,6 +131,7 @@
         </div>
         <!--Login button Start-->
         <ul class="buy-button list-inline mb-0">
+
             <li class="list-inline-item mb-0">
                 <a href="javascript:void(0)">
                     <span class="d-lg-block d-none ">
@@ -147,29 +147,37 @@
                 </a>
             </li>
 
-            <li class="list-inline-item ps-1 mb-0">
-                <a href="{{ path('app_logout') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Déconnexion">
-                    <div class="btn btn-icon btn-pills btn-primary"><i data-feather="log-out" class="fea icon-sm"></i></div>
-                </a>
-            </li>
+                <li class="list-inline-item ps-1 mb-0">
+                    <a href="{{ path('app_logout') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Déconnexion">
+                        <div class="btn btn-icon btn-pills btn-primary"><i data-feather="log-out" class="fea icon-sm"></i></div>
+                    </a>
+                </li>
+
         </ul>
         <!--Login button End-->
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
+
+
+
                 <li><a href="{{ path('app_accueil') }}" class="sub-menu-item">Mon compte</a></li>
+
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
+
     </div><!--end container-->
 </header><!--end header-->
 <!-- Navbar End -->
-
+{% endif %}
 <!-- Hero Start -->
 <section class="bg-half-170 bg-light d-table w-100">
     <div class="container">
         <div class="row mt-0 justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="pages-heading">
+                    <img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="36" alt="">
+
                     <h4 class="title mb-0"> {{ block('title')}} </h4>
                 </div>
             </div>  <!--end col-->

@@ -11,16 +11,6 @@
             <a id="close-sidebar" class="btn btn-icon btn-soft-light" href="javascript:void(0)">
                 <i class="ti ti-menu-2"></i>
             </a>
-            <div class="search-bar p-0 d-none d-md-block ms-2">
-                <div id="search" class="menu-search mb-0">
-                    <form role="search" method="get" id="searchform" class="searchform">
-                        <div>
-                            <input type="text" class="form-control border rounded" name="s" id="s" placeholder="Search Keywords...">
-                            <input type="submit" id="searchsubmit" value="Search">
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <ul class="list-unstyled mb-0">
@@ -105,10 +95,15 @@
 
             <li class="list-inline-item mb-0 ms-1">
                 <div class="dropdown dropdown-primary">
-                    <button type="button" class="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('assets/images/client/05.jpg') }}" class="avatar avatar-ex-small rounded" alt=""></button>
+                    <button type="button" class="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{% if app.user.photo %}{{ asset('uploads/') }}{{ app.user.photo }}{% else %}{{ asset('assets-landing/images/user/01.jpg') }} {% endif %}" class="avatar avatar-ex-small rounded" alt="">
+
+
+
+                    </button>
                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3" style="min-width: 200px;">
                         <a class="dropdown-item d-flex align-items-center text-dark pb-3" href="#">
-                            <img src="{{ asset('assets/images/client/05.jpg') }}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                            <img src="{% if app.user.photo %}{{ asset('uploads/') }}{{ app.user.photo }}{% else %}{{ asset('assets-landing/images/user/01.jpg') }} {% endif %}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                             <div class="flex-1 ms-2">
                                 <span class="d-block">
                                     {% if app.user %}

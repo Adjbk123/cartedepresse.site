@@ -46,6 +46,12 @@ security:
 
 
          - { path: ^/admin, roles: ROLE_USER }
+         - { path: ^/lot, roles: ROLE_USER }
+         - { path: ^/president, roles: ROLE_USER }
+         - { path: ^/organe, roles: ROLE_USER }
+         - { path: ^/promoteur, roles: ROLE_USER }
+         - { path: ^/demande/nouvelle-demande, roles: ROLE_PROFESSIONNEL }
+         - {path: /compte/creer-personnel, roles: ROLE_ADMIN }
 
         # - { path: ^/profile, roles: ROLE_USER }
 
