@@ -50,12 +50,12 @@ security:
          - { path: ^/president, roles: ROLE_USER }
          - { path: ^/organe, roles: ROLE_USER }
          - { path: ^/promoteur, roles: ROLE_USER }
-         - { path: ^/demande/nouvelle-demande, roles: ROLE_PROFESSIONNEL }
+         - { path: /demande/nouvelle-demande, roles: ROLE_PROFESSIONNEL }
          - {path: /compte/creer-personnel, roles: ROLE_ADMIN }
          - {path: /impression, roles: ROLE_IMPRIMEUR}
          - {path: ^/type/piece/, roles: ROLE_USER}
          - {path: ^/profession/, roles: ROLE_USER}
-         - {path: /, roles: ROLE_USER}
+
 
         # - { path: ^/profile, roles: ROLE_USER }
 

@@ -609,7 +609,7 @@ footer .footer-list li:last-child {
   color: #212529 !important;
 }
 .accordion .accordion-item .accordion-button:not(.collapsed) {
-  color: #2f55d4;
+  color: #11832b;
 }
 .accordion .accordion-item .accordion-button:after {
   display: none;
