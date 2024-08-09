@@ -246,13 +246,15 @@ class UserType extends AbstractType
                 'placeholder'=>"Sélectionner le sexe",
                 'attr'=> [
                     'class' => 'select2',
-                ]
+                ],
+
             ])
             ->add('nationalite', ChoiceType::class, [
                 'choices' => $nationalities,
                 'attr'=>[
                     'class' => 'select2',
-                ]
+                ],
+                'data'=>"Béninois(e)"
             ])
             ->add('photo', DropzoneType::class, [
                 'label' => 'Votre photo',

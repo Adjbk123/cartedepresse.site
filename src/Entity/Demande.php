@@ -64,6 +64,9 @@ class Demande
     #[ORM\Column(nullable: true)]
     private ?bool $isPrinted = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlFile = null;
+
     public function __construct()
     {
         $this->pieceJointes = new ArrayCollection();
@@ -268,6 +271,18 @@ class Demande
     public function setPrinted(?bool $isPrinted): static
     {
         $this->isPrinted = $isPrinted;
+
+        return $this;
+    }
+
+    public function getUrlFile(): ?string
+    {
+        return $this->urlFile;
+    }
+
+    public function setUrlFile(?string $urlFile): static
+    {
+        $this->urlFile = $urlFile;
 
         return $this;
     }

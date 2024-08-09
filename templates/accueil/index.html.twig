@@ -41,8 +41,10 @@
          </div>
 
         {% else %}
+            {% if app.user.demandes is not null %}
 
-                     <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3">
+
+            <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3">
             <a href="{{ path('app_demande_new') }}">
             <div class="d-flex features feature-primary key-feature align-items-center p-3 rounded shadow">
                 <div class="icon text-center rounded-circle me-3">
@@ -285,6 +287,8 @@
                 </div>
 
             </div>
+            {% endif %}
+
         {% endif %}
     {% endif %}
 

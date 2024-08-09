@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cartes Imprimées{% endblock %}
+{% block breadcrumb %}Cartes{% endblock %}
+{% block breadcrumbActive %}Liste des cartes imprimées{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+    <div class="tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="valid-tab" data-bs-toggle="tab" data-bs-target="#valid" type="button" role="tab" aria-controls="valid" aria-selected="true">Cartes Valides</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="expired-tab" data-bs-toggle="tab" data-bs-target="#expired" type="button" role="tab" aria-controls="expired" aria-selected="false">Cartes Expirées</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <!-- Cartes Valides -->
+            <div class="tab-pane fade show active" id="valid" role="tabpanel" aria-labelledby="valid-tab">
+               <div class="my-3 bg-primary text-white p-2 rounded-2">
+                   <h2>Liste des cartes valides</h2>
+               </div>
+                <table class="table table-striped myTable">
+                    <thead>
+                    <tr>
+                        <th>Numéro de Demande</th>
+                        <th>Professionnel</th>
+                        <th>Organe</th>
+                        <th>Profession</th>
+                        <th>Date d'Expiration</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for carte in cartesValides %}
+                        <tr>
+                            <td>{{ carte.numDemande }}</td>
+                            <td>{{ carte.professionnel.nom }}</td>
+                            <td>{{ carte.historiqueOrganeActuel.organe.designation }}</td>
+                            <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
+                            <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
+                            <td>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                            </td>
+                        </tr>
+
+                        <!-- Modal pour la visualisation -->
+                        <div class="modal fade" id="modal-{{ carte.getId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Carte: {{ carte.numDemande }}</h5>
+                                        <button type="button" class="btn-close btn-outline-secondary btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <embed src="{{ absolute_url('uploads/cartes/')  }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cartes Expirées -->
+            <div class="tab-pane fade" id="expired" role="tabpanel" aria-labelledby="expired-tab">
+                <div class="my-3 bg-danger text-white p-2 rounded-2">
+                    <h2>Liste des cartes expirées</h2>
+                </div>
+                <table class="table table-striped myTable">
+                    <thead>
+                    <tr>
+                        <th>Numéro de Demande</th>
+                        <th>Professionnel</th>
+                        <th>Organe</th>
+                        <th>Profession</th>
+                        <th>Date d'Expiration</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for carte in cartesExpirees %}
+                        <tr>
+                            <td>{{ carte.numDemande }}</td>
+                            <td>{{ carte.professionnel.nom }}</td>
+                            <td>{{ carte.historiqueOrganeActuel.organe.designation }}</td>
+                            <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
+                            <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
+                            <td>
+                                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                            </td>
+                        </tr>
+
+
+                        <!-- Modal pour la visualisation -->
+                        <div class="modal fade" id="modal-{{ carte.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Carte: {{ carte.numDemande }}</h5>
+                                        <button type="button" class="btn-close btn-outline-secondary btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <embed src="{{ absolute_url('uploads/cartes/')  }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

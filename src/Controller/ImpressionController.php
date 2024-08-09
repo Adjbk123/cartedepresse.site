@@ -20,7 +20,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ImpressionController extends AbstractController
 {
-
     #[Route('/impression', name: 'app_impression')]
     public function index(DemandeRepository $demandeRepository): Response
     {
@@ -34,19 +33,18 @@ class ImpressionController extends AbstractController
 
 
 
-    #[Route('/print/card/{id}', name: 'app_print_card')]
-    public function printCard(Demande $carte, PresidentRepository $presidentRepository, Pdf $pdf, EntityManagerInterface $entityManager, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository, UrlGeneratorInterface $router): Response
+    #[Route('/print/card/save/{id}', name: 'app_print_card')]
+    public function saveCard(Demande $carte, PresidentRepository $presidentRepository, Pdf $pdf, EntityManagerInterface $entityManager, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository, UrlGeneratorInterface $router, ): Response
     {
+        $uploadDir = $this->getParameter('uploadDir');
+
         if (!$carte) {
             throw $this->createNotFoundException('La carte demandée n\'existe pas.');
         }
 
         $carte->setDateDelivrance(new \DateTime());
-        // Ajouter 3 ans à la date de délivrance pour obtenir la date d'expiration
         $dateDelivrance = $carte->getDateDelivrance();
         $dateExpiration = (clone $dateDelivrance)->modify('+3 years');
-
-        // Définir la date d'expiration sur l'entité
         $carte->setDateExpiration($dateExpiration);
         $entityManager->flush();
 
@@ -54,7 +52,6 @@ class ImpressionController extends AbstractController
 
         $numDemande = str_replace('/', '-', $carte->getNumDemande());
 
-        // Générer l'URL avec le numéro de demande
         $qrCodeUrl = $router->generate('app_card_detail', ['numDemande' => $numDemande], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $qrCode = new QrCode($qrCodeUrl);
@@ -62,23 +59,22 @@ class ImpressionController extends AbstractController
         $qrCodeResult = $writer->write($qrCode);
         $qrCodeDataUri = 'data:image/png;base64,' . base64_encode($qrCodeResult->getString());
 
-
         $professionnel = $carte->getProfessionnel();
         $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
-
 
         $html = $this->renderView('impression/card.html.twig', [
             'carte' => $carte,
             'profession' => $profession,
             'qrCode' => $qrCodeDataUri,
             'president'=> $presidentActuel,
-
         ]);
 
-        // Nomdu fichier PDF
-        $filename = sprintf('carte-%s.pdf', $carte->getNumDemande());
+        $filename = sprintf('carte-%s.pdf',$numDemande);
 
-        // Configuration des dimensions du document en A7 (74mm x 105mm)
+        $carte->setPrinted(1);
+        $carte->setUrlFile($filename);
+        $entityManager->flush();
+
         $options = [
             'page-width' => '85.60mm',
             'page-height' => '53.98mm',
@@ -97,6 +93,12 @@ class ImpressionController extends AbstractController
                 500
             );
         }
+
+
+        // Sauvegarde du fichier PDF dans un dossier
+        $filePath = $uploadDir . '/' . $filename;
+        file_put_contents($filePath, $pdfContent);
+
         return new Response(
             $pdfContent,
             200,
@@ -140,6 +142,33 @@ class ImpressionController extends AbstractController
             'carte' => $demande,
             'numDemande' => $numDemande,
             'error' => null
+        ]);
+    }
+    #[Route('/cartes-imprimees', name: 'app_printed_cards')]
+    public function printedCards(DemandeRepository $demandeRepository): Response
+    {
+        // Récupérer toutes les demandes dont isPrinted est à 1 et urlFile n'est pas null
+        $cartes = $demandeRepository->findBy([
+            'isPrinted' => 1
+        ]);
+
+        // Séparer les cartes valides et expirées
+        $cartesValides = [];
+        $cartesExpirees = [];
+
+        foreach ($cartes as $carte) {
+            if ($carte->getDateExpiration() > new \DateTime()) {
+                $cartesValides[] = $carte;
+            } else {
+                $cartesExpirees[] = $carte;
+            }
+        }
+
+
+
+        return $this->render('impression/printed_cards.html.twig', [
+            'cartesValides' => $cartesValides,
+            'cartesExpirees' => $cartesExpirees,
         ]);
     }
 

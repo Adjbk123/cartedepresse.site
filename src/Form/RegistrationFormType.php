@@ -30,7 +30,8 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Prénoms',
                     'class'=>"ps-5"
-                ]
+                ],
+                'label' => 'Prénoms',
             ])
             ->add('email', EmailType::class,[
                 'attr' => [
@@ -42,16 +43,8 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nom d\'utilisateur',
                     'class'=>"ps-5"
-                ]
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter les conditions d\'utilisations.',
-                    ]),
                 ],
-                'label'=> 'J\'accepte les conditions d\'utilisations',
+                'label'=>'Nom d\'utilisateur',
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'=> PasswordType::class,

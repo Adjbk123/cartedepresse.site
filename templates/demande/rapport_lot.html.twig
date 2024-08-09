@@ -100,6 +100,7 @@
             <th>NPI</th>
             <th>Numéro Demande</th>
             <th>Professionnel</th>
+            <th>NPI</th>
             <th>Organe</th>
             <th>Profession</th>
             <th>Date soumission</th>
@@ -115,6 +116,7 @@
                 <td>{{ demande.professionnel.nom|upper }} {{ demande.professionnel.prenoms|upper }}</td>
                 <td><b> {{ demande.historiqueOrganeActuel.organe.designation|upper }}</b> - {{ demande.historiqueOrganeActuel.organe.typeOrgane.libelle }}</td>
                 <td>{{ demande.historiqueOrganeActuel.profession.libelle|upper }}</td>
+                <td>{{ demande.professionnel.npi }}</td>
                 <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
                 <td class="{% if demande.statut == 'Rejetée' %}Rejétée{% endif %}">{{ demande.statut|upper }}</td>
             </tr>
