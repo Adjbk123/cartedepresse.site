@@ -1,0 +1,36 @@
+{# templates/duplicata_demande/indexValidee.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes de Duplicata Validées{% endblock %}
+{% block breadcrumb %}Duplicatas{% endblock %}
+{% block breadcrumbActive %}Duplicata Validées{% endblock %}
+{% block datatables %}{% endblock %}
+
+
+{% block body %}
+
+    {% if duplicatas is not empty %}
+        <table class="table myTable table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Numéro de Demande</th>
+                <th scope="col">Professionnel</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for duplicata in duplicatas %}
+                <tr>
+                    <td>{{ duplicata.demande.numDemande }}</td>
+                    <td>{{ duplicata.demande.professionnel.nom }} {{ duplicata.demande.professionnel.prenoms }}</td>
+
+                </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune demande validée trouvée.</p>
+    {% endif %}
+{% endblock %}

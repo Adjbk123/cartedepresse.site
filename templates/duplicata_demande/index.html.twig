@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes de Duplicata{% endblock %}
+{% block breadcrumb %}Duplicatas{% endblock %}
+{% block breadcrumbActive %}Gestion des duplicatas{% endblock %}
+{% block datatables %}{% endblock %}
+
+{% block body %}
+
+    <table class="table table-striped myTable">
+        <thead>
+        <tr>
+            <th>Numéro de Demande</th>
+            <th>Professionnel</th>
+            <th>Déclaration de Paiement</th>
+            <th>CIP</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for duplicata in duplicatas %}
+            <tr>
+                <td>{{ duplicata.demande.numDemande }}</td>
+                <td>{{ duplicata.demande.professionnel.nom }} {{ duplicata.demande.professionnel.prenoms }}</td>
+                <td>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-paiement-{{ duplicata.id }}">Voir</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-cip-{{ duplicata.id }}">Voir</button>
+                </td>
+                <td>
+                    {% if duplicata.statut == 'En attente' %}
+                    <a href="{{ path('valider_duplicata', { 'id': duplicata.id }) }}" class="btn btn-success">Valider</a>
+                    <a href="{{ path('rejeter_duplicata', { 'id': duplicata.id }) }}" class="btn btn-danger">Rejeter</a>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- Modal Déclaration de Paiement -->
+            <div class="modal fade" id="modal-paiement-{{ duplicata.id }}" tabindex="-1" aria-labelledby="modalLabelPaiement{{ duplicata.getId }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabelPaiement{{ duplicata.id }}">Déclaration de Paiement</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <embed src=" {{  absolute_url(asset('uploads/duplicata_demande/')) }}{{ duplicata.declarationPerte }}" type="application/pdf" width="100%" height="500px" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal CIP -->
+            <div class="modal fade" id="modal-cip-{{ duplicata.getId }}" tabindex="-1" aria-labelledby="modalLabelCip{{ duplicata.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabelCip{{ duplicata.id }}">CIP</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <embed src=" {{  absolute_url(asset('uploads/duplicata_demande/')) }}{{ duplicata.cip }}" type="application/pdf" width="100%" height="500px" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

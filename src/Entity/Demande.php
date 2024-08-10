@@ -67,9 +67,16 @@ class Demande
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $urlFile = null;
 
+    /**
+     * @var Collection<int, DuplicataDemande>
+     */
+    #[ORM\OneToMany(targetEntity: DuplicataDemande::class, mappedBy: 'demande')]
+    private Collection $duplicataDemandes;
+
     public function __construct()
     {
         $this->pieceJointes = new ArrayCollection();
+        $this->duplicataDemandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +290,36 @@ class Demande
     public function setUrlFile(?string $urlFile): static
     {
         $this->urlFile = $urlFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DuplicataDemande>
+     */
+    public function getDuplicataDemandes(): Collection
+    {
+        return $this->duplicataDemandes;
+    }
+
+    public function addDuplicataDemande(DuplicataDemande $duplicataDemande): static
+    {
+        if (!$this->duplicataDemandes->contains($duplicataDemande)) {
+            $this->duplicataDemandes->add($duplicataDemande);
+            $duplicataDemande->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDuplicataDemande(DuplicataDemande $duplicataDemande): static
+    {
+        if ($this->duplicataDemandes->removeElement($duplicataDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($duplicataDemande->getDemande() === $this) {
+                $duplicataDemande->setDemande(null);
+            }
+        }
 
         return $this;
     }

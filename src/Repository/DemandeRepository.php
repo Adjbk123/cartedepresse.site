@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Demande;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -136,6 +137,23 @@ class DemandeRepository extends ServiceEntityRepository
             ->where('d.dateDelivrance IS NOT NULL');
 
         return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+
+    public function findValidCardForProfessionnel(int $professionnelId): ?Demande
+    {
+        $now = new DateTime(); // Date actuelle pour comparer avec la date d'expiration
+
+        return $this->createQueryBuilder('d')
+            ->where('d.professionnel = :professionnel')
+            ->andWhere('d.isPrinted = 1')
+            ->andWhere('d.dateExpiration >= :now')
+            ->setParameter('professionnel', $professionnelId)
+            ->setParameter('now', $now)
+            ->orderBy('d.dateExpiration', 'DESC') // Trier par date d'expiration décroissante
+            ->setMaxResults(1) // Récupérer uniquement la dernière demande
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 

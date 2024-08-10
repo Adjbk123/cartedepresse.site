@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DuplicataDemande{% endblock %}
+
+{% block body %}
+    <h1>DuplicataDemande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ duplicata_demande.id }}</td>
+            </tr>
+            <tr>
+                <th>DeclarationPerte</th>
+                <td>{{ duplicata_demande.declarationPerte }}</td>
+            </tr>
+            <tr>
+                <th>Cip</th>
+                <td>{{ duplicata_demande.cip }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_duplicata_demande_index') }}">back to list</a>
+
+    <a href="{{ path('app_duplicata_demande_edit', {'id': duplicata_demande.id}) }}">edit</a>
+
+    {{ include('duplicata_demande/_delete_form.html.twig') }}
+{% endblock %}

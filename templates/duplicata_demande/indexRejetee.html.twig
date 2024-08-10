@@ -1,0 +1,37 @@
+{# templates/duplicata_demande/indexValidee.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes de Duplicata Rejetées{% endblock %}
+{% block breadcrumb %}Duplicatas{% endblock %}
+{% block breadcrumbActive %}Duplicata Rejetées{% endblock %}
+{% block datatables %}{% endblock %}
+
+
+{% block body %}
+    <h1>Demandes de Duplicata Validées</h1>
+
+    {% if duplicatas is not empty %}
+        <table class="table myTable table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Numéro de Demande</th>
+                <th scope="col">Professionnel</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for duplicata in duplicatas %}
+                <tr>
+                    <td>{{ duplicata.demande.numDemande }}</td>
+                    <td>{{ duplicata.demande.professionnel.nom }}{{ duplicata.demande.professionnel.nom }}</td>
+
+                </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune demande rejetée trouvée.</p>
+    {% endif %}
+{% endblock %}

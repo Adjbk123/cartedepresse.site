@@ -150,6 +150,9 @@
                   </llm>
                 </llm>
               </chat>
+              <chat>
+                <internalId value="4aa30410-8926-421c-8b17-e7ba45f998fc" />
+              </chat>
             </list>
           </chats>
           <defaultLlm>
