@@ -34,7 +34,11 @@ class ImpressionController extends AbstractController
 
 
     #[Route('/print/card/save/{id}', name: 'app_print_card')]
-    public function saveCard(Demande $carte, PresidentRepository $presidentRepository, Pdf $pdf, EntityManagerInterface $entityManager, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository, UrlGeneratorInterface $router, ): Response
+    public function saveCard(Demande $carte,
+                             PresidentRepository $presidentRepository,
+                             Pdf $pdf, EntityManagerInterface $entityManager,
+                             HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+                             UrlGeneratorInterface $router, ): Response
     {
         $uploadDir = $this->getParameter('uploadDir');
 
