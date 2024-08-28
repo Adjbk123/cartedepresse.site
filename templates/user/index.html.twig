@@ -8,7 +8,7 @@
 {% block body %}
 
     <div class="m-3 text-end">
-        <a href="{{ path('app_personnel_new') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+        <a href="{{ path('app_personnel_new') }}" class="btn btn-success">Ajouter un utilisateur</a>
     </div>
   <div class="table-responsive">
       <table class="table myTable table-hover table-bordered" >
@@ -32,7 +32,7 @@
                   <td>{{ user.email }}</td>
                   <td>
                       {% if user.statut  %}
-                          <span class="badge bg-primary">Actif</span>
+                          <span class="badge bg-success">Actif</span>
                       {% else %}
                           <span class="badge bg-danger">Inactif</span>
 
@@ -48,7 +48,7 @@
 
                           <div class="dropdown-menu" style="">
                               <a class="dropdown-item link-info" href="{{ path('app_user_show', {'id': user.id}) }}">Voir</a>
-                              <a class="dropdown-item link-primary" href="{{ path('app_user_edit', {'id': user.id}) }}">Editer</a>
+                              <a class="dropdown-item link-success" href="{{ path('app_user_edit', {'id': user.id}) }}">Editer</a>
                               {{ include('user/_delete_form.html.twig') }}
                           </div>
                       </div>

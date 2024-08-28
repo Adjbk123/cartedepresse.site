@@ -9,18 +9,15 @@
 
 {% block body %}
 
-    <div class="text-end">
-
-    </div>
     {% for message in app.flashes('success') %}
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Opération réussie !</strong> {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endfor %}
 
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
             <thead>
             <tr>
                 <th class="w-50">Type de pièce</th>
@@ -34,14 +31,15 @@
                     <td>{{ pieceJointe.typePiece.libelle }}</td>
                     <td>{{ pieceJointe.statut }}</td>
                     <td>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalConsulter{{ pieceJointe.id }}">Consulter</button>
-                        {% if pieceJointe.statut == 'En attente' %}
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#modalConsulter{{ pieceJointe.id }}">Consulter</button>
+                            {% if pieceJointe.statut == 'En attente' %}
 
+                                <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#modalValider{{ pieceJointe.id }}">Valider</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalRejeter{{ pieceJointe.id }}">Rejeter</button>
+                            {% endif %}
+                        </div>
 
-
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalValider{{ pieceJointe.id }}">Valider</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalRejeter{{ pieceJointe.id }}">Rejeter</button>
-                        {% endif %}
                     </td>
                 </tr>
 
@@ -59,7 +57,7 @@
                                         <label for="observationValider{{ pieceJointe.id }}" class="form-label">Observation</label>
                                         <textarea class="form-control" id="observationValider{{ pieceJointe.id }}" name="observation" placeholder="Observation"></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                    <button type="submit" class="btn btn-success">Valider</button>
                                 </form>
                             </div>
                         </div>
@@ -122,7 +120,7 @@
                                     <label for="observationValiderTout" class="form-label">Observation</label>
                                     <textarea class="form-control" id="observationValiderTout" name="observation" placeholder="Observation"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Valider toute la demande</button>
+                                <button type="submit" class="btn btn-success">Valider toute la demande</button>
                             </form>
                         </div>
                     </div>
@@ -130,7 +128,7 @@
             </div>
             {% if demande.statut == 'En attente' %}
 
-            <button id="valider-tout" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalValiderTout">Valider toute la demande</button>
+            <button id="valider-tout" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalValiderTout">Valider toute la demande</button>
             {% endif %}
         </div>
         <div class="col-md-6">

@@ -96,6 +96,7 @@ class PersonnelType extends AbstractType
 
             ->add('dateNaissance', null, [
                 'widget' => 'single_text',
+
             ])
             ->add('lieuNaissance')
             ->add('sexe', ChoiceType::class, [

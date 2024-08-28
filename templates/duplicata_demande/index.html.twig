@@ -23,10 +23,10 @@
                 <td>{{ duplicata.demande.numDemande }}</td>
                 <td>{{ duplicata.demande.professionnel.nom }} {{ duplicata.demande.professionnel.prenoms }}</td>
                 <td>
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-paiement-{{ duplicata.id }}">Voir</button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-paiement-{{ duplicata.id }}">Voir</button>
                 </td>
                 <td>
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-cip-{{ duplicata.id }}">Voir</button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-cip-{{ duplicata.id }}">Voir</button>
                 </td>
                 <td>
                     {% if duplicata.statut == 'En attente' %}

@@ -8,7 +8,7 @@
 {% block body %}
 
     <div class="m-3 text-end">
-        <a href="{{ path('app_personnel_new') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+        <a href="{{ path('app_personnel_new') }}" class="btn btn-success">Ajouter un utilisateur</a>
     </div>
     <div class="table-responsive">
         <table class="table myTable table-hover table-bordered" >
@@ -31,7 +31,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal" data-id="{{ user.id }}" data-nom="{{ user.nom }}" data-prenoms="{{ user.prenoms }}" data-username="{{ user.username }}" data-email="{{ user.email }}">Détails</button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detailsModal" data-id="{{ user.id }}" data-nom="{{ user.nom }}" data-prenoms="{{ user.prenoms }}" data-username="{{ user.username }}" data-email="{{ user.email }}">Détails</button>
                     </td>
                 </tr>
             {% else %}
@@ -48,7 +48,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Détails de l'utilisateur</h5>
+                    <h5 class="modal-title" id="detailsModalLabel">Compte utilisateur</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

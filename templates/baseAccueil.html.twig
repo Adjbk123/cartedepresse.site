@@ -16,7 +16,8 @@
 
 
 
-    <link rel="shortcut icon" href="http://haac.bj/wp-content/uploads/2024/07/logo-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
+
     <!-- Css -->
     <link href="{{ asset('assets-landing/libs/tobii/css/tobii.min.css') }}" rel="stylesheet">
 
@@ -176,7 +177,7 @@
                     {% if app.user.photo is not null %}
                         <img src="{{ asset('uploads/' ~ app.user.photo) }}" class="avatar rounded avatar-ex-large" alt="">
                     {% else %}
-                        <img src="{{ asset('assets-landing/images/user/01.jpg') }}" class="avatar rounded avatar-ex-large" alt="">
+                        <img src="{{ asset('uploads/user-defaut.png') }}" class="avatar rounded avatar-ex-large" alt="">
                     {% endif %}
 
                     <h4 class="title mb-0 mt-2">
@@ -340,7 +341,7 @@
                 $item = $(this);
 
             if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btn-primary').addClass('btn-default');
+                navListItems.removeClass('btn-prmayr').addClass('btn-default');
                 $item.addClass('btn-primary');
                 allWells.hide();
                 $target.show();

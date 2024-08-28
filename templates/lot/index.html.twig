@@ -8,7 +8,7 @@
 {% block body %}
     {% for message in app.flashes('success') %}
         <div class="flash-notice">
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Message :</strong> {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -43,7 +43,7 @@
                               {{ lot.statut }}
                         </span>
                     {% else %}
-                        <span class="badge bg-primary">
+                        <span class="badge bg-success">
 
                             {{ lot.statut }}
                         </span>
@@ -72,7 +72,7 @@
                 <td>
 
                     {% if lot.statut == "En attente" %}
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#validateModal-{{ lot.id }}">
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#validateModal-{{ lot.id }}">
                             Valider
                         </button>
 
@@ -111,7 +111,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <button type="submit" class="btn btn-success">Valider</button>
                         </div>
                     </form>
                 </div>

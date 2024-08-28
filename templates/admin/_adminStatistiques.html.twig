@@ -1,117 +1,135 @@
 <div class="row">
-    <div class="col-md-3 mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-file-alt fs-4 mb-0"></i>
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 1 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Total des Demandes</p>
+                    <h1>{{ totalDemandes }}</h1>
                 </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Total des Demandes</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ totalDemandes }}">{{ totalDemandes }}</span></p>
+                <div class="ap-po-details__icon-area color-success">
+                    <i class="uil uil-file-alt"></i>
                 </div>
             </div>
-        </a>
-    </div><!--end col-->
+        </div>
+        <!-- Card 1 End -->
+    </div>
 
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 2 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Demandes en Cours</p>
+                    <h1>{{ demandesEnCours }}</h1>
+                </div>
+                <div class="ap-po-details__icon-area color-success">
+                    <i class="uil uil-sync"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 End -->
+    </div>
 
-    <div class="col-md-3 mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-sync fs-4 mb-0"></i>
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 3 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Demandes Rejetées</p>
+                    <h1>{{ demandesRejetees }}</h1>
                 </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Demandes en Cours</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesEnCours }}">{{ demandesEnCours }}</span></p>
+                <div class="ap-po-details__icon-area color-danger">
+                    <i class="uil uil-times-circle"></i>
                 </div>
             </div>
-        </a>
-    </div><!--end col-->
+        </div>
+        <!-- Card 3 End -->
+    </div>
 
-    <div class="col-md-3  mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-times-circle fs-4 mb-0"></i>
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 4 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Lot de demandes</p>
+                    <h1>{{ lotDemande }}</h1>
                 </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Demandes Rejetées</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesRejetees }}">{{ demandesRejetees }}</span></p>
-                </div>
-            </div>
-        </a>
-    </div><!--end col-->
-    <div class="col-md-3 mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-file-alt fs-4 mb-0"></i>
-                </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Lot de demandes</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ lotDemande }}">{{ lotDemande }}</span></p>
+                <div class="ap-po-details__icon-area color-info">
+                    <i class="uil uil-file-alt"></i>
                 </div>
             </div>
-        </a>
-    </div><!--end col-->
-    <div class="col-md-3  mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-check-circle fs-4 mb-0"></i>
-                </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Demandes Validées</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ demandesValidees }}">{{ demandesValidees }}</span></p>
-                </div>
-            </div>
-        </a>
-    </div><!--end col-->
+        </div>
+        <!-- Card 4 End -->
+    </div>
 
-    <div class="col-md-3  mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-print fs-4 mb-0"></i>
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 5 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Demandes Validées</p>
+                    <h1>{{ demandesValidees }}</h1>
                 </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Cartes Imprimées</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ totalImpressions }}">{{ totalImpressions }}</span></p>
-                </div>
-            </div>
-        </a>
-    </div><!--end col-->
-    <div class="col-md-3  mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-print fs-4 mb-0"></i>
-                </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Impression de {{ date()|date('Y') }}</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ totalImpressionsCurrentYear }}">{{ totalImpressionsCurrentYear }}</span></p>
+                <div class="ap-po-details__icon-area color-success">
+                    <i class="uil uil-check-circle"></i>
                 </div>
             </div>
-        </a>
-    </div><!--end col-->
+        </div>
+        <!-- Card 5 End -->
+    </div>
 
-    <div class="col-md-3  mt-4">
-        <a href="#!" class="features feature-success d-flex justify-content-between align-items-center rounded shadow p-3">
-            <div class="d-flex align-items-center">
-                <div class="icon text-center rounded-pill">
-                    <i class="uil uil-calendar-slash fs-4 mb-0"></i>
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 6 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Cartes Imprimées</p>
+                    <h1>{{ totalImpressions }}</h1>
                 </div>
-                <div class="flex-1 ms-3">
-                    <h6 class="mb-0 text-muted">Cartes Expirées</h6>
-                    <p class="fs-5 text-dark fw-bold mb-0"><span class="counter-value" data-target="{{ cartesExpirees }}">{{ cartesExpirees }}</span></p>
+                <div class="ap-po-details__icon-area color-success">
+                    <i class="uil uil-print"></i>
                 </div>
             </div>
-        </a>
-    </div><!--end col-->
-</div><!--end row-->
+        </div>
+        <!-- Card 6 End -->
+    </div>
+
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 7 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Impression de {{ date()|date('Y') }}</p>
+                    <h1>{{ totalImpressionsCurrentYear }}</h1>
+                </div>
+                <div class="ap-po-details__icon-area color-secondary">
+                    <i class="uil uil-print"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Card 7 End -->
+    </div>
+
+    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
+        <!-- Card 8 -->
+        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
+            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                <div class="ap-po-details__titlebar">
+                    <p>Cartes Expirées</p>
+                    <h1>{{ cartesExpirees }}</h1>
+                </div>
+                <div class="ap-po-details__icon-area color-warning">
+                    <i class="uil uil-calendar-slash"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Card 8 End -->
+    </div>
+</div>
 
 <div class="card mt-4">
-    <div class="card-title ">
+    <div class="card-header">
         <h3>Statistiques de l'évolution des demandes par mois selon l'année</h3>
     </div>
     <div class="card-body">
@@ -123,50 +141,17 @@
                 {% endfor %}
             </select>
         </div>
-        <canvas id="statistics-chart" height="80px"></canvas>
+        <div id="statistics-chart" style="height: 80px;"></div>
     </div>
 </div>
 
-
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const yearSelect = document.getElementById('year-select');
-            const chartCtx = document.getElementById('statistics-chart').getContext('2d');
+            const chartElement = document.getElementById('statistics-chart');
             let chart;
-
-            const backgroundColors = [
-                'rgb(17,131,43)',  // RoyalBlue
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-
-            ];
-
-            const borderColors = [
-                'rgb(17,131,43)',  // RoyalBlue
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-                'rgb(17,131,43)',  // DarkOliveGreen
-            ];
 
             function fetchData(year) {
                 fetch(`/statistics/data/${year}`)
@@ -179,40 +164,43 @@
                             chart.destroy();
                         }
 
-                        chart = new Chart(chartCtx, {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: `Nombre de demandes en ${year}`,
-                                    data: counts,
-                                    backgroundColor: backgroundColors.slice(0, counts.length),
-                                    borderColor: borderColors.slice(0, counts.length),
-                                    borderWidth: 1
-                                }]
+                        chart = new ApexCharts(chartElement, {
+                            chart: {
+                                type: 'bar',
+                                height: 350
                             },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
+                            series: [{
+                                name: `Nombre de demandes en ${year}`,
+                                data: counts
+                            }],
+                            xaxis: {
+                                categories: labels
+                            },
+                            yaxis: {
+                                title: {
+                                    text: 'Nombre de demandes'
                                 },
-                                plugins: {
-                                    datalabels: {
-                                        anchor: 'end',
-                                        align: 'end',
-                                        color: 'black',
-                                        font: {
-                                            weight: 'bold'
-                                        },
-                                        formatter: function(value) {
-                                            return value;
-                                        }
-                                    }
+                                min: 0
+                            },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 4,
+                                    horizontal: false
                                 }
                             },
-                            plugins: [ChartDataLabels]
+                            dataLabels: {
+                                enabled: true,
+                                style: {
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 'bold',
+                                    colors: ['#ffffff']
+                                }
+                            },
+                            colors: ['#118329']
                         });
+
+                        chart.render();
                     });
             }
 

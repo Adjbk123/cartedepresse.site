@@ -219,8 +219,11 @@ class UserType extends AbstractType
             ])
             ->add('dateNaissance', null, [
                 'widget' => 'single_text',
+                'required'=>true
             ])
-            ->add('lieuNaissance')
+            ->add('lieuNaissance', TextType::class, [
+                'required'=> true
+            ])
             ->add('npi', null, [
                 'constraints' => [
                     new NotBlank([
@@ -237,6 +240,7 @@ class UserType extends AbstractType
                     ]),
                 ],
                 'label' => 'Numéro NPI', // Optionnel : ajouter un libellé
+                'required' => true,
             ])
             ->add('sexe', ChoiceType::class, [
                 'choices'=>[
@@ -247,6 +251,7 @@ class UserType extends AbstractType
                 'attr'=> [
                     'class' => 'select2',
                 ],
+                'required'=>true
 
             ])
             ->add('nationalite', ChoiceType::class, [
@@ -254,11 +259,12 @@ class UserType extends AbstractType
                 'attr'=>[
                     'class' => 'select2',
                 ],
-                'data'=>"Béninois(e)"
+                'data'=>"Béninois(e)",
+                'required' => true
             ])
             ->add('photo', DropzoneType::class, [
                 'label' => 'Votre photo',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Faites glisser et déposez un fichier ou cliquez pour parcourir',
                 ],
@@ -271,6 +277,7 @@ class UserType extends AbstractType
                 ],
                 'data_class'=> null,
                 'help'=>"La photo doit mésurer 600x600 pixels et ne doit pas dépasser 5 Mo",
+
             ])
             ->add('organe',EntityType::class,[
                 'choice_label'=>'designation',

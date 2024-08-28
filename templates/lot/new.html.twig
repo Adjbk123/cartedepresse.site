@@ -9,13 +9,11 @@
 
 {% block body %}
     <form method="post" action="{{ path('app_lot_new') }}">
-        <div class="my-3 text-end">
-            <button type="submit" class="btn btn-primary">Créer le lot</button>
-
+        <div class="my-3 d-flex justify-content-end">
+            <button type="submit" id="submit-button" class="btn btn-success" disabled>Créer le lot</button>
         </div>
 
         <table class="table table-bordered table-striped myTable" data-page-length='100'>
-
             <thead class="table-light">
             <tr>
                 <th>N°</th>
@@ -25,21 +23,21 @@
                 <th>Profession</th>
                 <th>Statut</th>
                 <th>
-                    <input  type="checkbox" class="form-check-input border-1 border-success" id="selectAll" onclick="toggleSelectAll()">
-                    <label for="selectAll"> Tout coché</label>
+                    <input type="checkbox" class="form-check-input border-1 border-success" id="selectAll" onclick="toggleSelectAll()">
+                    <label for="selectAll">Tout coché</label>
                 </th>
             </tr>
             </thead>
             <tbody>
             {% for demande in demandes %}
                 <tr>
-                    <td>{{ loop.index}}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ demande.numDemande }}</td>
                     <td>{{ demande.professionnel.nom }} {{ demande.professionnel.prenoms }}</td>
                     <td>{{ demande.historiqueOrganeActuel.organe.designation }}</td>
                     <td>{{ demande.historiqueOrganeActuel.profession.libelle }}</td>
                     <td>{{ demande.statut }}</td>
-                    <td><input type="checkbox"  name="demandes[]" value="{{ demande.id }}" class="demande-checkbox form-check-input border-success border-1"></td>
+                    <td><input type="checkbox" name="demandes[]" value="{{ demande.id }}" class="demande-checkbox form-check-input border-success border-1"></td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -47,12 +45,40 @@
     </form>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.getElementById('submit-button');
+            const checkboxes = document.querySelectorAll('.demande-checkbox');
+            const selectAllCheckbox = document.getElementById('selectAll');
+
+            function updateSubmitButtonState() {
+                const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                submitButton.disabled = !anyChecked;
+            }
+
+            // Toggle submit button state on checkbox change
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateSubmitButtonState);
+            });
+
+            // Toggle submit button state when 'select all' is used
+            selectAllCheckbox.addEventListener('change', function() {
+                updateSubmitButtonState();
+            });
+
+            // Initial check on page load
+            updateSubmitButtonState();
+        });
+
         function toggleSelectAll() {
             const checkboxes = document.querySelectorAll('.demande-checkbox');
             const selectAllCheckbox = document.getElementById('selectAll');
             checkboxes.forEach(checkbox => {
                 checkbox.checked = selectAllCheckbox.checked;
             });
+            // Trigger change event to update the submit button state
+            const event = new Event('change');
+            selectAllCheckbox.dispatchEvent(event);
         }
     </script>
+
 {% endblock %}

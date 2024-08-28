@@ -48,19 +48,18 @@
                 {% endfor %}
             </select>
         </div>
-        <canvas id="impressions-by-month-chart" height="100px"></canvas>
+        <div id="impressions-by-month-chart" style="height: 350px;"></div>
     </div>
 </div>
 
 
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const yearSelect = document.getElementById('year-select');
-            const monthChartCtx = document.getElementById('impressions-by-month-chart').getContext('2d');
-            let monthChart;
+            const chartElement = document.getElementById('impressions-by-month-chart');
+            let chart;
 
             function fetchMonthData(year) {
                 fetch(`/admin/statistics/impressions/${year}`)
@@ -69,44 +68,47 @@
                         const labels = data.map(item => new Date(year, item.month - 1).toLocaleString('default', { month: 'long' }));
                         const counts = data.map(item => item.count);
 
-                        if (monthChart) {
-                            monthChart.destroy();
+                        if (chart) {
+                            chart.destroy();
                         }
 
-                        monthChart = new Chart(monthChartCtx, {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: `Nombre d'impressions en ${year}`,
-                                    data: counts,
-                                    backgroundColor: 'rgb(17,131,43)',
-                                    borderColor: 'rgb(17,131,43)',
-                                    borderWidth: 1
-                                }]
+                        chart = new ApexCharts(chartElement, {
+                            chart: {
+                                type: 'bar',
+                                height: 350
                             },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
+                            series: [{
+                                name: `Nombre d'impressions en ${year}`,
+                                data: counts
+                            }],
+                            xaxis: {
+                                categories: labels
+                            },
+                            yaxis: {
+                                title: {
+                                    text: 'Nombre d\'impressions'
                                 },
-                                plugins: {
-                                    datalabels: {
-                                        anchor: 'end',
-                                        align: 'end',
-                                        color: 'black',
-                                        font: {
-                                            weight: 'bold'
-                                        },
-                                        formatter: function(value) {
-                                            return value;
-                                        }
-                                    }
+                                min: 0
+                            },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 4,
+                                    horizontal: false
                                 }
                             },
-                            plugins: [ChartDataLabels]
+                            dataLabels: {
+                                enabled: true,
+                                style: {
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 'bold',
+                                    colors: ['#ffffff']
+                                }
+                            },
+                            colors: ['#118329']
                         });
+
+                        chart.render();
                     });
             }
 

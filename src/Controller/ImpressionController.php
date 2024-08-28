@@ -103,14 +103,17 @@ class ImpressionController extends AbstractController
         $filePath = $uploadDir . '/' . $filename;
         file_put_contents($filePath, $pdfContent);
 
-        return new Response(
-            $pdfContent,
-            200,
-            [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => sprintf('inline; filename="%s"', $filename),
-            ]
-        );
+        return $this->redirectToRoute('app_impression_apercu',['id'=>$carte->getId()]);
+    }
+
+    #[Route('/impression/apercu/{id}', name: 'app_impression_apercu')]
+    public function impressionApercu(Demande $demande): Response
+    {
+
+
+        return $this->render('impression/impressionApercu.html.twig', [
+            'demande' => $demande,
+        ]);
     }
 
     #[Route('/card/detail/{numDemande?}', name: 'app_card_detail')]

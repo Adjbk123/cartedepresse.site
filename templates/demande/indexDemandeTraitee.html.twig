@@ -8,8 +8,8 @@
 
     {% for message in app.flashes('success') %}
         <div class="flash-notice">
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong>Message :</strong> {{ message }}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -41,7 +41,7 @@
                     <td>{{ demande.dateTraitement ? demande.dateTraitement|date('Y-m-d à H:i:s') : '' }}</td>
 
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="{{ path('app_demande_show', {'id': demande.id}) }}">Détails </a>
+                        <a class="btn btn-outline-success btn-sm" href="{{ path('app_demande_show', {'id': demande.id}) }}">Détails </a>
                     </td>
                 </tr>
             {% else %}

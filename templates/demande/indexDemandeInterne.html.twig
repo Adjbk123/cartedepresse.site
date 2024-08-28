@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Effectuer une demande de carte {% endblock %}
+{% block breadcrumb %} Demande {% endblock %}
+{% block breadcrumbActive %} Nouveau {% endblock %}
+
+{% block body %}
+    <form action="{{ path('app_demande_interne') }}" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <!-- Étape 1 : Informations du Professionnel et Compte -->
+            <div id="step-1" class="form-step">
+                <h3>Étape 1 : Informations du Professionnel</h3>
+                <div class="row">
+                    <!-- Nom -->
+                    <div class="form-group col-md-6">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" required>
+                    </div>
+
+                    <!-- Prénom -->
+                    <div class="form-group col-md-6">
+                        <label for="prenom" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Email -->
+                    <div class="form-group col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+
+                    <!-- Date de Naissance -->
+                    <div class="form-group col-md-6">
+                        <label for="date_naissance" class="form-label">Date de Naissance</label>
+                        <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Lieu de Naissance -->
+                    <div class="form-group col-md-6">
+                        <label for="lieu_naissance" class="form-label">Lieu de Naissance</label>
+                        <input type="text" class="form-control" id="lieu_naissance" name="lieu_naissance" placeholder="Lieu de Naissance" required>
+                    </div>
+
+                    <!-- NPI -->
+                    <div class="form-group col-md-6">
+                        <label for="npi" class="form-label">NPI</label>
+                        <input type="text" class="form-control" id="npi" name="npi" placeholder="NPI" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Sexe -->
+                    <div class="form-group col-md-6">
+                        <label for="sexe" class="form-label">Sexe</label>
+                        <select class="form-control" id="sexe" name="sexe" required>
+                            <option value="">Choisir...</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                        </select>
+                    </div>
+
+                    <!-- Nationalité -->
+                    <div class="form-group col-md-6">
+                        <label for="nationalite" class="form-label">Nationalité</label>
+                        <select name="nationalite" id="nationalite" class="form-control">
+                            {% for key, value in nationalites %}
+                                <option value="{{ key }}" {% if key == 'Béninois(e)' %}selected{% endif %}>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="organe" class="form-label">Organe</label>
+                        <select name="organe" id="organe" class="form-control">
+                            <option value="">Choisir...</option>
+                            {% for organe in organes %}
+                                <option value="{{ organe.id }}" >{{ organe.designation }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="form-group  col-md-6">
+                            <label for="profession" class="form-label">Profession</label>
+                            <select name="profession" id="profession" class="form-control">
+                                <option value="">Choisir...</option>
+                                {% for profession in professions %}
+                                    <option value="{{ profession.id }}" >{{ profession.libelle }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <!-- Photo -->
+                    <div class="form-group col-md-6">
+                        <label for="photo" class="form-label">Photo</label>
+                        <input type="file" class="form-control" id="photo" name="photo">
+                    </div>
+
+                    <!-- Adresse -->
+                    <div class="form-group col-md-6">
+                        <label for="adresse" class="form-label">Adresse</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Photo -->
+                    <div class="form-group col-md-6">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur">
+                    </div>
+
+                    <!-- Adresse -->
+                    <div class="form-group col-md-6">
+                        <label for="password" class="form-label">Mot de passe </label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <button type="button" class="btn btn-outline-success" id="next-step-1">Suivant</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 2 : Documents -->
+            <div id="step-2" class="form-step" style="display: none;">
+                <h3>Étape 2 : Documents</h3>
+                {% for typePiece in typePieces %}
+                    {% if typePiece.libelle != 'Quittance' %}
+                        <div class="mb-3">
+                            <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
+                            <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
+                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
+
+                                <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+
+                                <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+                                    <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+
+                                    <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+
+                                    <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="form-group col-md-12 d-flex">
+                        <button type="button"  class="btn btn-outline-secondary me-2" id="previous-step-2">Précédent</button>
+                        <button type="button" class="btn btn-outline-success" id="next-step-2">Suivant</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 3 : Quittance -->
+            <div id="step-3" class="form-step" style="display: none;">
+                <h3>Étape 3 : Quittance</h3>
+                {% for typePiece in typePieces %}
+                    {% if typePiece.libelle == 'Quittance' %}
+                        <div class="mb-3">
+                            <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
+                            <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
+                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
+
+                                <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+
+                                <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+                                    <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+
+                                    <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+
+                                    <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="form-group col-md-12 d-flex">
+                        <button type="button" class="btn btn-outline-secondary me-2" id="previous-step-3">Précédent</button>
+                        <button type="submit" class="btn btn-success">Soumettre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Étape 1
+            document.getElementById('next-step-1').addEventListener('click', function () {
+                document.getElementById('step-1').style.display = 'none';
+                document.getElementById('step-2').style.display = 'block';
+            });
+
+            // Étape 2
+            document.getElementById('previous-step-2').addEventListener('click', function () {
+                document.getElementById('step-2').style.display = 'none';
+                document.getElementById('step-1').style.display = 'block';
+            });
+
+            document.getElementById('next-step-2').addEventListener('click', function () {
+                document.getElementById('step-2').style.display = 'none';
+                document.getElementById('step-3').style.display = 'block';
+            });
+
+            // Étape 3
+            document.getElementById('previous-step-3').addEventListener('click', function () {
+                document.getElementById('step-3').style.display = 'none';
+                document.getElementById('step-2').style.display = 'block';
+            });
+        });
+    </script>
+{% endblock %}

@@ -18,7 +18,7 @@
         <div class="tab-content" id="myTabContent">
             <!-- Cartes Valides -->
             <div class="tab-pane fade show active" id="valid" role="tabpanel" aria-labelledby="valid-tab">
-               <div class="my-3 bg-primary text-white p-2 rounded-2">
+               <div class="my-3 bg-success text-white p-2 rounded-2">
                    <h2>Liste des cartes valides</h2>
                </div>
                 <table class="table table-striped myTable">
@@ -41,7 +41,7 @@
                             <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
                             <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
                             <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
                             </td>
                         </tr>
 
@@ -91,7 +91,7 @@
                             <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
                             <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
                             <td>
-                                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
                             </td>
                         </tr>
 

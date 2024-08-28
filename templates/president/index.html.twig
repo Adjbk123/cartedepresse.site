@@ -11,8 +11,8 @@
                 <th>Nom</th>
                 <th>Prénoms</th>
                 <th>Adresse</th>
-                <th>DatePriseFonction</th>
-                <th>actions</th>
+                <th>Date de Prise de Fonction</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +24,8 @@
                 <td>{{ president.adresse }}</td>
                 <td>{{ president.datePriseFonction|date('D, d M Y H:i:s') }}</td>
                 <td>
-                    <a href="{{ path('app_president_show', {'id': president.id}) }}">show</a>
-                    <a href="{{ path('app_president_edit', {'id': president.id}) }}">edit</a>
+                    <a href="{{ path('app_president_show', {'id': president.id}) }}">Détails</a>
+                    <a href="{{ path('app_president_edit', {'id': president.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}

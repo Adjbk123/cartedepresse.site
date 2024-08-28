@@ -5,15 +5,19 @@ namespace App\Controller;
 use App\Entity\Demande;
 use App\Entity\HistoriqueOrganeProfessionnel;
 use App\Entity\PieceJointe;
+use App\Entity\User;
 use App\Form\DemandeType;
 use App\Repository\DemandeRepository;
 use App\Repository\HistoriqueOrganeProfessionnelRepository;
+use App\Repository\OrganeRepository;
 use App\Repository\PieceJointeRepository;
+use App\Repository\ProfessionRepository;
 use App\Repository\TypePieceRepository;
 use App\Repository\UserRepository;
 use App\Service\EmailNotificationService;
 use App\Service\NumEnregistrementService;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,6 +44,152 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findAll(),
         ]);
     }
+    #[Route('/interne', name: 'app_demande_interne', methods: ['GET', 'POST'])]
+    public function demandeInterne(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        DemandeRepository $demandeRepository,
+        TypePieceRepository $typePieceRepository,
+        OrganeRepository $organeRepository,
+        ProfessionRepository $professionRepository,
+        UserRepository $userRepository,
+        NumEnregistrementService $numEnregistrementService
+    ): Response
+    {
+        // Récupération des types de pièces, des organes et des professions
+        $typePieces = $typePieceRepository->findBy(['typeDemande' => "Nouveau"]);
+        $organes = $organeRepository->findAll();
+        $professions = $professionRepository->findAll();
+
+        // Tableau des nationalités
+        $nationalites = [
+            'Afghan(e)' => 'Afghan(e)',
+            'Albanais(e)' => 'Albanais(e)',
+            'Algérien(ne)' => 'Algérien(ne)',
+            'Béninois(e)' => 'Béninois(e)',
+            // Ajoutez d'autres nationalités ici
+        ];
+
+        if ($request->isMethod('POST')) {
+            // Traitement des données soumises
+            $data = $request->request->all();
+
+            // Créer un nouvel utilisateur
+            $user = new User();
+            $user->setNom($data['nom']);
+            $user->setPrenoms($data['prenom']);
+            $user->setEmail($data['email']);
+            $user->setDateNaissance(new \DateTime($data['date_naissance']));
+            $user->setLieuNaissance($data['lieu_naissance']);
+            $user->setNpi($data['npi']);
+            $user->setSexe($data['sexe']);
+            $user->setNationalite($data['nationalite']);
+            $user->setAdresse($data['adresse']);
+            $user->setUsername($data['username']);
+            $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
+            $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setStatut(1);
+            $user->setRoles(['ROLE_PROFESSIONNEL']);
+
+
+            // Récupérer le fichier téléchargé
+            $fichier = $request->files->get('photo');
+
+            if ($fichier != null) {
+                $repertoire = "uploads";
+                // Récupérer le nom original du fichier sans l'extension
+                $nomOriginal = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                // Récupérer l'extension du fichier
+                $extension = $fichier->guessExtension();
+
+                // Combiner le nom et le prénom de l'utilisateur
+                $nomCompletUtilisateur = $user->getNom() . '_' . $user->getPrenoms();
+                // Formater la date du jour
+                $date = (new \DateTime())->format('Ymd_His');
+
+                // Générer un nom de fichier sécurisé
+                $nomFichierSecurise = $nomCompletUtilisateur . '_' . $date . '_' . $nomOriginal;
+                $nouveauNomFichier = $nomFichierSecurise . '.' . $extension;
+
+                // Déplacer le fichier vers le répertoire de destination
+                $fichier->move($repertoire, $nouveauNomFichier);
+
+                // Mettre à jour la photo de l'utilisateur
+                $user->setPhoto($nouveauNomFichier);
+            }
+
+            $entityManager->persist($user);
+
+
+            // Récupérer l'organe et la profession
+            $organe = $organeRepository->find($data['organe']);
+            $profession = $professionRepository->find($data['profession']);
+
+            // Créer l'historique de l'organe et de la profession pour l'utilisateur
+            $historiqueOrganeProfessionnel = new HistoriqueOrganeProfessionnel();
+            $historiqueOrganeProfessionnel->setProfessionnel($user);
+            $historiqueOrganeProfessionnel->setOrgane($organe);
+            $historiqueOrganeProfessionnel->setProfession($profession);
+
+            $entityManager->persist($historiqueOrganeProfessionnel);
+
+
+            // Créer une nouvelle demande
+            $demande = new Demande();
+            $demande->setProfessionnel($user);
+            $demande->setDateSoumission(new \DateTime());
+            // Générer le numéro d'enregistrement
+            $numeroEnregistrement = $numEnregistrementService->genererNumeroEnregistrement();
+            $demande->setStatut('En attente');
+            $demande->setNumDemande($numeroEnregistrement);
+            $demande->setTypeDemande("Etablissement");
+
+
+            // Assurez-vous d'ajouter les autres champs nécessaires pour la demande
+
+            $entityManager->persist($demande);
+
+
+            $data = $request->files->get('typePieces');
+
+            // Enregistrer les pièces jointes
+            foreach ($data as $key => $pieceJointe) {
+                $nomFichier = $pieceJointe->getClientOriginalName();
+                $typePieceId = $key; // Supposant que $key est l'ID du type de pièce
+                $typePiece = $typePieceRepository->find($typePieceId); // Récupérer l'entité TypePiece correspondante
+                $dateSoumission = new \DateTime();
+                $statut = 'En attente';
+                $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
+
+                $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $pieceJointe->move($directory, $url);
+
+                $piece = new PieceJointe();
+                $piece->setDemande($demande);
+                $piece->setUrl($url);
+                $piece->setTypePiece($typePiece);
+                $piece->setDateSoumission($dateSoumission);
+                $piece->setStatut($statut);
+
+                $entityManager->persist($piece);
+            }
+
+            $entityManager->flush();
+
+            // Redirection ou message de confirmation
+            $this->addFlash('success', 'Demande enregistré avec succès');
+            return $this->redirectToRoute('app_demande_en_attente');
+        }
+
+        // Affichage du formulaire
+        return $this->render('demande/indexDemandeInterne.html.twig', [
+            'typePieces' => $typePieces,
+            'organes' => $organes,
+            'professions' => $professions,
+            'nationalites' => $nationalites,
+        ]);
+    }
+
     #[Route('/traitee', name: 'app_demande_traitee', methods: ['GET'])]
     public function indexDemandeTraitee(DemandeRepository $demandeRepository): Response
     {

@@ -1,55 +1,65 @@
-<div class="top-header">
-    <div class="header-bar d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-            <a href="#" class="logo-icon me-3">
-                <img src="{{ asset('assets/images/logo-icon.png') }}" height="30" class="small" alt="">
-                <span class="big">
-                                    <img src="{{ asset('assets/images/logo-dark.png') }}" height="24" class="logo-light-mode" alt="">
-                                    <img src="{{ asset('assets/images/logo-light.png') }}" height="24" class="logo-dark-mode" alt="">
-                                </span>
-            </a>
-            <a id="close-sidebar" class="btn btn-icon btn-soft-light" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-            </a>
+<header class="header-top">
+    <nav class="navbar navbar-light">
+        <div class="navbar-left">
+            <div class="logo-area">
+                <a class="navbar-brand" href="{{ path('app_admin') }}">
+                    <img class="dark" src="{{ asset('img/logo-dark.png') }}" alt="logo">
+                    <img class="light" src="{{ asset('img/logo-white.png') }}" alt="logo">
+                </a>
+                <a href="#" class="sidebar-toggle">
+                    <img class="svg" src="{{ asset('img/svg/align-center-alt.svg') }}" alt="img"></a>
+            </div>
         </div>
+        <!-- ends: navbar-left -->
+        <div class="navbar-right">
+            <ul class="navbar-right__menu">
 
-        <ul class="list-unstyled mb-0">
-
-
-
-
-            <li class="list-inline-item mb-0 ms-1">
-                <div class="dropdown dropdown-primary">
-                    <button type="button" class="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{% if app.user.photo %}{{ asset('uploads/') }}{{ app.user.photo }}{% else %}{{ asset('assets-landing/images/user/01.jpg') }} {% endif %}" class="avatar avatar-ex-small rounded" alt="">
-
-
-
-                    </button>
-                    <div class="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3" style="min-width: 200px;">
-                        <a class="dropdown-item d-flex align-items-center text-dark pb-3" href="#">
-                            <img src="{% if app.user.photo %}{{ asset('uploads/') }}{{ app.user.photo }}{% else %}{{ asset('assets-landing/images/user/01.jpg') }} {% endif %}" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-2">
-                                <span class="d-block">
-                                    {% if app.user %}
-                                        {{ app.user.prenoms }} {{ app.user.nom }}
-                                    {% endif %}
-                                </span>
-                                <small class="text-muted">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                     Administrateur
-                                    {% endif %}
-                                </small>
-                            </div>
+                <!-- ends: .nav-flag-select -->
+                <li class="nav-author">
+                    <div class="dropdown-custom">
+                        <a href="javascript:;" class="nav-item-toggle"><img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                            <span class="nav-item__title">{{ app.user.prenoms }} {{ app.user.nom|slice(0,1) }} .<i class="las la-angle-down nav-item__arrow"></i></span>
                         </a>
-                        <a class="dropdown-item text-dark" href="{{ path('app_admin') }}"><span class="mb-0 d-inline-block me-1"><i class="ti ti-home"></i></span> Tableau de bord</a>
-                        <a class="dropdown-item text-dark" href="{{ path('app_profil') }}"><span class="mb-0 d-inline-block me-1"><i class="ti ti-settings"></i></span> Profil</a>
-                        <div class="dropdown-divider border-top"></div>
+                        <div class="dropdown-parent-wrapper">
+                            <div class="dropdown-wrapper">
+                                <div class="nav-author__info">
+                                    <div class="author-img">
+                                        <img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                                    </div>
+                                    <div>
+                                        <h6>{{ app.user.prenoms }} {{ app.user.nom }}</h6>
+                                        <span>Compte</span>
+                                    </div>
+                                </div>
+                                <div class="nav-author__options">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('app_profil') }}">
+                                                <i class="uil uil-user"></i> Mon profil</a>
+                                        </li>
 
-                        <a class="dropdown-item text-dark" href="{{ path('app_logout') }}"><span class="mb-0 d-inline-block me-1"><i class="ti ti-logout"></i></span> Déconnexion</a>
+
+
+                                    </ul>
+                                    <a href="{{ path('app_logout') }}" class="nav-author__signout">
+                                        <i class="uil uil-sign-out-alt"></i> Déconnexion</a>
+                                </div>
+                            </div>
+                            <!-- ends: .dropdown-wrapper -->
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
+                </li>
+                <!-- ends: .nav-author -->
+            </ul>
+            <!-- ends: .navbar-right__menu -->
+            <div class="navbar-right__mobileAction d-md-none">
+                <a href="#" class="btn-search">
+                    <img src="img/svg/search.svg" alt="search" class="svg feather-search">
+                    <img src="img/svg/x.svg" alt="x" class="svg feather-x"></a>
+                <a href="#" class="btn-author-action">
+                    <img class="svg" src="img/svg/more-vertical.svg" alt="more-vertical"></a>
+            </div>
+        </div>
+        <!-- ends: .navbar-right -->
+    </nav>
+</header>

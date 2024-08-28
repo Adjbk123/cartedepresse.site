@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prévisualisation du PDF</title>
+    <style>
+        .btn-return {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #117427;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            margin: 20px;
+            cursor: pointer;
+        }
+        .btn-return:hover {
+            background-color: #06a03c;
+        }
+    </style>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
+
+</head>
+<body>
+<div style="display:flex;">
+    <div>
+        <h1>Prévisualisation du PDF</h1>
+
+    </div>
+    <div style="margin-left:auto;">
+        <a href="{{ path('app_impression') }}" class="btn-return">Retour à la liste des cartes</a>
+    </div>
+</div>
+
+<iframe src="{{ absolute_url(asset('uploads/cartes/'))  }}{{ demande.urlFile }}" width="100%" height="600px"></iframe>
+
+</body>
+</html>
