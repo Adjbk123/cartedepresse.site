@@ -117,6 +117,7 @@ class DemandeRepository extends ServiceEntityRepository
     {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+
         $emConfig->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
         $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
 

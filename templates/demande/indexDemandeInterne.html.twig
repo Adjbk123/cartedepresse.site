@@ -5,7 +5,7 @@
 {% block breadcrumbActive %} Nouveau {% endblock %}
 
 {% block body %}
-    <form action="{{ path('app_demande_interne') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ path('app_demande_interne') }}" class="form-validate is-later " method="post" enctype="multipart/form-data">
         <div class="container">
             <!-- Étape 1 : Informations du Professionnel et Compte -->
             <div id="step-1" class="form-step">
@@ -66,7 +66,7 @@
                     <!-- Nationalité -->
                     <div class="form-group col-md-6">
                         <label for="nationalite" class="form-label">Nationalité</label>
-                        <select name="nationalite" id="nationalite" class="form-control">
+                        <select name="nationalite" id="nationalite" class="form-control" class="form-select js-select2" data-search="on">
                             {% for key, value in nationalites %}
                                 <option value="{{ key }}" {% if key == 'Béninois(e)' %}selected{% endif %}>{{ value }}</option>
                             {% endfor %}
@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="organe" class="form-label">Organe</label>
-                        <select name="organe" id="organe" class="form-control">
+                        <select name="organe" id="organe" class="form-select js-select2" data-search="on" required>
                             <option value="">Choisir...</option>
                             {% for organe in organes %}
                                 <option value="{{ organe.id }}" >{{ organe.designation }}</option>
@@ -88,12 +88,15 @@
                     </div>
                     <div class="form-group  col-md-6">
                             <label for="profession" class="form-label">Profession</label>
-                            <select name="profession" id="profession" class="form-control">
+                        <div class="form-control-wrap">
+                            <select name="profession" id="profession" class="form-select js-select2" data-search="on" required>
                                 <option value="">Choisir...</option>
                                 {% for profession in professions %}
                                     <option value="{{ profession.id }}" >{{ profession.libelle }}</option>
                                 {% endfor %}
                             </select>
+                        </div>
+
                     </div>
                 </div>
 
@@ -102,7 +105,7 @@
                     <!-- Photo -->
                     <div class="form-group col-md-6">
                         <label for="photo" class="form-label">Photo</label>
-                        <input type="file" class="form-control" id="photo" name="photo">
+                        <input type="file" class="form-control" id="photo" name="photo" required>
                     </div>
 
                     <!-- Adresse -->
@@ -139,19 +142,9 @@
                     {% if typePiece.libelle != 'Quittance' %}
                         <div class="mb-3">
                             <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
-                            <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
-                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
 
-                                <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="form-control">
 
-                                <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
-                                    <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
-
-                                    <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
-
-                                    <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
-                                </div>
-                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -171,19 +164,9 @@
                     {% if typePiece.libelle == 'Quittance' %}
                         <div class="mb-3">
                             <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
-                            <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
-                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
 
-                                <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+                                <input type="file" class="form-control" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required">
 
-                                <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
-                                    <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
-
-                                    <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
-
-                                    <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
-                                </div>
-                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -198,13 +181,54 @@
         </div>
     </form>
 {% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Sélectionner tous les formulaires d'étapes
+            const step1Form = document.querySelector('#step-1');
+            const step2Form = document.querySelector('#step-2');
+            const step3Form = document.querySelector('#step-3');
+
+            const nextStep1Btn = document.getElementById('next-step-1');
+            const nextStep2Btn = document.getElementById('next-step-2');
+
+            // Désactiver les boutons suivants par défaut
+            nextStep1Btn.disabled = true;
+            nextStep2Btn.disabled = true;
+
+            // Fonction de validation pour une étape donnée
+            function validateStep(stepForm) {
+                const inputs = stepForm.querySelectorAll('input, select');
+                let allValid = true;
+                inputs.forEach(function (input) {
+                    if (!input.checkValidity()) {
+                        allValid = false;
+                    }
+                });
+                return allValid;
+            }
+
+            // Surveille les changements dans les champs d'étape 1
+            step1Form.addEventListener('input', function () {
+                if (validateStep(step1Form)) {
+                    nextStep1Btn.disabled = false; // Activer le bouton "Suivant" si tous les champs sont valides
+                } else {
+                    nextStep1Btn.disabled = true; // Désactiver le bouton si un champ n'est pas valide
+                }
+            });
+
+            // Surveille les changements dans les champs d'étape 2
+            step2Form.addEventListener('input', function () {
+                if (validateStep(step2Form)) {
+                    nextStep2Btn.disabled = false;
+                } else {
+                    nextStep2Btn.disabled = true;
+                }
+            });
+
             // Étape 1
-            document.getElementById('next-step-1').addEventListener('click', function () {
+            nextStep1Btn.addEventListener('click', function () {
                 document.getElementById('step-1').style.display = 'none';
                 document.getElementById('step-2').style.display = 'block';
             });
@@ -215,7 +239,7 @@
                 document.getElementById('step-1').style.display = 'block';
             });
 
-            document.getElementById('next-step-2').addEventListener('click', function () {
+            nextStep2Btn.addEventListener('click', function () {
                 document.getElementById('step-2').style.display = 'none';
                 document.getElementById('step-3').style.display = 'block';
             });

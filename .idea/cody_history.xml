@@ -14,6 +14,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -24,6 +30,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -34,6 +46,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -44,6 +62,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -54,6 +78,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -64,6 +94,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -77,6 +113,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -87,6 +129,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -97,6 +145,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -107,6 +161,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -117,6 +177,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -127,6 +193,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -137,6 +209,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -147,6 +225,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -157,6 +241,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -167,6 +257,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -177,6 +273,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -187,6 +289,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -203,6 +311,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -213,6 +327,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -223,6 +343,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -233,6 +359,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -243,6 +375,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -253,6 +391,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -263,6 +407,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -273,6 +423,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -283,6 +439,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -293,6 +455,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -303,6 +471,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -313,6 +487,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -323,6 +503,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -333,6 +519,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -343,6 +535,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -353,6 +551,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -363,6 +567,12 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
               </chat>
@@ -373,8 +583,80 @@
                     <model value="anthropic/claude-3-sonnet-20240229" />
                     <provider value="Anthropic" />
                     <title value="Claude 3 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
                   </llm>
                 </llm>
+              </chat>
+              <chat>
+                <internalId value="3262267a-86c8-4b70-a233-5b9615ab7f3e" />
+              </chat>
+              <chat>
+                <internalId value="15b9730c-aed7-4df7-b75a-681ceff195bf" />
+              </chat>
+              <chat>
+                <internalId value="896d13ba-f469-4991-a48e-62a5f5cbb33b" />
+              </chat>
+              <chat>
+                <internalId value="ce34ac2f-3a03-4e46-9e2a-e1f6c4599439" />
+              </chat>
+              <chat>
+                <internalId value="1f66731d-7b04-4f8f-974f-2a1be05c79f0" />
+              </chat>
+              <chat>
+                <internalId value="97d63591-71a1-469d-8249-7731b5b37224" />
+              </chat>
+              <chat>
+                <internalId value="a1529d0d-2bd0-4400-9cf2-d0ba1c47b165" />
+              </chat>
+              <chat>
+                <internalId value="e6a750a2-9f77-4f4f-ad6b-47f3452b0dfe" />
+              </chat>
+              <chat>
+                <internalId value="2e5e76cd-631b-47a4-9b41-d1df6ab95386" />
+              </chat>
+              <chat>
+                <internalId value="7941c8b8-ac1a-4a25-9ae8-00a5b898271c" />
+              </chat>
+              <chat>
+                <internalId value="4c71e769-f5c8-4f43-9a53-232f74184629" />
+              </chat>
+              <chat>
+                <internalId value="6695b4a6-dd39-47de-bfa1-6ef3078bf311" />
+              </chat>
+              <chat>
+                <internalId value="01a38156-a20b-41ec-835b-05aecb55cf69" />
+              </chat>
+              <chat>
+                <internalId value="8ca4dfde-9659-40ae-980e-47a6ada25b1a" />
+              </chat>
+              <chat>
+                <internalId value="a3530391-21c4-4d7d-acdc-c772d147311a" />
+              </chat>
+              <chat>
+                <internalId value="7276db9e-b219-4a1f-9883-45b50a02fc1b" />
+              </chat>
+              <chat>
+                <internalId value="4c0c8872-57ee-4111-825c-1b902c691f89" />
+              </chat>
+              <chat>
+                <internalId value="88667bbe-9855-4909-9003-d15bb9f2977b" />
+              </chat>
+              <chat>
+                <internalId value="ecad20b1-1b8f-48f2-a7dc-8be2472c8f58" />
+              </chat>
+              <chat>
+                <internalId value="688f6922-e38a-4d85-8b98-6a25d781b15a" />
+              </chat>
+              <chat>
+                <internalId value="98f82be4-2511-44ce-98fe-78aba9154123" />
+              </chat>
+              <chat>
+                <internalId value="ec4c8995-578b-41a3-90cc-02032d50f9af" />
               </chat>
             </list>
           </chats>

@@ -106,6 +106,65 @@ class ImpressionController extends AbstractController
         return $this->redirectToRoute('app_impression_apercu',['id'=>$carte->getId()]);
     }
 
+
+    #[Route('/print/card/preview/{id}', name: 'app_print_card_preview')]
+    public function previewCard(Demande $carte,
+                                PresidentRepository $presidentRepository,
+                                Pdf $pdf,
+                                HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+                                UrlGeneratorInterface $router): Response
+    {
+        if (!$carte) {
+            throw $this->createNotFoundException('La carte demandée n\'existe pas.');
+        }
+
+        $presidentActuel = $presidentRepository->findOneBy(['isPresident' => 1]);
+
+        $numDemande = str_replace('/', '-', $carte->getNumDemande());
+
+        $qrCodeUrl = $router->generate('app_card_detail', ['numDemande' => $numDemande], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $qrCode = new QrCode($qrCodeUrl);
+        $writer = new PngWriter();
+        $qrCodeResult = $writer->write($qrCode);
+        $qrCodeDataUri = 'data:image/png;base64,' . base64_encode($qrCodeResult->getString());
+
+        $professionnel = $carte->getProfessionnel();
+        $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
+
+        $html = $this->renderView('impression/card.html.twig', [
+            'carte' => $carte,
+            'profession' => $profession,
+            'qrCode' => $qrCodeDataUri,
+            'president'=> $presidentActuel,
+        ]);
+
+        $options = [
+            'page-width' => '85.60mm',
+            'page-height' => '53.98mm',
+            'margin-top' => 0,
+            'margin-right' => 0,
+            'margin-bottom' => 0,
+            'margin-left' => 0,
+            'disable-local-file-access' => true,
+        ];
+
+        try {
+            $pdfContent = $pdf->getOutputFromHtml($html, $options);
+        } catch (\Exception $e) {
+            return new Response(
+                'Error generating PDF: ' . $e->getMessage(),
+                500
+            );
+        }
+
+        // Retourne le PDF directement pour prévisualisation sans sauvegarde
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="preview-carte.pdf"',
+        ]);
+    }
+
     #[Route('/impression/apercu/{id}', name: 'app_impression_apercu')]
     public function impressionApercu(Demande $demande): Response
     {

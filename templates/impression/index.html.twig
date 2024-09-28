@@ -2,11 +2,12 @@
 
 {% block title %}Cartes Prêtes pour Impression{% endblock %}
 {% block datatables %}{% endblock %}
+{% block bouton %}{% endblock %}
 
 {% block body %}
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover myTable">
+
+        <table class="table table-bordered table-hover datatable-init">
             <thead class="table-light">
             <tr>
                 <th>Numéro de Demande</th>
@@ -32,5 +33,5 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
+
 {% endblock %}

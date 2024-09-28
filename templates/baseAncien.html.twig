@@ -1,0 +1,107 @@
+
+<!doctype html>
+<html lang="fr" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} | G-Patrimoine !</title>
+
+    {{ include('partials/stylesheet.html.twig') }}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+
+<body class="layout-light side-menu">
+<div class="mobile-search">
+    <form action="/" class="search-form">
+        <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
+        <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
+    </form>
+</div>
+<div class="mobile-author-actions"></div>
+{{ include('partials/navbar.html.twig') }}
+<main class="main-content">
+
+    {{ include('partials/sidebar.html.twig') }}
+    <div class="contents">
+
+        <div class="container-fluid">
+            <div class="social-dash-wrap">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="breadcrumb-main">
+                            <h4 class="text-capitalize breadcrumb-title">{{ block('title') }}</h4>
+                            <div class="breadcrumb-action justify-content-center flex-wrap">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#"><i class="uil uil-estate"></i>{% block breadcrumb %}{% endblock %}</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{% block breadcrumbActive %}{% endblock %}</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="{% if app.current_route != "app_admin" %}card{% endif %}">
+                            <div class="{% if app.current_route != "app_admin" %}card-body{% endif %}">
+                                {% block body %}{% endblock %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer-wrapper">
+        <div class="footer-wrapper__inside">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="footer-copyright">
+                            <p><span>© {{ date()|date('Y')}}  </span><a href="#">SGACP.</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-menu text-end">
+                            <ul>
+                                <li>
+                                    <a href="#">HAAC</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- ends: .Footer Menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+<div id="overlayer">
+    <div class="loader-overlay">
+        <div class="dm-spin-dots spin-lg">
+            <span class="spin-dot badge-dot dot-success"></span>
+            <span class="spin-dot badge-dot dot-success"></span>
+            <span class="spin-dot badge-dot dot-success"></span>
+            <span class="spin-dot badge-dot dot-success"></span>
+        </div>
+    </div>
+</div>
+<div class="overlay-dark-sidebar"></div>
+<div class="customizer-overlay"></div>
+
+{{ include('partials/script.html.twig') }}
+<!-- endinject-->
+</body>
+
+</html>

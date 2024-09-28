@@ -1,132 +1,178 @@
 <div class="row">
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 1 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Total des Demandes</p>
-                    <h1>{{ totalDemandes }}</h1>
+    <!-- Card 1: Total Demandes -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Total Demandes</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total des demandes"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-file-alt"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ totalDemandes }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 1 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 2 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Demandes en Cours</p>
-                    <h1>{{ demandesEnCours }}</h1>
+    <!-- Card 2: Demandes en Cours -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Demandes en Cours</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes en cours"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-sync"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ demandesEnCours }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 2 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 3 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Demandes Rejetées</p>
-                    <h1>{{ demandesRejetees }}</h1>
+    <!-- Card 3: Demandes Rejetées -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Demandes Rejetées</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes rejetées"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-danger">
-                    <i class="uil uil-times-circle"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ demandesRejetees }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 3 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 4 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Lot de demandes</p>
-                    <h1>{{ lotDemande }}</h1>
+    <!-- Card 4: Lot de Demandes -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Lot de Demandes</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Lot de demandes"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-info">
-                    <i class="uil uil-file-alt"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ lotDemande }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 4 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 5 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Demandes Validées</p>
-                    <h1>{{ demandesValidees }}</h1>
+    <!-- Card 5: Demandes Validées -->
+
+
+
+</div>
+
+<div class="row mt-3">
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Demandes Validées</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes validées"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-check-circle"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ demandesValidees }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 5 End -->
+    </div>
+    <!-- Card 6: Cartes Imprimées -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Cartes Imprimées</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Cartes imprimées"></em>
+                    </div>
+                </div>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ totalImpressions }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 6 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Cartes Imprimées</p>
-                    <h1>{{ totalImpressions }}</h1>
+    <!-- Card 7: Impression de l'Année Courante -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Impression de {{ date()|date('Y') }}</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Impression de l'année courante"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-print"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ totalImpressionsCurrentYear }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 6 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 7 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Impression de {{ date()|date('Y') }}</p>
-                    <h1>{{ totalImpressionsCurrentYear }}</h1>
+    <!-- Card 8: Cartes Expirées -->
+    <div class="col-sm-3">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Cartes Expirées</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Cartes expirées"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-secondary">
-                    <i class="uil uil-print"></i>
-                </div>
-            </div>
-        </div>
-        <!-- Card 7 End -->
-    </div>
-
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 8 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Cartes Expirées</p>
-                    <h1>{{ cartesExpirees }}</h1>
-                </div>
-                <div class="ap-po-details__icon-area color-warning">
-                    <i class="uil uil-calendar-slash"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ cartesExpirees }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 8 End -->
     </div>
 </div>
+
 
 <div class="card mt-4">
     <div class="card-header">

@@ -1,253 +1,251 @@
-<div class="sidebar-wrapper">
-    <div class="sidebar sidebar-collapse" id="sidebar">
-        <div class="sidebar__menu-group">
-            <ul class="sidebar_nav">
-                <li class="{% if app.current_route == 'app_admin' %}active{% endif %}">
-                    <a href="{{ path('app_admin') }}">
-                        <span class="nav-icon uil uil-create-dashboard"></span>
-                        <span class="menu-text">Tableau de bord</span>
-                    </a>
-                </li>
 
-                {% if is_granted('ROLE_AGENT_TRAITEMENT') or is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_ADMIN') %}
-                    <li class="menu-title mt-30">
-                        <span>Demandes de Carte</span>
-                    </li>
-                    <li class="{% if app.current_route == 'app_demande_interne' %}active{% endif %}">
-                        <a href="{{ path('app_demande_interne') }}">
-                            <span class="nav-icon uil uil-plus-circle"></span>
-                            <span class="menu-text">Enregistrer une demande</span>
-                        </a>
-                    </li>
-                    <li class="menu-title mt-30">
-                        <span>Traitement des Demandes de Carte</span>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_demande_en_attente' %}active{% endif %}">
-                        <a href="{{ path('app_demande_en_attente') }}">
-                            <span class="nav-icon uil uil-clock"></span>
-                            <span class="menu-text">Demandes en attente</span>
-                        </a>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_demande_traitee' %}active{% endif %}">
-                        <a href="{{ path('app_demande_traitee') }}">
-                            <span class="nav-icon uil uil-check-circle"></span>
-                            <span class="menu-text">Demandes validées</span>
-                        </a>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_demande_rejetee' %}active{% endif %}">
-                        <a href="{{ path('app_demande_rejetee') }}">
-                            <span class="nav-icon uil uil-times-circle"></span>
-                            <span class="menu-text">Demandes rejetées</span>
-                        </a>
-                    </li>
-
-                    <li class="menu-title mt-30">
-                        <span>Traitement des Duplicatas</span>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_duplicata_demande_index' %}active{% endif %}">
-                        <a href="{{ path('app_duplicata_demande_index') }}">
-                            <span class="nav-icon uil uil-clipboard"></span>
-                            <span class="menu-text">Demandes En attente</span>
-                        </a>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_duplicata_demande_validee' %}active{% endif %}">
-                        <a href="{{ path('app_duplicata_demande_validee') }}">
-                            <span class="nav-icon uil uil-check-circle"></span>
-                            <span class="menu-text">Demandes validées</span>
-                        </a>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_duplicata_demande_rejetee' %}active{% endif %}">
-                        <a href="{{ path('app_duplicata_demande_rejetee') }}">
-                            <span class="nav-icon uil uil-times-circle"></span>
-                            <span class="menu-text">Demandes rejetées</span>
-                        </a>
-                    </li>
-                {% endif %}
-
-                {% if is_granted('ROLE_AUTORITE') %}
-                    <li class="menu-title mt-30">
-                        <span>Gestion des lots</span>
-                    </li>
-
-                    <li class="{% if app.current_route == 'app_lot_index' %}active{% endif %}">
-                        <a href="{{ path('app_lot_index') }}">
-                            <span class="nav-icon uil uil-list-ui-alt"></span>
-                            <span class="menu-text">Lots de demande</span>
-                        </a>
-                    </li>
-                {% endif %}
-
-                {% if is_granted('ROLE_CHEF_SERVICE') %}
-                    <li class="menu-title mt-30">
-                        <span>Gestion des lots</span>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_lot' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-archive"></span>
-                            <span class="menu-text">Lot de demande</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_lot_new' %}active{% endif %}">
-                                <a href="{{ path('app_lot_new') }}">Créer</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_lot_index' %}active{% endif %}">
-                                <a href="{{ path('app_lot_index') }}">Liste</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-title mt-30">
-                        <span>Professionnels</span>
-                    </li>
-
-
-                    <li class="has-child {% if app.current_route starts with 'app_user_professionnel' %}active{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-users-alt"></span>
-                            <span class="menu-text">Professionnels</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_user_professionnel' %}active{% endif %}">
-                                <a href="{{ path('app_user_professionnel') }}">Liste des professionnels</a>
-                            </li>
-                        </ul>
-                    </li>
-                {% endif %}
-
-                {% if is_granted('ROLE_IMPRIMEUR') %}
-                    <li class="{% if app.current_route == 'app_impression' %}active{% endif %}">
-                        <a href="{{ path('app_impression') }}">
-                            <span class="nav-icon uil uil-print"></span>
-                            <span class="menu-text">Imprimer une carte</span>
-                        </a>
-                    </li>
-                {% endif %}
-
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="menu-title mt-30">
-                        <span>Paramètres</span>
-                    </li>
-                    <li class="has-child {% if app.current_route starts with 'app_profession' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-briefcase"></span>
-                            <span class="menu-text">Profession</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_profession_new' %}active{% endif %}">
-                                <a href="{{ path('app_profession_new') }}">Ajouter</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_profession_index' %}active{% endif %}">
-                                <a href="{{ path('app_profession_index') }}">Liste des professions</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_type_piece' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-folder"></span>
-                            <span class="menu-text">Pièce à fournir</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_type_piece_new' %}active{% endif %}">
-                                <a href="{{ path('app_type_piece_new') }}">Ajouter</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_type_piece_index' %}active{% endif %}">
-                                <a href="{{ path('app_type_piece_index') }}">Liste des pièces</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_promoteur' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-user-check"></span>
-                            <span class="menu-text">Promoteur</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_promoteur_new' %}active{% endif %}">
-                                <a href="{{ path('app_promoteur_new') }}">Ajouter</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_promoteur_index' %}active{% endif %}">
-                                <a href="{{ path('app_promoteur_index') }}">Liste des promoteurs</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_organe' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-newspaper"></span>
-                            <span class="menu-text">Organe</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_organe_new' %}active{% endif %}">
-                                <a href="{{ path('app_organe_new') }}">Ajouter</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_organe_index' %}active{% endif %}">
-                                <a href="{{ path('app_organe_index') }}">Liste des organes</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_type_organe' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-building"></span>
-                            <span class="menu-text">Type organe</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_type_organe_new' %}active{% endif %}">
-                                <a href="{{ path('app_type_organe_new') }}">Ajouter</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_type_organe_index' %}active{% endif %}">
-                                <a href="{{ path('app_type_organe_index') }}">Liste des types d'organes</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-child {% if app.current_route starts with 'app_president' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-user"></span> <!-- Assurez-vous que l'icône correspond à votre thème -->
-                            <span class="menu-text">Président</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_president_new' %}active{% endif %}">
-                                <a href="{{ path('app_president_new') }}">Créer</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_president_index' %}active{% endif %}">
-                                <a href="{{ path('app_president_index') }}">Liste</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="has-child {% if app.current_route starts with 'app_user' %}open{% endif %}">
-                        <a href="#">
-                            <span class="nav-icon uil uil-user"></span>
-                            <span class="menu-text">Utilisateurs</span>
-                            <span class="toggle-icon"></span>
-                        </a>
-                        <ul>
-                            <li class="{% if app.current_route == 'app_user_new' %}active{% endif %}">
-                                <a href="{{ path('app_personnel_new') }}">Ajouter un utilisateur</a>
-                            </li>
-                            <li class="{% if app.current_route == 'app_user_index' %}active{% endif %}">
-                                <a href="{{ path('app_user_index') }}">Liste des utilisateurs</a>
-                            </li>
-                        </ul>
-                    </li>
-                {% endif %}
-            </ul>
+<div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+    <div class="nk-sidebar-element nk-sidebar-head">
+        <div class="nk-sidebar-brand">
+            <a href="{{ path('app_admin') }}" class="logo-link nk-sidebar-logo">
+                <img class="logo-light logo-img" src="{{ asset('images/logo.png') }}" srcset="{{ asset('images/logo2x.png')}} 2x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('images/logo-dark.png') }}" srcset="{{ asset('images/logo-dark2x.png')}} 2x" alt="logo-dark">
+                <img class="logo-small logo-img logo-img-small" src="{{ asset('images/favicon.png') }}" srcset="{{ asset('images/logo-small2x.png')}} 2x" alt="logo-small">
+            </a>
         </div>
-    </div>
+        <div class="nk-menu-trigger me-n2">
+            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
+            <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+        </div>
+    </div><!-- .nk-sidebar-element -->
+    <div class="nk-sidebar-element">
+        <div class="nk-sidebar-content">
+            <div class="nk-sidebar-menu" data-simplebar>
+                <ul class="nk-menu">
+
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Main</h6>
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item">
+                        <a href="{{ path('app_admin') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
+                            <span class="nk-menu-text">Tableau de bord</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
+                    {% if is_granted('ROLE_AGENT_TRAITEMENT') or is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_ADMIN') %}
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Demande de carte</h6>
+                    </li><!-- .nk-menu-heading -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_demande_interne') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-plus-circle"></em></span>
+                                <span class="nk-menu-text">Enregistrer une demande</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-heading">
+                           <h6 class="overline-title text-primary-alt">Opérations demande</h6>
+                         </li><!-- .nk-menu-heading -->
+
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_demande_en_attente') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-clock"></em></span>
+                                <span class="nk-menu-text">Demandes en attente</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_demande_traitee') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-check-circle"></em></span>
+                                <span class="nk-menu-text">Demandes validées</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_demande_rejetee') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-cross-circle"></em></span>
+                                <span class="nk-menu-text">Demandes rejetées</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Traitement des Duplicatas</h6>
+                       </li><!-- .nk-menu-heading -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_duplicata_demande_index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-clock"></em></span>
+                                <span class="nk-menu-text">Demandes en attente</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_duplicata_demande_validee') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-check-circle"></em></span>
+                                <span class="nk-menu-text">Demandes validées</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_duplicata_demande_rejetee') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-cross-circle"></em></span>
+                                <span class="nk-menu-text">Demandes rejetées</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+
+
+
+
+                    {% endif %}
+
+                    {% if is_granted('ROLE_AUTORITE') %}
+                        <li class="nk-menu-heading">
+                            <h6 class="overline-title text-primary-alt">Traitement des Duplicatas</h6>
+                        </li><!-- .nk-menu-heading -->
+
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_lot_index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-tag-alt-fill"></em></span>
+                                <span class="nk-menu-text">Lots de demande</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_CHEF_SERVICE') %}
+                        <li class="nk-menu-heading">
+                            <h6 class="overline-title text-primary-alt">Paramètres</h6>
+                        </li><!-- .nk-menu-heading -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-package"></em></span>
+                                <span class="nk-menu-text">Lot de demande</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_lot_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter </span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_lot_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des  lots</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                <span class="nk-menu-text">Professionnels</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_user_professionnel') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des professionnels</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                    {% endif %}
+
+                    {% if is_granted('ROLE_IMPRIMEUR') %}
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_impression') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-printer"></em></span>
+                                <span class="nk-menu-text">Imprimer une carte</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nk-menu-heading">
+                            <h6 class="overline-title text-primary-alt">Paramètres</h6>
+                        </li><!-- .nk-menu-heading -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-briefcase"></em></span>
+                                <span class="nk-menu-text">Profession</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_profession_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_profession_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des professions</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-file-check"></em></span>
+                                <span class="nk-menu-text">Pièce à fournir</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_type_piece_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_type_piece_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des pièces</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-star"></em></span>
+                                <span class="nk-menu-text">Promoteur</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_promoteur_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_promoteur_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des promoteurs</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                                <span class="nk-menu-text">Organe </span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_organe_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_organe_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des organes</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-tags"></em></span>
+                                <span class="nk-menu-text">Type d'Organe </span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_type_organe_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_type_organe_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des types d'organe</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-user-c"></em></span>
+                                <span class="nk-menu-text">Président </span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_president_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_president_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des présidents</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-user-group"></em></span>
+                                <span class="nk-menu-text">Utilisateurs </span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_personnel_new') }}" class="nk-menu-link"><span class="nk-menu-text">Ajouter</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ path('app_user_index') }}" class="nk-menu-link"><span class="nk-menu-text">Liste des utilisateurs</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                    {% endif %}
+                </ul><!-- .nk-menu -->
+            </div><!-- .nk-sidebar-menu -->
+        </div><!-- .nk-sidebar-content -->
+    </div><!-- .nk-sidebar-element -->
 </div>

@@ -1,12 +1,17 @@
 
-<!doctype html>
-<html lang="fr" dir="ltr">
+<!DOCTYPE html>
+<html lang="zxx" class="js">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %} | G-Patrimoine !</title>
+    <base href="../">
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+    <!-- Page Title  -->
+    <title>{% block title %}{% endblock %} | SGACP !</title>
 
     {{ include('partials/stylesheet.html.twig') }}
     {% block javascripts %}
@@ -14,94 +19,171 @@
     {% endblock %}
 </head>
 
-<body class="layout-light side-menu">
-<div class="mobile-search">
-    <form action="/" class="search-form">
-        <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
-        <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
-    </form>
-</div>
-<div class="mobile-author-actions"></div>
-{{ include('partials/navbar.html.twig') }}
-<main class="main-content">
-
-  {{ include('partials/sidebar.html.twig') }}
-    <div class="contents">
-
-        <div class="container-fluid">
-            <div class="social-dash-wrap">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <div class="breadcrumb-main">
-                            <h4 class="text-capitalize breadcrumb-title">{{ block('title') }}</h4>
-                            <div class="breadcrumb-action justify-content-center flex-wrap">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#"><i class="uil uil-estate"></i>{% block breadcrumb %}{% endblock %}</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">{% block breadcrumbActive %}{% endblock %}</li>
-                                    </ol>
-                                </nav>
-                            </div>
+<body class="nk-body bg-lighter npc-default has-sidebar  ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        {{ include('partials/sidebar.html.twig') }}
+        <!-- sidebar @e -->
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ms-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                         </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="{{ path('app_admin') }}" class="logo-link">
+                                <img class="logo-light logo-img" src="{{ asset('images/logo.png') }}" srcset="{{ asset('images/logo2x.png')}} 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="{{ asset('images/logo-dark.png') }}" srcset="{{ asset('images/logo-dark2x.png')}} 2x" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="{% if app.current_route != "app_admin" %}card{% endif %}">
-                            <div class="{% if app.current_route != "app_admin" %}card-body{% endif %}">
-                                {% block body %}{% endblock %}
-                            </div>
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
 
+                                <li class="dropdown user-dropdown">
+                                    <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
+                                        <div class="user-toggle">
+                                            <div class="user-avatar sm">
+                                                <em class="icon ni ni-user-alt"></em>
+                                            </div>
+                                            <div class="user-info d-none d-xl-block">
+                                                <div class="user-status user-status-verified">
+                                                    {% if app.user %}
+                                                        {% if is_granted("ROLE_AGENT_TRAITEMENT") %}
+                                                            Agent traitant
+                                                        {% elseif is_granted('ROLE_AUTORITE') %}
+                                                            Autorité
+                                                        {% elseif is_granted('ROLE_IMPRIMEUR') %}
+                                                            Imprimeur
+                                                        {% elseif is_granted('ROLE_ADMIN') %}
+                                                            Administrateur
+                                                        {% elseif is_granted('ROLE_CHEF_SERVICE') %}
+                                                            Chef service
+
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="user-name dropdown-indicator">
+                                                    {% if app.user %}
+                                                        {{ app.user.prenoms }} {{ app.user.nom }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
+                                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <span>AB</span>
+                                                </div>
+                                                <div class="user-info">
+                                                    <span class="lead-text">
+                                                          {% if app.user %}
+                                                              {{ app.user.prenoms }} {{ app.user.nom }}
+                                                          {% endif %}
+                                                    </span>
+                                                    <span class="sub-text">
+                                                          {% if app.user %}
+                                                              {{ app.user.email }}
+                                                          {% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="{{ path('app_profil') }}"><em class="icon ni ni-user-alt"></em><span>Mon profi</span></a></li>
+                                                <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Thème sombre</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="{{ path('app_logout') }}"><em class="icon ni ni-signout"></em><span>Déconnexion</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head nk-block-head-sm">
+                                <div class="nk-block-between">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title page-title">{{ block('title') }}</h3>
+                                    </div><!-- .nk-block-head-content -->
+                                    <div class="nk-block-head-content">
+                                        <div class="toggle-wrap nk-block-tools-toggle">
+                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                            <div class="toggle-expand-content" data-content="pageMenu">
+                                                <ul class="nk-block-tools g-3">
+                                                    <li class="nk-block-tools-opt">
+                                                        {% block bouton %}  {% endblock %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head-content -->
+                                </div><!-- .nk-block-between -->
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="row g-gs">
+                                    <div class="col-xxl-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="nk-ecwg nk-ecwg6">
+                                                <div class="card-inner">
+                                                    {% block body %} {% endblock %}
+                                                </div><!-- .card-inner -->
+                                            </div><!-- .nk-ecwg -->
+                                        </div><!-- .card -->
+                                    </div><!-- .col -->
+
+                                </div><!-- .row -->
+                            </div><!-- .nk-block -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-    </div>
-    <footer class="footer-wrapper">
-        <div class="footer-wrapper__inside">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="footer-copyright">
-                            <p><span>© {{ date()|date('Y')}}  </span><a href="#">SGACP.</a>
-                            </p>
+            <!-- content @e -->
+            <!-- footer @s -->
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright"> &copy; {{ date()|date('Y')}} HAAC.
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="footer-menu text-end">
-                            <ul>
-                                <li>
-                                    <a href="#">HAAC</a>
+                        <div class="nk-footer-links">
+                            <ul class="nav nav-sm">
+                                <li class="nav-item dropup">
+                                    <a href="https://www.haac.bj" class="nav-link"><span>Site HAAC</span></a>
                                 </li>
 
                             </ul>
                         </div>
-                        <!-- ends: .Footer Menu -->
                     </div>
                 </div>
             </div>
+            <!-- footer @e -->
         </div>
-    </footer>
-</main>
-<div id="overlayer">
-    <div class="loader-overlay">
-        <div class="dm-spin-dots spin-lg">
-            <span class="spin-dot badge-dot dot-success"></span>
-            <span class="spin-dot badge-dot dot-success"></span>
-            <span class="spin-dot badge-dot dot-success"></span>
-            <span class="spin-dot badge-dot dot-success"></span>
-        </div>
+        <!-- wrap @e -->
     </div>
+    <!-- main @e -->
 </div>
-<div class="overlay-dark-sidebar"></div>
-<div class="customizer-overlay"></div>
-
+<!-- app-root @e -->
+<!-- JavaScript -->
 {{ include('partials/script.html.twig') }}
-<!-- endinject-->
 </body>
 
 </html>

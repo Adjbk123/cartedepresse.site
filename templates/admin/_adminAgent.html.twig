@@ -1,71 +1,87 @@
 <div class="row">
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 1 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Total des Demandes</p>
-                    <h1>{{ totalDemandes }}</h1>
+    <div class="col-sm-4">
+        <!-- Card 1 : Total des Demandes -->
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Total des Demandes</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total des Demandes" data-bs-original-title="Total des Demandes"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-file-alt"></i>
-                </div>
-            </div>
-        </div>
-        <!-- Card 1 End -->
-    </div>
-
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 2 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Demandes en Cours</p>
-                    <h1>{{ demandesEnCours }}</h1>
-                </div>
-                <div class="ap-po-details__icon-area color-success">
-                    <i class="uil uil-sync"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ totalDemandes }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 2 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 3 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Demandes Rejetées</p>
-                    <h1>{{ demandesRejetees }}</h1>
+    <div class="col-sm-4">
+        <!-- Card 2 : Demandes en Cours -->
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Demandes en Cours</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes en Cours" data-bs-original-title="Demandes en Cours"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-danger">
-                    <i class="uil uil-times-circle"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ demandesEnCours }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 3 End -->
     </div>
 
-    <div class="col-xxl-3 col-sm-3 col-ssm-12 mb-25">
-        <!-- Card 4 -->
-        <div class="ap-po-details ap-po-details--luodcy overview-card-shape radius-xl d-flex justify-content-between">
-            <div class="ap-po-details-content d-flex flex-wrap justify-content-between w-100">
-                <div class="ap-po-details__titlebar">
-                    <p>Lot de demandes</p>
-                    <h1>{{ lotDemande }}</h1>
+    <div class="col-sm-4">
+        <!-- Card 3 : Demandes Rejetées -->
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Demandes Rejetées</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes Rejetées" data-bs-original-title="Demandes Rejetées"></em>
+                    </div>
                 </div>
-                <div class="ap-po-details__icon-area color-info">
-                    <i class="uil uil-file-alt"></i>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ demandesRejetees }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 4 End -->
     </div>
 
-
-
-
+    <div class="col-sm-4">
+        <!-- Card 4 : Lot de demandes -->
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <div class="card-title-group align-start mb-2">
+                    <div class="card-title">
+                        <h6 class="title">Lot de demandes</h6>
+                    </div>
+                    <div class="card-tools">
+                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Lot de demandes" data-bs-original-title="Lot de demandes"></em>
+                    </div>
+                </div>
+                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                    <div class="nk-sale-data">
+                        <span class="amount">{{ lotDemande }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

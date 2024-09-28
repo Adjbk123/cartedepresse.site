@@ -3,12 +3,15 @@
 {% block title %}Listes des professions{% endblock %}
 {% block breadcrumb %}Profession{% endblock %}
 {% block breadcrumbActive %}Liste{% endblock %}
-{% block datatables %}{% endblock %}
+{% block bouton %}
+    <a class="btn btn-outline-primary" href="{{ path('app_profession_new') }}">Nouvel ajout</a>
+{% endblock %}
+
 
 {% block body %}
 
 
-    <table class="table table-hover table-bordered myTable">
+    <table class="table table-hover table-bordered datatable-init">
         <thead>
             <tr>
                 <th>N°</th>
@@ -23,17 +26,16 @@
                 <td>{{ profession.libelle }}</td>
 
                 <td>
-                    <div class="dropdown mt-4 mt-sm-0">
-                        <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-horizontal"></i>
-                        </a>
 
-                        <div class="dropdown-menu" style="">
-                            <a class="dropdown-item link-info" href="{{ path('app_profession_show', {'id': profession.id}) }}">Voir</a>
-                            <a class="dropdown-item link-success" href="{{ path('app_profession_edit', {'id': profession.id}) }}">Editer</a>
-                            {{ include('profession/_delete_form.html.twig') }}
+                        <div class="dropdown">
+                            <a class="dropdown-toggle btn btn-icon btn-light" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <ul class="link-list-opt">
+                                    <li><a href="{{ path('app_profession_show', {'id': profession.id}) }}"><em class="icon ni ni-eye"></em><span>Voir</span></a></li>
+                                    <li><a href="{{ path('app_profession_edit', {'id': profession.id}) }}"><em class="icon ni ni-pen"></em><span>Editer</span></a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                 </td>
 
             </tr>
@@ -45,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_profession_new') }}">Create new</a>
+
 {% endblock %}

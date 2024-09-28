@@ -24,7 +24,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/valide', name: 'app_duplicata_demande_validee', methods: ['GET'])]
+    #[Route('s/valides', name: 'app_duplicata_demande_validee', methods: ['GET'])]
     public function validee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
         $validatedDuplicatas =  $duplicataDemandeRepository->findBy(['statut'=>"Validée"]);
@@ -33,7 +33,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/rejetee', name: 'app_duplicata_demande_rejetee', methods: ['GET'])]
+    #[Route('/rejetees', name: 'app_duplicata_demande_rejetee', methods: ['GET'])]
     public function rejetee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
         $rejectedDuplicatas = $duplicataDemandeRepository->findBy(['statut'=>"Rejetée"]);

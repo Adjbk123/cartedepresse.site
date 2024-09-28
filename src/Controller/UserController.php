@@ -41,6 +41,7 @@ class UserController extends AbstractController
         ]);
     }
 
+
     #[Route('/creer', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
