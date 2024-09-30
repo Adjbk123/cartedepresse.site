@@ -18,11 +18,13 @@ use App\Service\EmailNotificationService;
 use App\Service\NumEnregistrementService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/demande')]
 class DemandeController extends AbstractController
@@ -33,7 +35,7 @@ class DemandeController extends AbstractController
     {
         $this->emailNotificationService = $emailNotificationService;
     }
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'app_demande_index', methods: ['GET'])]
     public function index(DemandeRepository $demandeRepository): Response
     {
@@ -41,6 +43,44 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findAll(),
         ]);
     }
+// Méthode pour afficher la page de suivi (GET)
+    #[Route('/suivie', name: 'app_demande_suivi', methods: ['GET'])]
+    public function afficherSuiviDemande(): Response
+    {
+        // Retourner la vue de la page de suivi de demande
+        return $this->render('demande/indexSuiviDemande.html.twig');
+    }
+
+    // Méthode pour traiter la soumission du formulaire (POST via AJAX)
+    #[Route('/verifier-demande', name: 'app_verifier_demande', methods: ['POST'])]
+    public function verifierDemande(Request $request, DemandeRepository $demandeRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $requestNumber = $data['request_number'];
+        $email = $data['email'];
+
+        // Vérifie si la demande existe
+        $demande = $demandeRepository->findOneBy(['numDemande' => $requestNumber]);
+
+        if (!$demande) {
+            return $this->json(['status' => 'error', 'message' => 'Le numéro de demande n\'existe pas.']);
+        }
+
+        // Vérifie si l'email correspond
+        if ($demande->getProfessionnel()->getEmail() !== $email) {
+            return $this->json(['status' => 'error', 'message' => 'L\'adresse email ne correspond pas.']);
+        }
+
+        // Si tout est OK, renvoie les informations de la demande
+        return $this->json([
+            'status' => 'success',
+            'demande' => [
+                'statut' => $demande->getStatut(),
+                'dateSoumission' => $demande->getDateSoumission()->format('Y-m-d H:i:s'),
+            ],
+        ]);
+    }
+
     #[Route('/interne', name: 'app_demande_interne', methods: ['GET', 'POST'])]
     public function demandeInterne(
         Request $request,

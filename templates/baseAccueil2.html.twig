@@ -82,9 +82,16 @@
         <ul class="buy-button list-inline mb-0">
 
             <li class="list-inline-item ps-1 mb-0">
-                <a href="{{ path('app_espace') }}" target="_blank">
-                    <div class="btn btn-outline-primary">Connexion</div>
-                </a>
+                {% if app.user %}
+                    <a href="{{ path('app_espace') }}" >
+                        <div class="btn btn-outline-primary">Mon compte</div>
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" >
+                        <div class="btn btn-outline-primary">Connexion</div>
+                    </a>
+                {% endif %}
+
             </li>
         </ul>
         <!--Login button End-->
@@ -93,6 +100,7 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
                 <li><a href="{{ path('app_accueil') }}" class="sub-menu-item">Accueil</a></li>
+                <li><a href="{{ path('app_demande_suivi') }}" class="sub-menu-item">Suivre une demande</a></li>
                 <li><a href="https://www.haac.bj/contact" class="sub-menu-item">Nous contacter</a></li>
 
             </ul><!--end navigation menu-->
@@ -100,28 +108,10 @@
     </div><!--end container-->
 </header><!--end header-->
 <!-- Navbar End -->
+{%  block body %}
 
-<section class="bg-half-260 d-table w-100 jarallax" data-jarallax data-speed="0.5" style="background:url('{{ asset('images/bg.jpg') }}') top">
-    <div class="bg-overlay opacity-6"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="title-heading">
-                    <div class="alert alert-light alert-pills text-dark" role="alert">
-                        <span class="badge rounded-pill bg-primary me-1">HAAC</span>
-                        <span class="content">Gestion fiable et sécurisée des cartes de presse</span>
-                    </div>
-                    <h1 class="heading fw-bold mb-3 text-white">Facilitez l'accès aux <span class="text-primary text-decoration-underline typewrite bg-white" data-period="2000" data-type='[ "journalistes", "reporters", "professionnels des médias" ]'> <span class="wrap"></span> </span> <br> avec notre solution dédiée</h1>
-                    <p class="para-desc text-white">Soumettez et gérez vos demandes de carte de presse grâce à notre plateforme sécurisée dédiée aux professionnels des médias.</p>
-                    <div class="mt-4 pt-2">
-                        <a href="{{ path('app_demande_new') }}" class="btn btn-primary">Demander une carte de presse</a>
-                    </div>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
-</section><!--end section-->
-<!-- End Hero -->
+{%  endblock %}
+
 
 
 <!-- Footer Start -->
@@ -250,7 +240,9 @@
 <script src="{{ asset('assets-landing/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
 <!-- JAVASCRIPT -->
 
-
+<script>
+    let verifierDemandeUrl = "{{ path('app_verifier_demande') }}"; // Récupérer l'URL ici
+</script>
 
 </body>
 </html>

@@ -6,54 +6,26 @@ Accueil
 
 
 {% block body %}
-    <header class="bg-primary text-white py-5">
+    <section class="bg-half-260 d-table w-100 jarallax" data-jarallax data-speed="0.5" style="background:url('{{ asset('images/bg.jpg') }}') top">
+        <div class="bg-overlay opacity-6"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h1 class="display-4">Gérez vos cartes de presse en toute simplicité</h1>
-                    <p class="lead">Une solution moderne pour les professionnels des médias</p>
-                    <a href="{{ path('app_demande_new') }}" class="btn btn-light btn-lg">Demander une carte de presse</a>
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ asset('images/icons/code-scan.svg') }}" alt="Carte de presse" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="py-5">
-        <div class="container text-center">
-            <h2 class="mb-4">Pourquoi choisir notre solution ?</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <i class="bi bi-speedometer2 display-4 text-primary"></i>
-                            <h5 class="card-title mt-3">Rapidité</h5>
-                            <p class="card-text">Demande de carte en ligne rapide et efficace.</p>
+                <div class="col-12">
+                    <div class="title-heading">
+                        <div class="alert alert-light alert-pills text-dark" role="alert">
+                            <span class="badge rounded-pill bg-primary me-1">HAAC</span>
+                            <span class="content">Gestion fiable et sécurisée des cartes de presse</span>
+                        </div>
+                        <h1 class="heading fw-bold mb-3 text-white">Facilitez l'accès aux <span class="text-primary text-decoration-underline typewrite bg-white" data-period="2000" data-type='[ "journalistes", "reporters", "professionnels des médias" ]'> <span class="wrap"></span> </span> <br> avec notre solution dédiée</h1>
+                        <p class="para-desc text-white">Soumettez et gérez vos demandes de carte de presse grâce à notre plateforme sécurisée dédiée aux professionnels des médias.</p>
+                        <div class="mt-4 pt-2">
+                            <a href="{{ path('app_demande_new') }}" class="btn btn-primary">Demander une carte de presse</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <i class="bi bi-shield-check display-4 text-primary"></i>
-                            <h5 class="card-title mt-3">Sécurité</h5>
-                            <p class="card-text">Protection de vos données et suivi sécurisé.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <i class="bi bi-bell display-4 text-primary"></i>
-                            <h5 class="card-title mt-3">Notifications</h5>
-                            <p class="card-text">Recevez des alertes pour suivre votre demande.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </section><!--end section-->
+    <!-- End Hero -->
 {% endblock %}
 

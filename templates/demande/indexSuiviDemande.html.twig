@@ -1,0 +1,149 @@
+{% extends 'baseAccueil2.html.twig' %}
+{% block title %}
+Suivre ma demande
+{% endblock %}
+
+{% block body %}
+    <!-- Hero Start -->
+    <section class="bg-half-170 bg-light d-table w-100">
+        <div class="container">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="pages-heading">
+                        <h4 class="title mb-0">Suivre une demande</h4>
+                    </div>
+                </div>  <!--end col-->
+            </div><!--end row-->
+
+            <div class="position-breadcrumb">
+                <nav aria-label="breadcrumb" class="d-inline-block">
+                    <ul class="breadcrumb rounded shadow mb-0 px-4 py-2">
+                        <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+
+                        <li class="breadcrumb-item active" aria-current="page">Suivre ma demande</li>
+                    </ul>
+                </nav>
+            </div>
+        </div> <!--end container-->
+    </section><!--end section-->
+    <!-- Hero End -->
+
+    <!-- Shape Start -->
+    <div class="position-relative">
+        <div class="shape overflow-hidden text-color-white">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+    <!--Shape End-->
+
+    <section class="section pb-0">
+        <div class="container mt-60">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-6 pt-sm-0 order-2 order-md-1">
+                    <div class="card shadow rounded border-0">
+                        <div class="card-body py-5">
+                            <div class="custom-form mt-3">
+                                <form id="trackingForm" name="trackingForm" method="POST" onsubmit="return false;">
+                                    <!-- Formulaire de suivi -->
+                                    <div class="mb-3">
+                                        <label class="form-label" for="numDemande">Numéro de la demande <span class="text-danger">*</span></label>
+                                        <div class="form-icon position-relative">
+                                            <i data-feather="hash" class="fea icon-sm icons"></i>
+                                            <input name="request_number" id="numDemande" type="text" class="form-control ps-5" placeholder="Numéro de la demande" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="email">Votre Email <span class="text-danger">*</span></label>
+                                        <div class="form-icon position-relative">
+                                            <i data-feather="mail" class="fea icon-sm icons"></i>
+                                            <input name="email" id="email" type="email" class="form-control ps-5" placeholder="Email" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-grid">
+                                                <button type="submit" id="submit" class="btn btn-primary" onclick="submitForm();">Suivre ma demande</button>
+                                            </div>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </form>
+
+                                <!-- Section pour afficher les résultats -->
+                                <div id="result-section" style="display:none;" class="mt-4">
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                        <tr>
+                                            <th>Statut</th>
+                                            <th>Date de soumission</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="result-table-body">
+                                        <!-- Les résultats seront affichés ici -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Section pour les messages d'erreur -->
+                                <div id="error-section" class="mt-4" style="display:none;">
+                                    <div class="alert alert-danger" role="alert" id="error-message"></div>
+                                </div>
+
+                            </div><!--end custom-form-->
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </section><!--end section-->
+    <script>
+        function submitForm() {
+            let requestNumber = document.getElementById("numDemande").value;
+            let email = document.getElementById("email").value;
+
+            let data = {
+                request_number: requestNumber,
+                email: email
+            };
+
+            // Utiliser le nom de la route pour obtenir l'URL
+            let url = "{{ path('app_verifier_demande') }}"; // Remplace 'app_verifier_demande' par le nom de ta route
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById("result-section").style.display = "block";
+                        document.getElementById("error-section").style.display = "none";
+                        let tbody = document.getElementById("result-table-body");
+                        tbody.innerHTML = `
+                        <tr>
+                            <td>${data.demande.statut}</td>
+                            <td>${data.demande.dateSoumission}</td>
+                        </tr>
+                    `;
+                    } else {
+                        document.getElementById("error-section").style.display = "block";
+                        document.getElementById("error-message").innerText = data.message;
+                        document.getElementById("result-section").style.display = "none";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+{% endblock %}
+
+
