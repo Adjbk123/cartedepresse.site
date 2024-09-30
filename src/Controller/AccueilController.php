@@ -22,8 +22,22 @@ class AccueilController extends AbstractController
             'message' => $exception->getMessage(),
         ]);
     }
+
+
     #[Route('/', name: 'app_accueil')]
     public function index(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
+    {
+        if ($this->getUser() and $this->isGranted("ROLE_PROFESSIONNEL")) {
+            return $this->redirectToRoute('app_espace');
+        }
+
+        return $this->render('accueil/indexAccueil.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/mon-espace', name: 'app_espace')]
+    public function indexEspace(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
     {
 
         if (!$this->isGranted("ROLE_PROFESSIONNEL")) {
@@ -41,7 +55,6 @@ class AccueilController extends AbstractController
         return $this->render('accueil/index.html.twig', [
             'demandes' => $demande,
             'historiques' => $historiques,
-
         ]);
     }
 }

@@ -658,6 +658,12 @@
               <chat>
                 <internalId value="ec4c8995-578b-41a3-90cc-02032d50f9af" />
               </chat>
+              <chat>
+                <internalId value="ff897780-9ab5-453a-90a3-21ed1537657d" />
+              </chat>
+              <chat>
+                <internalId value="6766ba7d-b136-4322-8941-316debf0b7a6" />
+              </chat>
             </list>
           </chats>
           <defaultLlm>

@@ -16,7 +16,7 @@ class AdminController extends AbstractController
     public function index(DemandeRepository $demandeRepository, LotRepository $lotRepository): Response
     {
 
-
+   
         if ($this->isGranted("ROLE_PROFESSIONNEL")) {
             return $this->redirectToRoute('app_accueil');
         }
