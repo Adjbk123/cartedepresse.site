@@ -27,7 +27,7 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
     {
-        if (!$this->isGranted("ROLE_PROFESSIONNEL")) {
+        if ($this->getUser() and !$this->isGranted("ROLE_PROFESSIONNEL")) {
             return $this->redirectToRoute('app_admin');
         }
 
