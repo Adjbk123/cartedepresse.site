@@ -7,7 +7,7 @@
 {% block body %}
 
     {% for message in app.flashes('success') %}
-        <div class="flash-notice">
+        <div class="flash-notice mb-3">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Message :</strong> {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

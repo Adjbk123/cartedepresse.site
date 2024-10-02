@@ -33,7 +33,7 @@ class EmailNotificationService
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
         $email = (new Email())
-            ->from('no-reply@example.com')
+            ->from('Support Carte de Presse <support@cartedepresse.site>')
             ->to($toEmail)
             ->subject($subject)
             ->html($htmlContent);
@@ -55,7 +55,7 @@ class EmailNotificationService
 
 
         $email = (new Email())
-            ->from('no-reply@example.com')
+            ->from('Support Carte de Presse <support@cartedepresse.site>')
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -76,7 +76,7 @@ class EmailNotificationService
 
 
         $email = (new Email())
-            ->from('no-reply@example.com')
+            ->from('Support Carte de Presse <support@cartedepresse.site>')
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -101,7 +101,7 @@ class EmailNotificationService
             ]);
 
             $email = (new Email())
-                ->from('no-reply@example.com')
+                ->from('Support Carte de Presse <support@cartedepresse.site>')
                 ->to($toEmail)
                 ->subject($subject)
                 ->html($htmlContent);
