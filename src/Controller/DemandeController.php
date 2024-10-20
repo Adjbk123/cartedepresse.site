@@ -358,6 +358,7 @@ class DemandeController extends AbstractController
             $numeroEnregistrement = $numEnregistrementService->genererNumeroEnregistrement();
             $demande->setStatut('En attente');
             $demande->setNumDemande($numeroEnregistrement);
+            $demande->setHistoriqueOrganeActuel($historiqueOrganeProfessionnel);
             $demande->setTypeDemande("Etablissement");
 
 

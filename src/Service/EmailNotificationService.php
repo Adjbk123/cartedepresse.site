@@ -4,9 +4,13 @@ namespace App\Service;
 
 use App\Entity\Lot;
 use App\Repository\UserRepository;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class EmailNotificationService
 {
@@ -21,7 +25,7 @@ class EmailNotificationService
         $this->userRepository = $userRepository;
     }
 
-    public function sendDemandSubmissionEmail(string $toEmail, array $demandeData)
+    public function sendDemandSubmissionEmail(string $toEmail, array $demandeData): void
     {
         $subject = 'Bravo ! Votre demande a été envoyée avec succès';
         $htmlTemplate = 'emails/demande_soumission.html.twig';
@@ -42,7 +46,7 @@ class EmailNotificationService
     }
 
 
-    public function sendRejectionDemandeNotification(string $recipientEmail, string $observation, string $professionnel)
+    public function sendRejectionDemandeNotification(string $recipientEmail, string $observation, string $professionnel): void
     {
         $subject = 'Notification de rejet de votre demande';
         $htmlTemplate = 'emails/demande_rejet.html.twig';
@@ -62,7 +66,43 @@ class EmailNotificationService
 
         $this->mailer->send($email); // Envoi de l'email
     }
-    public function sendRejectionPieceNotification(string $recipientEmail, string $observation, string $professionnel, string $piece)
+
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    public function sendMessageCompletionProfil(string $recipientEmail, array $professionnel): void
+    {
+        // Sujet de l'email
+        $subject = 'Invitation à compléter votre profil';
+
+        // Template HTML pour l'email
+        $htmlTemplate = 'emails/profilCompletion.html.twig';
+
+        // Contexte à passer au template (nom et prénoms du professionnel)
+        $context = [
+            'professionnel' => $professionnel // Cela doit être un tableau avec les clés 'nom' et 'prenoms'
+        ];
+
+        // Génération du contenu HTML de l'email avec Twig
+        $htmlContent = $this->twig->render($htmlTemplate, $context);
+
+        // Création de l'email
+        $email = (new Email())
+            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->to($recipientEmail) // Adresse email du destinataire
+            ->subject($subject) // Objet de l'email
+            ->html($htmlContent); // Corps de l'email au format HTML
+
+        // Envoi de l'email
+        $this->mailer->send($email);
+    }
+
+
+
+    public function sendRejectionPieceNotification(string $recipientEmail, string $observation, string $professionnel, string $piece): void
     {
         $subject = 'Notification de rejet de votre pièce jointe';
         $htmlTemplate = 'emails/fichier_demande_rejet.html.twig';

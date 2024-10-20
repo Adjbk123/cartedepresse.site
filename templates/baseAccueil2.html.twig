@@ -122,13 +122,13 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="text-sm-start">
-                        <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> SADCP. </p>
+                        <p class="mb-0">© HAAC {{ date()|date('Y') }}. </p>
                     </div>
                 </div><!--end col-->
 
                 <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <ul class="list-unstyled text-sm-end mb-0">
-                        Tous droits réservés <i class="mdi mdi-heart text-danger"></i>  <a href="http://haac.bj" target="_blank" class="text-reset">HAAC</a>.
+                        Tous droits réservés <a href="http://haac.bj" target="_blank" class="text-reset">HAAC</a>.
                     </ul>
                 </div><!--end col-->
             </div><!--end row-->
@@ -143,8 +143,8 @@
 <div class="offcanvas offcanvas-end shadow border-0" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header p-4 border-bottom">
         <h5 id="offcanvasRightLabel" class="mb-0">
-            <img src="assets/images/logo-dark.png" height="24" class="light-version" alt="">
-            <img src="assets/images/logo-light.png" height="24" class="dark-version" alt="">
+            <img src="{{ asset('assets/images/logo-dark.png') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets/images/logo-light.png') }}" height="24" class="dark-version" alt="">
         </h5>
         <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
     </div>

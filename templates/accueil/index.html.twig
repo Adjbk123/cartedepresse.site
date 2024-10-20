@@ -31,15 +31,19 @@
     {% if is_granted('ROLE_PROFESSIONNEL') %}
 
         {% if app.user.sexe is null or app.user.photo is null or app.user.dateNaissance is null  %}
-         <div class="alert bg-soft-warning fw-medium text-center mb-5" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i>
+         <div class="alert bg-soft-warning fw-medium text-center mb-5  pb-3" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i>
              Vous devez completer vos informations personnelles avant d'éffectuer une demande de carte
 
-             <p class="text-center">
-                 <a href="{{ path('app_professionnel_edit', { 'id' : app.user.id }) }}" class="btn btn-outline-primary">Completer</a>
-             </p>
+
 
          </div>
+        <div>
+            <div class="text-center ">
+                <a href="{{ path('app_professionnel_edit', { 'id' : app.user.id }) }}" class="btn btn-primary mb-2">Completer</a>
 
+                <a href="{{ path('app_espace_completer_plus_tard') }}" class="btn btn-outline-primary mb-2 "> Complèter plus tard</a>
+            </div>
+        </div>
         {% else %}
             {% if app.user.demandes is not null %}
                 <div class="row">

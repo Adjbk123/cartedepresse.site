@@ -2179,7 +2179,7 @@ progress {
 .form-control:focus, .dual-listbox .dual-listbox__search:focus, div.dataTables_wrapper div.dataTables_filter input:focus {
   color: #3c4d62;
   background-color: #fff;
-  border-color: #854fff;
+  border-color: #11832b;
   outline: 0;
   box-shadow: 0 0 0 3px rgba(133, 79, 255, 0.1);
 }
@@ -2324,7 +2324,7 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: #854fff;
+  border-color: #11832b;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(85, 155, 251, 0.25);
 }
@@ -2407,12 +2407,12 @@ textarea.form-control-lg {
   filter: brightness(90%);
 }
 .form-check-input:focus {
-  border-color: #854fff;
+  border-color: #11832b;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(85, 155, 251, 0.25);
 }
 .form-check-input:checked {
-  background-color: #854fff;
+  background-color: #11832b;
   border-color: #559bfb;
 }
 .form-check-input:checked[type=checkbox] {
@@ -3020,19 +3020,19 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #854fff;
-  --bs-btn-border-color: #854fff;
+  --bs-btn-bg: #11832b;
+  --bs-btn-border-color: #11832b;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #7143d9;
-  --bs-btn-hover-border-color: #6a3fcc;
+  --bs-btn-hover-bg: #11832b;
+  --bs-btn-hover-border-color: #11832b;
   --bs-btn-focus-shadow-rgb: 151, 105, 255;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #6a3fcc;
-  --bs-btn-active-border-color: #643bbf;
+  --bs-btn-active-bg: #11832b;
+  --bs-btn-active-border-color: #11832b;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(16, 25, 36, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #854fff;
-  --bs-btn-disabled-border-color: #854fff;
+  --bs-btn-disabled-bg: #11832b;
+  --bs-btn-disabled-border-color: #11832b;
 }
 
 .btn-secondary {
@@ -3054,10 +3054,10 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
 
 .btn-success {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #1ee0ac;
-  --bs-btn-border-color: #1ee0ac;
+  --bs-btn-bg: #11832b;
+  --bs-btn-border-color: #11832b;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #1abe92;
+  --bs-btn-hover-bg: #11832b;
   --bs-btn-hover-border-color: #18b38a;
   --bs-btn-focus-shadow-rgb: 64, 229, 184;
   --bs-btn-active-color: #fff;
@@ -33107,7 +33107,7 @@ h6 .badge, .h6 .badge {
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: #9d72ff;
+  background: #11832b;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -33339,7 +33339,7 @@ h6 .badge, .h6 .badge {
   color: #e85347;
 }
 .user-status-verified {
-  color: #1ee0ac;
+  color: #11832b;
 }
 .user-name {
   color: #526484;
@@ -41949,17 +41949,17 @@ body.dark-mode.ui-shady, body.dark-mode.ui-clean, body.dark-mode.bg-lighter, .du
   border-color: #354253;
 }
 .dark-mode .btn-dim.btn-outline-primary {
-  color: #854fff;
+  color: #11832b;
   background-color: #28254d;
   border-color: #3c2e72;
 }
 .dark-mode .btn-dim.btn-outline-primary:not(:disabled):not(.disabled):hover {
   color: #fff;
-  background-color: #854fff;
-  border-color: #854fff;
+  background-color: #11832b;
+  border-color: #3fa754;
 }
 .dark-mode .btn-white.btn-outline-primary:not(.btn-dim):not(:disabled):not(.disabled):hover, .dark-mode .dt-buttons .btn-outline-primary.btn-secondary:not(.btn-dim):not(:disabled):not(.disabled):hover, .dt-buttons .dark-mode .btn-outline-primary.btn-secondary:not(.btn-dim):not(:disabled):not(.disabled):hover, .dark-mode .btn-trans.btn-outline-primary:not(.btn-dim):not(:disabled):not(.disabled):hover {
-  color: #854fff;
+  color: #11832b;
   background: #28254d;
 }
 .dark-mode .btn-dim.btn-outline-success {
@@ -42271,7 +42271,7 @@ body.dark-mode.ui-shady, body.dark-mode.ui-clean, body.dark-mode.bg-lighter, .du
 .dark-mode .is-theme .nk-menu-item.current-menu > .nk-menu-link .nk-menu-icon,
 .dark-mode .is-theme .nk-menu-sub .nk-menu-link:hover,
 .dark-mode .is-theme .nk-menu-sub .active > .nk-menu-link, .dark-mode .page-link:hover {
-  color: #854fff !important;
+  color: #11832b !important;
 }
 .dark-mode .nk-menu-hr, .dark-mode .nk-menu-main .nk-menu-sub, .dark-mode .nk-sidebar .nk-menu > li .nk-menu-sub .nk-menu-sub,
 .dark-mode .user-avatar-group .user-avatar {
@@ -43017,8 +43017,8 @@ div.dataTables_wrapper div.dataTables_filter .dark-mode .nk-header-search input,
 }
 .dark-mode .page-item.active .page-link {
   color: #fff !important;
-  background-color: #854fff !important;
-  border-color: #854fff !important;
+  background-color: #11832b !important;
+  border-color: #11832b !important;
 }
 
 /*! END @iO */

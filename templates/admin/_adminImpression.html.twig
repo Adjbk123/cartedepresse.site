@@ -1,45 +1,23 @@
 
 <div class="row">
     <!-- Card for Impressions for Current Year -->
-    <div class="col-sm-6">
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Impressions pour l'année {{ "now"|date("Y") }}</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Nombre total d'impressions pour l'année actuelle"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ totalImpressionsCurrentYear }}</span>
-                    </div>
-                </div>
+    <div class="col-sm-6 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #118329;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Impressions pour l'année {{ "now"|date("Y") }}</h6>
+                <h2 class="card-text font-weight-bold" style="color: #118329;">{{ totalImpressionsCurrentYear }}</h2>
             </div>
-        </div><!-- .card -->
+        </div>
     </div>
 
     <!-- Card for Total Impressions -->
-    <div class="col-sm-6">
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Impressions Totales</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Nombre total d'impressions"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ totalImpressions }}</span>
-                    </div>
-                </div>
+    <div class="col-sm-6 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #FF8C00;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Impressions Totales</h6>
+                <h2 class="card-text font-weight-bold" style="color: #FF8C00;">{{ totalImpressions }}</h2>
             </div>
-        </div><!-- .card -->
+        </div>
     </div>
 </div>
 
@@ -83,25 +61,38 @@
                         chart = new ApexCharts(chartElement, {
                             chart: {
                                 type: 'bar',
-                                height: 350
+                                height: 350,
+                                background: '#ffffff', // Couleur de fond pour le graphique
+                                toolbar: {
+                                    show: true // Afficher la barre d'outils
+                                }
                             },
                             series: [{
                                 name: `Nombre d'impressions en ${year}`,
                                 data: counts
                             }],
                             xaxis: {
-                                categories: labels
+                                categories: labels,
+                                title: {
+                                    text: 'Mois',
+                                    style: {
+                                        color: '#333', // Couleur du titre de l'axe x
+                                    }
+                                },
                             },
                             yaxis: {
                                 title: {
-                                    text: 'Nombre d\'impressions'
+                                    text: 'Nombre d\'impressions',
+                                    style: {
+                                        color: '#333', // Couleur du titre de l'axe y
+                                    }
                                 },
                                 min: 0
                             },
                             plotOptions: {
                                 bar: {
                                     borderRadius: 4,
-                                    horizontal: false
+                                    horizontal: false,
                                 }
                             },
                             dataLabels: {
@@ -110,10 +101,10 @@
                                     fontSize: '12px',
                                     fontFamily: 'Helvetica, Arial, sans-serif',
                                     fontWeight: 'bold',
-                                    colors: ['#ffffff']
+                                    colors: ['#ffffff'] // Couleur des étiquettes de données
                                 }
                             },
-                            colors: ['#118329']
+                            colors: ['#3498db'], // Couleur de la série de données
                         });
 
                         chart.render();

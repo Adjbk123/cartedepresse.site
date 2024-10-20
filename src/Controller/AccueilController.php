@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\DemandeRepository;
 use App\Repository\HistoriqueOrganeProfessionnelRepository;
 use App\Repository\OrganeRepository;
+use App\Service\EmailNotificationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -12,6 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class AccueilController extends AbstractController
 {
+    private $emailNotificationService;
+
+    public function __construct(EmailNotificationService $emailNotificationService)
+    {
+        $this->emailNotificationService = $emailNotificationService;
+    }
     #[Route('/erreur', name: 'error')]
     public function show(\Throwable $exception): Response
     {
@@ -61,4 +68,36 @@ class AccueilController extends AbstractController
             'historiques' => $historiques,
         ]);
     }
+    #[Route('/completer-plus-tard', name: 'app_espace_completer_plus_tard')]
+    public function completerPlusTard(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
+    {
+        // Vérification du rôle de l'utilisateur connecté
+        if (!$this->isGranted("ROLE_PROFESSIONNEL")) {
+            return $this->redirectToRoute('app_admin');
+        }
+
+        // Récupération du professionnel (l'utilisateur connecté)
+        $professionnel = $this->getUser();
+
+        // Récupération des demandes du professionnel
+        $demande = $demandeRepository->findBy(['professionnel' => $professionnel]);
+
+        // Préparation des informations du professionnel pour l'email (nom et prénoms)
+        $professionnelData = [
+            'nom' => $professionnel->getNom(),
+            'prenoms' => $professionnel->getPrenoms()
+        ];
+
+        // Envoi de l'email d'invitation à compléter le profil
+        $this->emailNotificationService->sendMessageCompletionProfil($professionnel->getEmail(), $professionnelData);
+
+        //deconnecter le professionnel
+        $this->redirectToRoute('app_logout');
+
+        // Rendu de la page d'accueil (ou autre vue)
+        return $this->render('accueil/index.html.twig', [
+            // Tu peux passer des données supplémentaires ici si nécessaire
+        ]);
+    }
+
 }

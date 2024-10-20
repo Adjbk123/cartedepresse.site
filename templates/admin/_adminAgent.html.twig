@@ -1,172 +1,138 @@
 <div class="row">
-    <div class="col-sm-4">
-        <!-- Card 1 : Total des Demandes -->
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Total des Demandes</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total des Demandes" data-bs-original-title="Total des Demandes"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ totalDemandes }}</span>
-                    </div>
-                </div>
+    <!-- Card 1 : Total des Demandes -->
+    <div class="col-sm-3 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #f39c12;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Total des Demandes</h6>
+                <h2 class="card-text font-weight-bold" style="color: #f39c12;">{{ totalDemandes }}</h2>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-4">
-        <!-- Card 2 : Demandes en Cours -->
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Demandes en Cours</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes en Cours" data-bs-original-title="Demandes en Cours"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ demandesEnCours }}</span>
-                    </div>
-                </div>
+    <!-- Card 2 : Demandes en Cours -->
+    <div class="col-sm-3 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #3498db;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Demandes en Cours</h6>
+                <h2 class="card-text font-weight-bold" style="color: #3498db;">{{ demandesEnCours }}</h2>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-4">
-        <!-- Card 3 : Demandes Rejetées -->
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Demandes Rejetées</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Demandes Rejetées" data-bs-original-title="Demandes Rejetées"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ demandesRejetees }}</span>
-                    </div>
-                </div>
+    <!-- Card 3 : Demandes Rejetées -->
+    <div class="col-sm-3 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #e74c3c;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Demandes Rejetées</h6>
+                <h2 class="card-text font-weight-bold" style="color: #e74c3c;">{{ demandesRejetees }}</h2>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-4">
-        <!-- Card 4 : Lot de demandes -->
-        <div class="card card-bordered">
-            <div class="card-inner">
-                <div class="card-title-group align-start mb-2">
-                    <div class="card-title">
-                        <h6 class="title">Lot de demandes</h6>
-                    </div>
-                    <div class="card-tools">
-                        <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Lot de demandes" data-bs-original-title="Lot de demandes"></em>
-                    </div>
-                </div>
-                <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
-                    <div class="nk-sale-data">
-                        <span class="amount">{{ lotDemande }}</span>
-                    </div>
-                </div>
+    <!-- Card 4 : Lot de demandes -->
+    <div class="col-sm-3 mb-3">
+        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #1abc9c;">
+            <div class="card-body">
+                <h6 class="card-title text-muted">Lot de Demandes</h6>
+                <h2 class="card-text font-weight-bold" style="color: #1abc9c;">{{ lotDemande }}</h2>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="card mt-4">
-    <div class="card-header">
-        <h3>Statistiques de l'évolution des demandes par mois selon l'année</h3>
+<div class="card mt-4 shadow">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Statistiques de l'évolution des demandes par mois</h5>
     </div>
     <div class="card-body">
         <div class="form-group">
-            <label for="year-select">Sélectionner une année :</label>
-            <select id="year-select" class="form-control border-dark">
+            <label for="year-select" class="text-muted">Sélectionner une année :</label>
+            <select id="year-select" class="form-control">
                 {% for year in years %}
                     <option value="{{ year }}" {% if year == "now"|date("Y") %}selected{% endif %}>{{ year }}</option>
                 {% endfor %}
             </select>
         </div>
-        <div id="statistics-chart" style="height: 80px;"></div>
+        <div id="chart-container" style="height: 350px;"></div>
     </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearSelect = document.getElementById('year-select');
-            const chartElement = document.getElementById('statistics-chart');
-            let chart;
+<!-- Include ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const yearSelect = document.getElementById('year-select');
+        const chartElement = document.getElementById('chart-container');
+        let chart;
 
-            function fetchData(year) {
-                fetch(`/statistics/data/${year}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const labels = data.map(item => new Date(year, item.month - 1).toLocaleString('default', { month: 'long' }));
-                        const counts = data.map(item => item.count);
+        function fetchData(year) {
+            fetch(`/statistics/data/${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => new Date(year, item.month - 1).toLocaleString('default', { month: 'long' }));
+                    const counts = data.map(item => item.count);
 
-                        if (chart) {
-                            chart.destroy();
-                        }
+                    if (chart) {
+                        chart.destroy();
+                    }
 
-                        chart = new ApexCharts(chartElement, {
-                            chart: {
-                                type: 'bar',
-                                height: 350
+                    chart = new ApexCharts(chartElement, {
+                        chart: {
+                            type: 'bar',
+                            height: 350,
+                            toolbar: {
+                                show: false
                             },
-                            series: [{
-                                name: `Nombre de demandes en ${year}`,
-                                data: counts
-                            }],
-                            xaxis: {
-                                categories: labels
-                            },
-                            yaxis: {
-                                title: {
-                                    text: 'Nombre de demandes'
-                                },
-                                min: 0
-                            },
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 4,
-                                    horizontal: false
-                                }
-                            },
-                            dataLabels: {
-                                enabled: true,
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        series: [{
+                            name: `Nombre de demandes`,
+                            data: counts
+                        }],
+                        xaxis: {
+                            categories: labels,
+                            labels: {
                                 style: {
-                                    fontSize: '12px',
-                                    fontFamily: 'Helvetica, Arial, sans-serif',
-                                    fontWeight: 'bold',
-                                    colors: ['#ffffff']
+                                    colors: '#6c757d'
+                                }
+                            }
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Nombre de demandes',
+                                style: {
+                                    color: '#6c757d'
                                 }
                             },
-                            colors: ['#118329']
-                        });
-
-                        chart.render();
+                            min: 0
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            colors: ['#3498db']
+                        },
+                        markers: {
+                            size: 5,
+                            colors: ['#3498db'],
+                            strokeColors: '#ffffff',
+                            strokeWidth: 2
+                        },
+                        tooltip: {
+                            theme: 'light'
+                        },
+                        colors: ['#3498db']
                     });
-            }
 
-            yearSelect.addEventListener('change', function() {
-                const selectedYear = yearSelect.value;
-                fetchData(selectedYear);
-            });
+                    chart.render();
+                });
+        }
 
-            fetchData(yearSelect.value); // Fetch data for the initial year
+        yearSelect.addEventListener('change', function() {
+            const selectedYear = yearSelect.value;
+            fetchData(selectedYear);
         });
-    </script>
 
-
+        fetchData(yearSelect.value);
+    });
+</script>

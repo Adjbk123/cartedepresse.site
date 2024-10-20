@@ -1,0 +1,66 @@
+{# templates/emails/invitation_completion_profile.html.twig #}
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Invitation à compléter votre profil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invitation à compléter votre profil pour soumettre votre demande de carte professionnelle">
+</head>
+
+<body style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400;">
+<div style="margin-top: 50px;">
+    <table cellpadding="0" cellspacing="0" style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400; max-width: 600px; border: none; margin: 0 auto; border-radius: 6px; overflow: hidden; background-color: #fff; box-shadow: 0 0 3px rgba(60, 72, 88, 0.15);">
+        <thead>
+        <tr style="padding: 3px 0; line-height: 68px; text-align: center; color: #fff; font-size: 24px; font-weight: 700; letter-spacing: 1px;">
+            <th scope="col"><img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="36" alt="Logo HAAC"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td style="padding: 24px 24px;">
+                <div style="padding: 8px; color: #ff8000; border: 1px solid #ff8000; border-radius: 6px; text-align: center; font-size: 16px; font-weight: 600;">
+                    Invitation à compléter votre profil
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                <div>
+                    Bonjour {{ professionnel.prenoms }} {{ professionnel.nom }},
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                Nous vous invitons à compléter votre profil sur notre plateforme afin de pouvoir soumettre votre demande de carte professionnelle.
+                Veuillez vous connecter à votre espace et renseigner les informations manquantes pour valider votre demande.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                <a href="https://cartedepresse.site/profil/completion" style="display: inline-block; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none;">Compléter mon profil</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px 24px 0; color: #8492a6;">
+                Merci pour votre collaboration.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px 24px 15px; color: #8492a6; text-align:center;">
+                L'équipe de la HAAC
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 16px 8px; color: #8492a6; background-color: #f8f9fc; text-align: center;">
+                © <script>document.write(new Date().getFullYear())</script> HAAC. Tous droits réservés
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

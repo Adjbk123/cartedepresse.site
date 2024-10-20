@@ -38,11 +38,20 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_register_success');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
+        ]);
+    }
+    #[Route('/inscription-succes', name: 'app_register_success')]
+    public function registerSuccess(): Response
+    {
+
+
+        return $this->render('registration/registerSuccess.html.twig', [
+
         ]);
     }
 }
