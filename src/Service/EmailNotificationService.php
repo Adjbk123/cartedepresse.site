@@ -118,7 +118,7 @@ class EmailNotificationService
             'username' => $username,
             'password' => $password,
             'numeroDemande' => $numeroDemande,
-            'lienConnexion' => 'https://cartedepresse.site/login',
+            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
             'lienSuiviDemande' => 'https://cartedepresse.site/demande/suivie'
         ];
 
