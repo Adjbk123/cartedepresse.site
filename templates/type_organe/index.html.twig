@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des types d'organes{% endblock %}
-{% block breadcrumb   %}Type d'organe{% endblock %}
-{% block datatables   %}{% endblock %}
+{% block  bouton  %}
+
+        <a class="btn btn-outline-secondary" href="{{ path('app_type_organe_new') }}">Nouvel ajout</a>
+
+{% endblock %}
 
 {% block body %}
-<div class="my-3 text-end">
 
-    <a class="text-end btn btn-success" href="{{ path('app_type_organe_new') }}">Nouvel ajout</a>
-</div>
     <table class="table table-hover datatable-init table-bordered">
         <thead class="table-light">
             <tr>
@@ -26,7 +26,7 @@
 
                     <div class="dropdown mt-4 mt-sm-0">
                         <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-horizontal"></i>
+                            <i class="icon ni ni-opt-dot-alt"></i>
                         </a>
 
                         <div class="dropdown-menu" style="">

@@ -1,18 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Détail du promoteur{% endblock %}
-{% block breadcrumb %}Promoteur{% endblock %}
-{% block breadcrumbActive %}Détail{% endblock %}
 
 
 {% block body %}
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ promoteur.id }}</td>
-            </tr>
+
             <tr>
                 <th>Nom</th>
                 <td>{{ promoteur.nom }}</td>
@@ -46,7 +41,7 @@
 
 
 
-    <a href="{{ path('app_promoteur_edit', {'id': promoteur.id}) }}">edit</a>
+    <a href="{{ path('app_promoteur_edit', {'id': promoteur.id}) }}">Editer</a>
 
     {{ include('promoteur/_delete_form.html.twig') }}
 {% endblock %}

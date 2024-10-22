@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}President{% endblock %}
+{% block title %}Président{% endblock %}
+{% block bouton %}
+    <a href="{{ path('app_president_index') }}" class="btn btn-outline-primary"><em class="icon ni ni-arrow-left"></em><span>Retour à la liste</span></a>
+{% endblock %}
 
 {% block body %}
-    <h1>President</h1>
+
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ president.id }}</td>
-            </tr>
+
             <tr>
                 <th>Nom</th>
                 <td>{{ president.nom }}</td>
             </tr>
             <tr>
-                <th>Prenoms</th>
+                <th>Prénoms</th>
                 <td>{{ president.prenoms }}</td>
             </tr>
             <tr>
@@ -25,22 +25,28 @@
             </tr>
             <tr>
                 <th>Signature</th>
-                <td>{{ president.signature }}</td>
+
+                <td>
+
+                    <img width="100px" src="{{ asset('uploads/') }}{{ president.signature }}" alt="">
+
+                </td>
             </tr>
             <tr>
                 <th>Cachet</th>
-                <td>{{ president.cachet }}</td>
+                <td>
+                    <img width="100px" src="{{ asset('uploads/') }}{{ president.cachet }}" alt="">
+
+                
+                </td>
             </tr>
             <tr>
-                <th>DatePriseFonction</th>
-                <td>{{ president.datePriseFonction }}</td>
+                <th>Date de Prise de Fonction</th>
+                <td>{{ president.datePriseFonction|date() }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_president_index') }}">back to list</a>
+    <a href="{{ path('app_president_edit', {'id': president.id}) }}" class="btn btn-primary">Editer</a>
 
-    <a href="{{ path('app_president_edit', {'id': president.id}) }}">edit</a>
-
-    {{ include('president/_delete_form.html.twig') }}
 {% endblock %}

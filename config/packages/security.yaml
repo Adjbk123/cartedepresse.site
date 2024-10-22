@@ -55,6 +55,7 @@ security:
          - {path: /impression, roles: ROLE_IMPRIMEUR}
          - {path: ^/type/piece/, roles: ROLE_USER}
          - {path: ^/profession/, roles: ROLE_USER}
+         - {path: /audit, roles: ROLE_ADMIN}
 
 
         # - { path: ^/profile, roles: ROLE_USER }

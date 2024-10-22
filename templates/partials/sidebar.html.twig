@@ -96,9 +96,29 @@
                                 <span class="nk-menu-text">Lots de demande</span>
                             </a>
                         </li>
+
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_printed_cards') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
+                                <span class="nk-menu-text">Liste des impressions</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+
                     {% endif %}
 
                     {% if is_granted('ROLE_CHEF_SERVICE') %}
+
+
+                        <li class="nk-menu-heading">
+                            <h6 class="overline-title text-primary-alt">Impression</h6>
+                        </li><!-- .nk-menu-heading -->
+                        <li class="nk-menu-item">
+                            <a href="{{ path('app_printed_cards') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
+                                <span class="nk-menu-text">Liste des impressions</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+
                         <li class="nk-menu-heading">
                             <h6 class="overline-title text-primary-alt">Paramètres</h6>
                         </li><!-- .nk-menu-heading -->
@@ -136,7 +156,6 @@
                                 <span class="nk-menu-icon"><em class="icon ni ni-printer"></em></span>
                                 <span class="nk-menu-text">Imprimer une carte</span>
                             </a>
-                        </li><!-- .nk-menu-item -->
 
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}

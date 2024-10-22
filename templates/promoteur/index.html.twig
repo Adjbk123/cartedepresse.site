@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des promoteurs{% endblock %}
-{% block breadcrumb %}Promoteur{% endblock %}
-{% block breadcrumbActive %}Liste{% endblock %}
+
 {% block bouton %}
-    <a href="{{ path('app_promoteur_new') }}" class="btn btn-outline-primary">Nouvel ajout</a>
+    <a href="{{ path('app_promoteur_new') }}" class="btn btn-outline-secondary">Nouvel ajout</a>
 {% endblock %}
 
 {% block body %}
     <table class="table datatable-init">
         <thead>
             <tr>
-                <th>#</th>
+                <th>N°</th>
                 <th>Nom</th>
-                <th>Prenoms</th>
+                <th>Prénoms</th>
                 <th>Contact</th>
                 <th>Adresse</th>
                 <th>Photo</th>
@@ -25,7 +24,7 @@
         <tbody>
         {% for promoteur in promoteurs %}
             <tr>
-                <td>{{ promoteur.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ promoteur.nom }}</td>
                 <td>{{ promoteur.prenoms }}</td>
                 <td>{{ promoteur.contact }}</td>
@@ -36,7 +35,8 @@
                 <td>
                     <div class="dropdown mt-4 mt-sm-0">
                         <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-horizontal"></i>
+                            <i class="icon ni ni-opt-dot-alt"></i>
+
                         </a>
 
                         <div class="dropdown-menu" style="">

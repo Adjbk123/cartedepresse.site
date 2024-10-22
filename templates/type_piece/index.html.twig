@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des types de pièces à fournir{% endblock %}
-{% block breadcrumb %}Pièces à fournir{% endblock %}
-{% block breadcrumbActive %}Liste{% endblock %}
-{% block datatables %}{% endblock %}
+{% block  bouton  %}
+
+    <a class="btn btn-outline-secondary" href="{{ path('app_type_piece_index') }}">Nouvel ajout</a>
+
+{% endblock %}
+
 
 {% block body %}
 <div class="">
     <table class="table datatable-init table-hover table-bordered">
         <thead class="table-light">
         <tr>
-            <th>#</th>
-            <th>Libelle</th>
+            <th>N°</th>
+            <th>Libellé</th>
             <th>Type Demande</th>
 
             <th>Actions</th>
@@ -20,13 +23,13 @@
         <tbody>
         {% for type_piece in type_pieces %}
             <tr>
-                <td>{{ type_piece.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ type_piece.libelle }}</td>
                 <td>{{ type_piece.typeDemande }}</td>
                 <td>
                     <div class="dropdown mt-4 mt-sm-0">
                         <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-horizontal"></i>
+                            <i class="icon ni ni-opt-dot-alt"></i>
                         </a>
                         <div class="dropdown-menu" style="">
                             <a class="dropdown-item link-info" href="{{ path('app_type_piece_show', {'id': type_piece.id}) }}">Voir</a>

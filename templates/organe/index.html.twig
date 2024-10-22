@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des organes{% endblock %}
-{% block breadcrumb %}Organe {% endblock %}
-{% block breadcrumbActive %}Liste {% endblock %}
-{% block datatables %}{% endblock %}
+{% block  bouton  %}
+
+    <a class="btn btn-outline-secondary" href="{{ path('app_organe_new') }}">Nouvel ajout</a>
+
+{% endblock %}
+
 
 {% block body %}
     <table class="table datatable-init">
@@ -35,7 +38,7 @@
                 <td>
                     <div class="dropdown mt-4 mt-sm-0">
                         <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-horizontal"></i>
+                            <i class="icon ni ni-opt-dot-alt"></i>
                         </a>
                         <div class="dropdown-menu" style="">
                             <a class="dropdown-item link-info" href="{{ path('app_organe_show', {'id': organe.id}) }}">Voir</a>
@@ -53,5 +56,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_organe_new') }}">Create new</a>
 {% endblock %}

@@ -1,0 +1,26 @@
+# Full configuration reference available at:
+# https://damienharper.github.io/auditor-docs/docs/auditor-bundle/configuration/reference.html
+dh_auditor:
+    enabled: true
+    timezone: 'UTC'
+    # Invokable service (callable) that checks roles
+    role_checker: 'dh_auditor.role_checker'
+
+    # Invokable service (callable) that provides user information
+    user_provider: 'dh_auditor.user_provider'
+
+    # Invokable service (callable) that provides security information (IP, firewall name, etc)
+    security_provider: 'dh_auditor.security_provider'
+    providers:
+        doctrine:
+            viewer: true
+            table_prefix: null
+            table_suffix: '_audit'
+            entities:
+                App\Entity\User: ~
+                App\Entity\Demande: ~
+                App\Entity\Lot: ~
+                App\Entity\DuplicataDemande: ~
+                App\Entity\Organe: ~
+                App\Entity\President: ~
+

@@ -160,7 +160,7 @@ class EmailNotificationService
     }
 
 
-    public function sendLotCreatedEmail(Lot $lot)
+    public function sendLotCreatedEmail(Lot $lot): void
     {
         // Récupérer tous les utilisateurs avec le rôle ROLE_AUTORITE
         $users = $this->userRepository->findByRole('ROLE_AUTORITE');
