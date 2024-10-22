@@ -48,26 +48,38 @@ class AccueilController extends AbstractController
     }
 
     #[Route('/mon-espace', name: 'app_espace')]
-    public function indexEspace(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
-    {
+    public function indexEspace(
+        DemandeRepository $demandeRepository,
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository
+    ): Response {
 
+        // Vérification du rôle
         if (!$this->isGranted("ROLE_PROFESSIONNEL")) {
             return $this->redirectToRoute('app_admin');
         }
 
+        // Récupération de l'utilisateur actuel
         $user = $this->getUser();
-        $demande = $demandeRepository->findBy(['professionnel' => $user]);
 
-        //recuperation des organes de la professionnel
+        // Récupérer toutes les demandes du professionnel
+        $demandes = $demandeRepository->findBy(['professionnel' => $user]);
+
+        // Récupérer la dernière demande du professionnel, triée par date de création descendante
+        $derniereDemande = $demandeRepository->findOneBy(
+            ['professionnel' => $user],
+            ['dateSoumission' => 'DESC']
+        );
+
+        // Récupération des organes du professionnel
         $historiques = $historiqueOrganeProfessionnelRepository->findBy(['professionnel' => $user]);
 
-
-
         return $this->render('accueil/index.html.twig', [
-            'demandes' => $demande,
+            'demandes' => $demandes,
+            'derniere_demande' => $derniereDemande,
             'historiques' => $historiques,
         ]);
     }
+
     #[Route('/completer-plus-tard', name: 'app_espace_completer_plus_tard')]
     public function completerPlusTard(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
     {

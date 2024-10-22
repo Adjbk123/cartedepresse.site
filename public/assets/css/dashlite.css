@@ -55,7 +55,7 @@
 [data-bs-theme=light] {
   --bs-blue: #559bfb;
   --bs-indigo: #2c3782;
-  --bs-purple: #816bff;
+  --bs-purple: #11832b;
   --bs-pink: #ff63a5;
   --bs-red: #e85347;
   --bs-orange: #ffa353;
@@ -75,7 +75,7 @@
   --bs-gray-700: #344357;
   --bs-gray-800: #2b3748;
   --bs-gray-900: #1f2b3a;
-  --bs-primary: #854fff;
+  --bs-primary: #11832b;
   --bs-secondary: #364a63;
   --bs-success: #1ee0ac;
   --bs-info: #09c2de;
@@ -143,10 +143,10 @@
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: #364a63;
-  --bs-link-color: #9d72ff;
+  --bs-link-color: #11832b;
   --bs-link-color-rgb: 157, 114, 255;
   --bs-link-decoration: none;
-  --bs-link-hover-color: #7a3fff;
+  --bs-link-hover-color: #11832b;
   --bs-link-hover-color-rgb: 122, 63, 255;
   --bs-link-hover-decoration: none;
   --bs-code-color: #ff63a5;
@@ -4807,15 +4807,15 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
   --bs-pagination-border-width: 1px;
   --bs-pagination-border-color: #e5e9f2;
   --bs-pagination-border-radius: var(--bs-border-radius);
-  --bs-pagination-hover-color: #7a3fff;
+  --bs-pagination-hover-color: #11832b;
   --bs-pagination-hover-bg: #ebeef2;
   --bs-pagination-hover-border-color: #e5e9f2;
   --bs-pagination-focus-color: var(--bs-link-hover-color);
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: none;
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #854fff;
-  --bs-pagination-active-border-color: #854fff;
+  --bs-pagination-active-bg: #11832b;
+  --bs-pagination-active-border-color: #11832b;
   --bs-pagination-disabled-color: #dbdfea;
   --bs-pagination-disabled-bg: #fff;
   --bs-pagination-disabled-border-color: #e5e9f2;
@@ -31110,7 +31110,7 @@ body.nav-shown {
   background: #182536;
 }
 .is-theme .nk-menu-link:hover, .is-theme .active > .nk-menu-link {
-  background: #422782;
+  background: #11832b;
 }
 .nk-menu-link:hover .count, .active > .nk-menu-link .count {
   color: #3fa754;
@@ -31123,7 +31123,7 @@ body.nav-shown {
   letter-spacing: normal;
   text-transform: none;
   line-height: 1.25rem;
-  color: #6e82a5;
+  color: #3fa754;
 }
 .nk-menu-link.is-disable {
   cursor: default;
@@ -31276,7 +31276,7 @@ body.nav-shown {
   padding-left: 1rem;
 }
 .nk-menu-sub .active > .nk-menu-link {
-  color: #854fff;
+  color: #11832b;
 }
 .is-theme .nk-menu-sub .active > .nk-menu-link {
   color: #fff;

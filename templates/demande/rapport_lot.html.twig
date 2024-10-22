@@ -74,13 +74,17 @@
                 <img src="{{ absolute_url(asset('assets/images/logo-haac.png')) }}" height="100" alt="Logo HAAC" class="logo">
 
             </td>
-
+            <!-- Partie du titre modifiée -->
             <td style="width: 60%">
-                <h2 class="title" style="text-transform: uppercase;">POINT D'ETUDE DES DEMANDES DES CARTES DE PRESSE DE LA PERIODE
-                    DU ... AU ...
+                <h2 class="title" style="text-transform: uppercase;">
+                    POINT D'ETUDE DES DEMANDES DES CARTES DE PRESSE DE LA PERIODE
+                    DU {{ demandes|first.dateSoumission|date('d/m/Y') }} AU {{ demandes|last.dateSoumission|date('d/m/Y') }}
                 </h2>
-                <p  style="text-transform:uppercase;"><strong>Date de création :</strong> {{ lot.dateCreation|date('d/m/Y à H:i') }}</p>
+                <p style="text-transform:uppercase;">
+                    <strong>Date de création :</strong> {{ lot.dateCreation|date('d/m/Y à H:i') }}
+                </p>
             </td>
+
             <td style="width: 20%">
                 <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" height="100" alt="Logo Droit" class="logo">
 
@@ -90,9 +94,9 @@
 
 </div>
 
-
+<!-- Section des demandes validées -->
 <div class="section">
-    <h3 class="subtitle" style="text-transform: uppercase; text-align: center">Demandes Associées</h3>
+    <h3 class="subtitle" style="text-transform: uppercase; text-align: center">Demandes Validées</h3>
     <table class="table">
         <thead>
         <tr>
@@ -100,15 +104,17 @@
             <th>NPI</th>
             <th>Numéro Demande</th>
             <th>Professionnel</th>
-            <th>NPI</th>
             <th>Organe</th>
             <th>Profession</th>
             <th>Date soumission</th>
-            <th>Statut</th>
         </tr>
         </thead>
         <tbody>
         {% for demande in demandes %}
+
+            {%  if demande.statut == 'Validée' %}
+
+
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ demande.professionnel.npi }}</td>
@@ -116,9 +122,55 @@
                 <td>{{ demande.professionnel.nom|upper }} {{ demande.professionnel.prenoms|upper }}</td>
                 <td><b> {{ demande.historiqueOrganeActuel.organe.designation|upper }}</b> - {{ demande.historiqueOrganeActuel.organe.typeOrgane.libelle }}</td>
                 <td>{{ demande.historiqueOrganeActuel.profession.libelle|upper }}</td>
-                <td>{{ demande.professionnel.npi }}</td>
                 <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
-                <td class="{% if demande.statut == 'Rejetée' %}Rejétée{% endif %}">{{ demande.statut|upper }}</td>
+
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center">Aucune demande validée trouvée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Section des demandes rejetées -->
+<div class="section">
+    <h3 class="subtitle rejected" style="text-transform: uppercase; text-align: center">Demandes Rejetées</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>N°</th>
+            <th>NPI</th>
+            <th>Numéro Demande</th>
+            <th>Professionnel</th>
+            <th>Organe</th>
+            <th>Profession</th>
+            <th>Date soumission</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+
+            {% if demande.statut == 'Rejetée'  %}
+
+
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ demande.professionnel.npi }}</td>
+                <td>{{ demande.numDemande }}</td>
+                <td>{{ demande.professionnel.nom|upper }} {{ demande.professionnel.prenoms|upper }}</td>
+                <td><b> {{ demande.historiqueOrganeActuel.organe.designation|upper }}</b> - {{ demande.historiqueOrganeActuel.organe.typeOrgane.libelle }}</td>
+                <td>{{ demande.historiqueOrganeActuel.profession.libelle|upper }}</td>
+                <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
+
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center">Aucune demande rejetée trouvée.</td>
             </tr>
         {% endfor %}
         </tbody>

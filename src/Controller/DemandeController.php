@@ -306,6 +306,7 @@ class DemandeController extends AbstractController
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setStatut(1);
             $user->setRoles(['ROLE_PROFESSIONNEL']);
+            $motdePasse= $data['password'];
 
 
             // Récupérer le fichier téléchargé
@@ -391,6 +392,9 @@ class DemandeController extends AbstractController
                 $entityManager->persist($piece);
             }
 
+            $this->emailNotificationService->sendAccountCreationNotification( $user->getNom(), $user->getPrenoms(),
+               $user->getEmail(), $user->getUsername(),$motdePasse, $numeroEnregistrement
+            );
             $entityManager->flush();
 
             // Redirection ou message de confirmation

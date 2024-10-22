@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Création de compte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Notification de création de compte">
+</head>
+
+<body style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400;">
+<div style="margin-top: 50px;">
+    <table cellpadding="0" cellspacing="0" style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400; max-width: 600px; border: none; margin: 0 auto; border-radius: 6px; overflow: hidden; background-color: #fff; box-shadow: 0 0 3px rgba(60, 72, 88, 0.15);">
+        <thead>
+        <tr style="padding: 3px 0; line-height: 68px; text-align: center; color: #fff; font-size: 24px; font-weight: 700; letter-spacing: 1px;">
+            <th scope="col">
+                <img src="https://haac.bj/wp-content/uploads/2024/07/logo-haac.png" width="30%" alt="Logo HAAC">
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td style="padding: 24px 24px;">
+                <div style="padding: 8px; color: #16a34a; border: 1px solid rgb(22,163,74); border-radius: 6px; text-align: center; font-size: 16px; font-weight: 600;">
+                    Votre demande a été enregistrée avec succès.
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                <div>
+                    Bonjour Mr/Mme {{ nom }} {{ prenoms }},
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                Nous vous informons que votre dossier de demande de carte de presse a été bien enregistré au sein de nos services.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                Pour vous permettre de suivre l'avancement de votre demande, nous avons créé un compte personnel pour vous sur notre plateforme. Vous pourrez y accéder à tout moment en utilisant les informations ci-dessous :
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                <ul>
+                    <li>Nom d'utilisateur : {{ username }}</li>
+
+                    <li>Mot de passe : {{ password }}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                Vous pouvez vous connecter via le lien suivant : <a href="{{ lienConnexion }}">Se connecter</a>.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 24px 15px; color: #8492a6;">
+                Pour suivre l'évolution de votre demande, cliquez ici : <a href="{{ lienSuiviDemande }}">Suivre ma demande</a>.
+                <ul>
+                    <li>Email : {{ email }}</li>
+                    <li>Numéro de la demande : {{ numeroDemande }}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px 24px 0; color: #8492a6;">
+                Merci de votre confiance.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px 24px 15px; color: #8492a6; text-align:center;">
+                L'équipe de la HAAC
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 16px 8px; color: #8492a6; background-color: #f8f9fc; text-align: center;">
+                © <script>document.write(new Date().getFullYear())</script> SADCP. Tous droits réservés.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

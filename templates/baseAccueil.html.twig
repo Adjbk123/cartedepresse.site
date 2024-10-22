@@ -87,6 +87,8 @@
             line-height: 1.428571429;
             border-radius: 15px;
         }
+
+
     </style>
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
@@ -243,7 +245,7 @@
 
                 <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <ul class="list-unstyled text-sm-end mb-0">
-                        Tous droits réservés  <a href="http://haac.bj" target="_blank" class="text-reset">HAAC</a>.
+                        Tous droits réservés <a href="http://haac.bj" target="_blank" class="text-reset">HAAC</a>.
                     </ul>
                 </div><!--end col-->
             </div><!--end row-->
@@ -337,7 +339,12 @@
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
 
+        // Cacher toutes les étapes au début sauf la première
         allWells.hide();
+        $('#step-1').show(); // Afficher la première étape
+
+        // Activer la première étape
+        navListItems.first().addClass('btn-primary');
 
         navListItems.click(function (e) {
             e.preventDefault();
@@ -345,7 +352,7 @@
                 $item = $(this);
 
             if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btn-prmayr').addClass('btn-default');
+                navListItems.removeClass('btn-primary').addClass('btn-default');
                 $item.addClass('btn-primary');
                 allWells.hide();
                 $target.show();
@@ -353,7 +360,7 @@
             }
         });
 
-        allNextBtn.click(function(){
+        allNextBtn.click(function () {
             var curStep = $(this).closest(".setup-content"),
                 curStepBtn = curStep.attr("id"),
                 nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -361,19 +368,22 @@
                 isValid = true;
 
             $(".form-group").removeClass("has-error");
-            for(var i=0; i<curInputs.length; i++){
-                if (!curInputs[i].validity.valid){
+            for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
                     isValid = false;
                     $(curInputs[i]).closest(".form-group").addClass("has-error");
                 }
             }
 
-            if (isValid)
-                nextStepWizard.removeAttr('disabled').trigger('click');
+            if (isValid) {
+                nextStepWizard.removeAttr('disabled').removeClass('btn-default').addClass('btn-primary').trigger('click');
+            }
         });
 
+        // Activer la première étape par défaut
         $('div.setup-panel div a.btn-primary').trigger('click');
     });
+
 </script>
 </body>
 </html>

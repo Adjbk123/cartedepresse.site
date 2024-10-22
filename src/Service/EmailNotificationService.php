@@ -99,7 +99,42 @@ class EmailNotificationService
         // Envoi de l'email
         $this->mailer->send($email);
     }
+    public function sendAccountCreationNotification(
+        string $nom,
+        string $prenoms,
+        string $recipientEmail,
+        string $username,
+        string $password,
+        string $numeroDemande
+    ): void {
+        $subject = 'Votre dossier de demande de carte de presse a été enregistré';
+        $htmlTemplate = 'emails/compte_cree.html.twig';
 
+        // Le contexte avec les variables dynamiques à passer au template
+        $context = [
+            'nom'=>$nom,
+            "prenoms"=>$prenoms,
+            'email' => $recipientEmail,
+            'username' => $username,
+            'password' => $password,
+            'numeroDemande' => $numeroDemande,
+            'lienConnexion' => 'https://cartedepresse.site/login',
+            'lienSuiviDemande' => 'https://cartedepresse.site/demande/suivie'
+        ];
+
+        // Rendu du contenu de l'email à partir du template Twig
+        $htmlContent = $this->twig->render($htmlTemplate, $context);
+
+        // Création de l'email avec le contenu HTML et l'objet
+        $email = (new Email())
+            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->to($recipientEmail) // Adresse du destinataire
+            ->subject($subject) // Objet de l'email
+            ->html($htmlContent); // Contenu de l'email au format HTML
+
+        // Envoi de l'email
+        $this->mailer->send($email);
+    }
 
 
     public function sendRejectionPieceNotification(string $recipientEmail, string $observation, string $professionnel, string $piece): void

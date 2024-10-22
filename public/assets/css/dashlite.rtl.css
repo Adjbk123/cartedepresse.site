@@ -4812,8 +4812,8 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: none;
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #854fff;
-  --bs-pagination-active-border-color: #854fff;
+  --bs-pagination-active-bg: #11832b;
+  --bs-pagination-active-border-color: #11832b;
   --bs-pagination-disabled-color: #dbdfea;
   --bs-pagination-disabled-bg: #fff;
   --bs-pagination-disabled-border-color: #e5e9f2;
