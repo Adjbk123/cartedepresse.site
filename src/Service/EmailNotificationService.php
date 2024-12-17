@@ -43,7 +43,7 @@ class EmailNotificationService
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>')
+            ->from('Support Carte de Presse <support@cartedepresse.net>')
             ->to($toEmail)
             ->subject($subject)
             ->html($htmlContent);
@@ -71,7 +71,7 @@ class EmailNotificationService
 
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>')
+            ->from('Support Carte de Presse <support@cartedepresse.net>')
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -103,7 +103,7 @@ class EmailNotificationService
 
         // Création de l'email
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -137,8 +137,8 @@ class EmailNotificationService
             'username' => $username,
             'password' => $password,
             'numeroDemande' => $numeroDemande,
-            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
-            'lienSuiviDemande' => 'https://cartedepresse.site/demande/suivie'
+            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
+            'lienSuiviDemande' => 'https://cartedepresse.net/demande/suivie'
         ];
 
         // Rendu du contenu de l'email à partir du template Twig
@@ -146,7 +146,7 @@ class EmailNotificationService
 
         // Création de l'email avec le contenu HTML et l'objet
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
             ->to($recipientEmail) // Adresse du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Contenu de l'email au format HTML
@@ -170,14 +170,14 @@ class EmailNotificationService
             'observation' => $observation,
             'piece'=> $piece,
             "professionnel"=>$professionnel,
-            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
+            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
         ];
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
 
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>')
+            ->from('Support Carte de Presse <support@cartedepresse.net>')
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -199,11 +199,11 @@ class EmailNotificationService
             $htmlContent = $this->twig->render($htmlTemplate, [
                 'lot' => $lot,
                 'user' => $user,
-                'lien' => 'https://cartedepresse.site',
+                'lien' => 'https://cartedepresse.net',
             ]);
 
             $email = (new Email())
-                ->from('Support Carte de Presse <support@cartedepresse.site>')
+                ->from('Support Carte de Presse <support@cartedepresse.net>')
                 ->to($toEmail)
                 ->subject($subject)
                 ->html($htmlContent);
@@ -234,7 +234,7 @@ class EmailNotificationService
             'nom' => $nom,
             'prenoms' => $prenoms,
             'email' => $recipientEmail,
-            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
+            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
 
         ];
 
@@ -243,7 +243,7 @@ class EmailNotificationService
 
         // Création de l'email avec le contenu HTML et l'objet
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
             ->to($recipientEmail) // Adresse du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Contenu de l'email au format HTML
