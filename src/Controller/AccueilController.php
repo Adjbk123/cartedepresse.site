@@ -9,7 +9,11 @@ use App\Service\EmailNotificationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class AccueilController extends AbstractController
 {
@@ -80,6 +84,12 @@ class AccueilController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     #[Route('/completer-plus-tard', name: 'app_espace_completer_plus_tard')]
     public function completerPlusTard(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
     {
@@ -102,14 +112,9 @@ class AccueilController extends AbstractController
 
         // Envoi de l'email d'invitation à compléter le profil
         $this->emailNotificationService->sendMessageCompletionProfil($professionnel->getEmail(), $professionnelData);
+        return $this->redirectToRoute('app_logout');
 
-        //deconnecter le professionnel
-        $this->redirectToRoute('app_logout');
 
-        // Rendu de la page d'accueil (ou autre vue)
-        return $this->render('accueil/index.html.twig', [
-            // Tu peux passer des données supplémentaires ici si nécessaire
-        ]);
     }
 
 }

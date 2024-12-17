@@ -7,12 +7,12 @@ use App\Repository\DemandeRepository;
 use App\Repository\HistoriqueOrganeProfessionnelRepository;
 use App\Repository\PresidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Knp\Snappy\Pdf;
-use Nucleos\DompdfBundle\Wrapper\DompdfWrapperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -106,7 +106,143 @@ class ImpressionController extends AbstractController
         return $this->redirectToRoute('app_impression_apercu',['id'=>$carte->getId()]);
     }
 
+    #[Route('/print/carte/save/{id}', name: 'app_print_card_second')]
+    public function saveCardSecond(
+        Demande $carte,
+        PresidentRepository $presidentRepository,
+        EntityManagerInterface $entityManager,
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+        UrlGeneratorInterface $router
+    ): Response {
+        $uploadDir = $this->getParameter('uploadDir');
 
+        if (!$carte) {
+            throw $this->createNotFoundException('La carte demandée n\'existe pas.');
+        }
+
+        // Mise à jour des dates
+        $carte->setDateDelivrance(new \DateTime());
+        $dateDelivrance = $carte->getDateDelivrance();
+        $dateExpiration = (clone $dateDelivrance)->modify('+3 years');
+        $carte->setDateExpiration($dateExpiration);
+        $entityManager->flush();
+
+        $presidentActuel = $presidentRepository->findOneBy(['isPresident' => 1]);
+
+        // Génération du QR Code
+        $numDemande = str_replace('/', '-', $carte->getNumDemande());
+        $qrCodeUrl = $router->generate('app_card_detail', ['numDemande' => $numDemande], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $qrCode = new QrCode($qrCodeUrl);
+        $writer = new PngWriter();
+        $qrCodeResult = $writer->write($qrCode);
+        $qrCodeDataUri = 'data:image/png;base64,' . base64_encode($qrCodeResult->getString());
+
+        // Récupération des données nécessaires pour la vue
+        $professionnel = $carte->getProfessionnel();
+        $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
+
+        $html = $this->renderView('impression/cardD.html.twig', [
+            'carte' => $carte,
+            'profession' => $profession,
+            'qrCode' => $qrCodeDataUri,
+            'president' => $presidentActuel,
+        ]);
+
+        // Configuration de Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        // Charger le contenu HTML
+        $dompdf->loadHtml($html);
+
+        // Configuration des dimensions pour une carte de visite
+        $customPaper = [0, 0, 242.65, 153.98]; // 85.60 mm x 53.98 mm en points
+        $dompdf->setPaper($customPaper);
+
+        // Générer le PDF
+        $dompdf->render();
+
+        // Sauvegarde du fichier PDF
+        $filename = sprintf('carte-%s.pdf', $numDemande);
+        $filePath = $uploadDir . '/' . $filename;
+        file_put_contents($filePath, $dompdf->output());
+
+        // Mise à jour des informations de la carte
+        $carte->setPrinted(1);
+        $carte->setUrlFile($filename);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_impression_apercu', ['id' => $carte->getId()]);
+    }
+
+
+    #[Route('/print/card/preview/{id}', name: 'app_print_card_preview')]
+    public function previewCard(
+        Demande $carte,
+        PresidentRepository $presidentRepository,
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+        UrlGeneratorInterface $router
+    ): Response {
+        if (!$carte) {
+            throw $this->createNotFoundException('La carte demandée n\'existe pas.');
+        }
+
+        $presidentActuel = $presidentRepository->findOneBy(['isPresident' => 1]);
+
+        $numDemande = str_replace('/', '-', $carte->getNumDemande());
+
+        // Génération du QR Code
+        $qrCodeUrl = $router->generate('app_card_detail', ['numDemande' => $numDemande], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $qrCode = new QrCode($qrCodeUrl);
+        $writer = new PngWriter();
+        $qrCodeResult = $writer->write($qrCode);
+        $qrCodeDataUri = 'data:image/png;base64,' . base64_encode($qrCodeResult->getString());
+
+        // Récupération des données pour la vue
+        $professionnel = $carte->getProfessionnel();
+        $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
+
+        $html = $this->renderView('impression/cardD.html.twig', [
+            'carte' => $carte,
+            'profession' => $profession,
+            'qrCode' => $qrCodeDataUri,
+            'president' => $presidentActuel,
+        ]);
+
+        // Configuration de Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        // Charger le contenu HTML
+        $dompdf->loadHtml($html);
+
+        // Configuration des dimensions pour une carte de visite
+        $customPaper = [0, 0, 242.65, 153.98]; // 85.60 mm x 53.98 mm en points
+        $dompdf->setPaper($customPaper);
+
+        // Générer le PDF
+        $dompdf->render();
+
+        // Retourner le PDF pour prévisualisation directe
+        return new Response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="preview-carte.pdf"',
+        ]);
+    }
+
+
+
+/*
     #[Route('/print/card/preview/{id}', name: 'app_print_card_preview')]
     public function previewCard(Demande $carte,
                                 PresidentRepository $presidentRepository,
@@ -164,12 +300,11 @@ class ImpressionController extends AbstractController
             'Content-Disposition' => 'inline; filename="preview-carte.pdf"',
         ]);
     }
+*/
 
     #[Route('/impression/apercu/{id}', name: 'app_impression_apercu')]
     public function impressionApercu(Demande $demande): Response
     {
-
-
         return $this->render('impression/impressionApercu.html.twig', [
             'demande' => $demande,
         ]);

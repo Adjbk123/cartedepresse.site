@@ -23,13 +23,10 @@
                     <td>{{ carte.professionnel.nom }}</td>
                     <td>{{ carte.professionnel.prenoms }}</td>
                     <td>
-                        <a href="{{ path('app_print_card', { 'id': carte.id }) }}" class="btn btn-primary">Visualiser & Imprimer</a>
+                        <a href="{{ path('app_print_card_second', { 'id': carte.id }) }}" class="btn btn-primary">Visualiser & Imprimer</a>
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="4">Aucune carte prête pour l'impression.</td>
-                </tr>
+
             {% endfor %}
             </tbody>
         </table>

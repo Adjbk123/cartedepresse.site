@@ -29,7 +29,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/demande')]
 class DemandeController extends AbstractController
 {
-    private $emailNotificationService;
+    private EmailNotificationService $emailNotificationService;
 
     public function __construct(EmailNotificationService $emailNotificationService)
     {
@@ -43,6 +43,8 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findAll(),
         ]);
     }
+
+
 // Méthode pour afficher la page de suivi (GET)
     #[Route('/suivie', name: 'app_demande_suivi', methods: ['GET'])]
     public function afficherSuiviDemande(): Response
@@ -81,6 +83,7 @@ class DemandeController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/interne', name: 'app_demande_interne', methods: ['GET', 'POST'])]
     public function demandeInterne(
         Request $request,
@@ -470,14 +473,13 @@ class DemandeController extends AbstractController
 
         //recuperation du professionnel connecté
         $user = $this->getUser();
-        $professionnel = $userRepository->findOneBy(['id' => $user]);
 
+
+        $professionnel = $userRepository->findOneBy(['id' => $user]);
 
         // type de piece pour une nouvelle demande
         $typePiece = $typePieceRepository->findBy(['typeDemande' => "Nouveau"]);
-
         $demande = new Demande();
-
         if ($request->isMethod('POST')) {
             $data = $request->files->get('typePieces');
             // Générer le numéro d'enregistrement
@@ -501,7 +503,7 @@ class DemandeController extends AbstractController
                 $statut = 'En attente';
                 $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
 
-                $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $directory = 'uploads/' . date('Y') ;
                 $pieceJointe->move($directory, $url);
 
                 $piece = new PieceJointe();
@@ -535,6 +537,10 @@ class DemandeController extends AbstractController
 
         //recuperation des historiques d'organe professionnel
         $historiqueOrganeProfessionnel = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel]);
+
+        if ($historiqueOrganeProfessionnel == null){
+            return  $this->redirectToRoute('app_accueil');
+        }
         return $this->render('demande/new.html.twig', [
             'demande' => $demande,
             'professionnel' => $professionnel,

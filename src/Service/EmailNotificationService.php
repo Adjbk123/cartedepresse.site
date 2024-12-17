@@ -25,6 +25,12 @@ class EmailNotificationService
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function sendDemandSubmissionEmail(string $toEmail, array $demandeData): void
     {
         $subject = 'Bravo ! Votre demande a été envoyée avec succès';
@@ -46,6 +52,12 @@ class EmailNotificationService
     }
 
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function sendRejectionDemandeNotification(string $recipientEmail, string $observation, string $professionnel): void
     {
         $subject = 'Notification de rejet de votre demande';
@@ -99,6 +111,13 @@ class EmailNotificationService
         // Envoi de l'email
         $this->mailer->send($email);
     }
+
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function sendAccountCreationNotification(
         string $nom,
         string $prenoms,
@@ -137,6 +156,12 @@ class EmailNotificationService
     }
 
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function sendRejectionPieceNotification(string $recipientEmail, string $observation, string $professionnel, string $piece): void
     {
         $subject = 'Notification de rejet de votre pièce jointe';
@@ -144,7 +169,8 @@ class EmailNotificationService
         $context = [
             'observation' => $observation,
             'piece'=> $piece,
-            "professionnel"=>$professionnel
+            "professionnel"=>$professionnel,
+            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
         ];
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
@@ -173,6 +199,7 @@ class EmailNotificationService
             $htmlContent = $this->twig->render($htmlTemplate, [
                 'lot' => $lot,
                 'user' => $user,
+                'lien' => 'https://cartedepresse.site',
             ]);
 
             $email = (new Email())
@@ -184,4 +211,45 @@ class EmailNotificationService
             $this->mailer->send($email);
         }
     }
+
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    public function sendAccountCreationSuccessNotification(
+        string $nom,
+        string $prenoms,
+        string $recipientEmail
+    ): void {
+        // Sujet de l'email
+        $subject = 'Votre compte a été créé avec succès';
+
+        // Template HTML pour l'email
+        $htmlTemplate = 'emails/compte_creation_succes.html.twig';
+
+        // Contexte avec les variables dynamiques à passer au template
+        $context = [
+            'nom' => $nom,
+            'prenoms' => $prenoms,
+            'email' => $recipientEmail,
+            'lienConnexion' => 'https://cartedepresse.site/connexion-compte',
+
+        ];
+
+        // Rendu du contenu de l'email à partir du template Twig
+        $htmlContent = $this->twig->render($htmlTemplate, $context);
+
+        // Création de l'email avec le contenu HTML et l'objet
+        $email = (new Email())
+            ->from('Support Carte de Presse <support@cartedepresse.site>') // Adresse expéditeur
+            ->to($recipientEmail) // Adresse du destinataire
+            ->subject($subject) // Objet de l'email
+            ->html($htmlContent); // Contenu de l'email au format HTML
+
+        // Envoi de l'email
+        $this->mailer->send($email);
+    }
+
 }

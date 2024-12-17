@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="x-apple-disable-message-reformatting">
-    <title>Demande Soumise</title>
+    <title>Création de compte réussie</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
     <style>
@@ -48,8 +48,8 @@
                     <tbody>
                     <tr>
                         <td style="text-align: center; padding-bottom:25px">
-                            <a href="#"><img style="height: 40px" src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" alt="logo"></a>
-                            <p style="font-size: 14px; color: #16a34a; padding-top: 12px;">Demande Soumise</p>
+                            <a href="#"><img style="height: 40px" src="https://haac.bj/wp-content/uploads/2024/07/logo-haac.png" alt="logo"></a>
+                            <p style="font-size: 14px; color: #11832b; padding-top: 12px;">Création de compte réussie</p>
                         </td>
                     </tr>
                     </tbody>
@@ -58,21 +58,10 @@
                     <tbody>
                     <tr>
                         <td style="text-align:center;padding: 50px 30px;">
-                            <div style="color: #16a34a; border: 1px solid #16a34a; border-radius: 6px; padding: 10px; font-weight: 600;">
-                                Votre demande a été soumise avec succès.
-                            </div>
-                            <h2 style="font-size: 18px; color: #333; font-weight: 400; margin-top: 20px;">Bonjour, {{ nom }} !</h2>
-                            <p>Nous vous informons que votre demande a été soumise avec succès. Voici les détails :</p>
-                            <table style="margin: 20px auto; text-align: left; border-spacing: 10px;">
-                                <tr>
-                                    <td style="color: #333;">Type de Demande :</td>
-                                    <td>{{ demande.type }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #333;">Date de Soumission :</td>
-                                    <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
-                                </tr>
-                            </table>
+                            <h2 style="font-size: 18px; color: #11832b; font-weight: 400; margin-bottom: 8px;">Bienvenue, {{ prenoms }} {{ nom }} !</h2>
+                            <p>Félicitations, votre compte a été créé avec succès.</p>
+                            <p>Vous pouvez vous connecter à votre espace personnel en cliquant sur le bouton ci-dessous.</p>
+                            <a href="{{ lienConnexion }}" style="display:inline-block;padding:10px 20px;background-color:#11832b;color:#ffffff;text-decoration:none;border-radius:5px;">Se connecter</a>
                         </td>
                     </tr>
                     </tbody>
@@ -81,8 +70,8 @@
                     <tbody>
                     <tr>
                         <td style="text-align: center; padding:25px 20px 0;">
-                            <p style="font-size: 13px;">Merci pour votre confiance. <br> L'équipe de la HAAC</p>
-                            <p style="font-size: 12px; margin-top: 15px; color: #8094ae;">© {{ "now"|date("Y") }} HAAC. Tous droits réservés.</p>
+                            <p style="font-size: 13px;">Copyright © {{ "now"|date("Y") }} HAAC. Tous droits réservés.</p>
+
                         </td>
                     </tr>
                     </tbody>

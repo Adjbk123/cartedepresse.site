@@ -59,8 +59,8 @@
             <div class="col-lg-5 col-md-6">
                 <div class="card login-page shadow rounded border-0">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Inscription</h4>
-                        <p class="bg-primary text-white p-2 mb-2  text-center rounded-1">
+                        <h4 class="card-title text-center">Créer votre compte</h4>
+                        <p class="bg-primary text-white p-3 mb-3  text-center rounded-1">
                             Professionnels des médias, inscrivez-vous sur notre plateforme avec vos informations véridiques et un email fonctionnel pour faire votre demande de carte de presse.
                         </p>
                         {{ form_errors(registrationForm) }}
@@ -102,7 +102,19 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form_label(registrationForm.plainPassword.first) }}
+
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between">
+
+                                        {{ form_label(registrationForm.plainPassword.first) }}
+
+                                    <p class="forgot-pass mb-0">
+                                        <button type="button" id="toggle-password" class="btn btn-link">Afficher le mot de passe</button>
+
+                                    </p>
+                                </div>
+                            </div>
+
                             <div class="form-icon position-relative">
                                 <i data-feather="lock" class="fea icon-sm icons"></i>
                                 {{ form_widget(registrationForm.plainPassword.first, { attr: {'placeholder': 'Mot de passe'} }) }}
@@ -115,6 +127,7 @@
                                 {{ form_widget(registrationForm.plainPassword.second, { attr: {'placeholder': 'Confirmer le mot de passe'} }) }}
                             </div>
                         </div>
+
 
 
                         <div class="form-group">
@@ -147,7 +160,7 @@
 <div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header p-4 border-bottom">
         <h5 id="offcanvasLeftLabel" class="mb-0">
-            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-dark.pn') }}" height="24" class="light-version" alt="">
             <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
         </h5>
         <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
@@ -168,6 +181,28 @@
 
 
 </div>
+<script>
+    // Lorsque le bouton est cliqué
+    document.getElementById('toggle-password').addEventListener('click', function() {
+        // Récupérer les deux champs de mot de passe
+        var passwordField1 = document.getElementById('registration_form_plainPassword_first');
+        var passwordField2 = document.getElementById('registration_form_plainPassword_second');
+
+        // Vérifier si le mot de passe est actuellement masqué
+        if (passwordField1.type === 'password') {
+            // Changer les deux champs en 'text' pour afficher les mots de passe
+            passwordField1.type = 'text';
+            passwordField2.type = 'text';
+            this.textContent = 'Masquer le mot de passe'; // Changer le texte du bouton
+        } else {
+            // Changer les deux champs en 'password' pour masquer les mots de passe
+            passwordField1.type = 'password';
+            passwordField2.type = 'password';
+            this.textContent = 'Afficher le mot de passe'; // Changer le texte du bouton
+        }
+    });
+</script>
+
 <!-- Switcher End -->
 
 <!-- Javascript -->

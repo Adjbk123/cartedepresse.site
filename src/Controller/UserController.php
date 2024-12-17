@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\PersonnelType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\EmailNotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,14 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/compte')]
 class UserController extends AbstractController
 {
+
+    private EmailNotificationService $emailNotificationService;
+
+    public function __construct(EmailNotificationService $emailNotificationService)
+    {
+        $this->emailNotificationService = $emailNotificationService;
+    }
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -48,7 +57,6 @@ class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
 
 
         if ($form->isSubmitted() && $form->isValid()) {

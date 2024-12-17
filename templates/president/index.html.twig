@@ -28,10 +28,6 @@
                     <a href="{{ path('app_president_edit', {'id': president.id}) }}" class="btn btn-secondary">Editer</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
         {% endfor %}
         </tbody>
     </table>

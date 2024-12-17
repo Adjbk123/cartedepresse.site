@@ -1,66 +1,89 @@
-{# templates/emails/invitation_completion_profile.html.twig #}
-<!doctype html>
-<html lang="fr" dir="ltr">
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
     <title>Invitation à compléter votre profil</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Invitation à compléter votre profil pour soumettre votre demande de carte professionnelle">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-size: 14px;
+            line-height: 24px;
+            color: #8094ae;
+            font-weight: 400;
+        }
+        table, td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+        a {
+            text-decoration: none;
+        }
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+    </style>
 </head>
 
-<body style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400;">
-<div style="margin-top: 50px;">
-    <table cellpadding="0" cellspacing="0" style="font-family: Nunito, sans-serif; font-size: 15px; font-weight: 400; max-width: 600px; border: none; margin: 0 auto; border-radius: 6px; overflow: hidden; background-color: #fff; box-shadow: 0 0 3px rgba(60, 72, 88, 0.15);">
-        <thead>
-        <tr style="padding: 3px 0; line-height: 68px; text-align: center; color: #fff; font-size: 24px; font-weight: 700; letter-spacing: 1px;">
-            <th scope="col"><img src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" height="36" alt="Logo HAAC"></th>
-        </tr>
-        </thead>
-
-        <tbody>
+<body style="margin: 0; padding: 0; background-color: #f5f6fa;">
+<center style="width: 100%; background-color: #f5f6fa;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f6fa">
         <tr>
-            <td style="padding: 24px 24px;">
-                <div style="padding: 8px; color: #ff8000; border: 1px solid #ff8000; border-radius: 6px; text-align: center; font-size: 16px; font-weight: 600;">
-                    Invitation à compléter votre profil
-                </div>
+            <td style="padding: 40px 0;">
+                <table style="width:100%;max-width:620px;margin:0 auto;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding-bottom:25px">
+                            <a href="#"><img style="height: 40px" src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" alt="Logo HAAC"></a>
+                            <p style="font-size: 14px; color: #ff8000; padding-top: 12px;">Invitation à compléter votre profil</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align:center;padding: 50px 30px;">
+                            <div style="color: #ff8000; border: 1px solid #ff8000; border-radius: 6px; padding: 10px; font-weight: 600;">
+                                Complétez votre profil pour soumettre votre demande.
+                            </div>
+                            <h2 style="font-size: 18px; color: #333; font-weight: 400; margin-top: 20px;">Bonjour {{ professionnel.prenoms }} {{ professionnel.nom }},</h2>
+                            <p style="color: #333;">Nous vous invitons à compléter votre profil sur notre plateforme afin de pouvoir soumettre votre demande de carte professionnelle.</p>
+                            <p style="color: #333;">Veuillez vous connecter à votre espace et renseigner les informations manquantes pour valider votre demande.</p>
+                            <a href="https://cartedepresse.site/mon-espace" style="display: inline-block; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+                                Compléter mon profil
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table style="width:100%;max-width:620px;margin:0 auto;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding:25px 20px 0;">
+                            <p style="font-size: 13px;">Merci pour votre collaboration. <br> L'équipe de la HAAC</p>
+                            <p style="font-size: 12px; margin-top: 15px; color: #8094ae;">© {{ "now"|date("Y") }} HAAC. Tous droits réservés.</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </td>
         </tr>
-        <tr>
-            <td style="padding: 0 24px 15px; color: #8492a6;">
-                <div>
-                    Bonjour {{ professionnel.prenoms }} {{ professionnel.nom }},
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td style="padding: 0 24px 15px; color: #8492a6;">
-                Nous vous invitons à compléter votre profil sur notre plateforme afin de pouvoir soumettre votre demande de carte professionnelle.
-                Veuillez vous connecter à votre espace et renseigner les informations manquantes pour valider votre demande.
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 0 24px 15px; color: #8492a6;">
-                <a href="https://cartedepresse.site/profil/completion" style="display: inline-block; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none;">Compléter mon profil</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 15px 24px 0; color: #8492a6;">
-                Merci pour votre collaboration.
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 15px 24px 15px; color: #8492a6; text-align:center;">
-                L'équipe de la HAAC
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 16px 8px; color: #8492a6; background-color: #f8f9fc; text-align: center;">
-                © <script>document.write(new Date().getFullYear())</script> HAAC. Tous droits réservés
-            </td>
-        </tr>
-        </tbody>
     </table>
-</div>
+</center>
 </body>
 </html>

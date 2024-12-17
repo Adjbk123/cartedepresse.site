@@ -9,6 +9,8 @@ use App\Repository\DemandeRepository;
 use App\Repository\LotRepository;
 use App\Service\EmailNotificationService;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,8 +28,12 @@ class LotController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'app_lot_new', methods: ['GET', 'POST'])]
-    public function new(EmailNotificationService $emailNotificationService, Request $request, EntityManagerInterface $entityManager, DemandeRepository $demandeRepository, Pdf $pdf): Response
-    {
+    public function new(
+        EmailNotificationService $emailNotificationService,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        DemandeRepository $demandeRepository
+    ): Response {
         $demandesValidees = $demandeRepository->findBy(['statut' => ['Validée', 'Rejétée'], 'lot' => null]);
 
         if ($request->isMethod('POST')) {
@@ -46,38 +52,49 @@ class LotController extends AbstractController
             $lot->setDateCreation(new \DateTime());
             $lot->setStatut("En attente");
 
-
-            // Génération du PDF en mode paysage
+            // Génération du contenu HTML pour le PDF
             $html = $this->renderView('demande/rapport_lot.html.twig', [
                 'lot' => $lot,
                 'demandes' => $demandes,
             ]);
 
-            // Options pour KNPSnappy (PDF en mode paysage)
-            $options = [
-                'orientation' => 'landscape',
-            ];
+            // Configuration de Dompdf
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isRemoteEnabled', true);
 
-            // Générer le contenu PDF avec KNPSnappy en mode paysage
-            $pdfContent = $pdf->getOutputFromHtml($html, $options);
+            $dompdf = new Dompdf($options);
 
-            // Chemin où enregistrer le fichier PDF
+            // Charger le contenu HTML
+            $dompdf->loadHtml($html);
+
+            // Configurer le format paysage pour le PDF
+            $dompdf->setPaper('A4', 'landscape');
+
+            // Générer le PDF
+            $dompdf->render();
+
+            // Définir le chemin où sauvegarder le fichier PDF
             $pdfPath = 'uploads/rapports/';
+            if (!file_exists($pdfPath)) {
+                mkdir($pdfPath, 0777, true);
+            }
 
-            // Nom de fichier basé sur la date et l'heure actuelle
             $filename = 'rapport_lot_' . date('Y-m-d_H-i-s') . '.pdf';
+            $filePath = $pdfPath . $filename;
 
-            // Enregistrer le fichier PDF dans le répertoire uploads/rapports
-            file_put_contents($pdfPath . $filename, $pdfContent);
+            // Sauvegarder le PDF dans le répertoire spécifié
+            file_put_contents($filePath, $dompdf->output());
 
-
-          $emailNotificationService->sendLotCreatedEmail($lot);
-              $lot->setRapport($filename);
+            // Ajouter le rapport généré au lot
+            $lot->setRapport($filename);
             $entityManager->persist($lot);
+
+            $emailNotificationService->sendLotCreatedEmail($lot);
 
             $entityManager->flush();
 
-            // Rediriger vers la liste des lots après génération du PDF
+            // Rediriger vers la liste des lots après la création
             $this->addFlash('success', 'Le lot a été créé avec succès.');
             return $this->redirectToRoute('app_lot_index');
         }
