@@ -144,13 +144,11 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
-
     #[Route('/{id}/modifier-compte', name: 'app_professionnel_edit', methods: ['GET', 'POST'])]
     public function editProfessionnel(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         if ($user != $this->getUser()) {
-           $this->addFlash('error', 'Vous etes pas autorisé à modifier les informations de ce compte');
+            $this->addFlash('error', 'Vous etes pas autorisé à modifier les informations de ce compte');
             return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -187,7 +185,7 @@ class UserController extends AbstractController
 
             $organe = $form['organe']->getData();
             $profession = $form['profession']->getData();
-           $historiqueOrganeProfessionnel->setProfession($profession);
+            $historiqueOrganeProfessionnel->setProfession($profession);
             $historiqueOrganeProfessionnel->setProfessionnel($user);
             $historiqueOrganeProfessionnel->setOrgane($organe);
             $entityManager->persist($historiqueOrganeProfessionnel);
