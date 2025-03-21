@@ -3516,7 +3516,7 @@ p {
 }
 
 .bg-half-100 {
-  padding: 100px 0;
+  padding: 60px 0;
   background-size: cover !important;
   -ms-flex-item-align: center;
       align-self: center;

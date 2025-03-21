@@ -20,15 +20,19 @@
 
         <!-- Css -->
         <!-- Bootstrap Css -->
-        <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets-landing/css/bootstrap-green.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
         <!-- Icons Css -->
         <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
         <!-- Style Css-->
-        <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets-landing/css/style-green.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
 
     </head>
-
+    <style>
+        body{
+            font-family: "Montserrat", sans-serif; !important;
+        }
+    </style>
     <body>
     <!-- Loader -->
  <div id="preloader">
@@ -50,12 +54,12 @@
     <section class="bg-home d-flex align-items-center">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-7 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="me-lg-5">
                         <img  style="width:80%"  src="{{ absolute_url(asset('assets-landing/images/user/login.png'))  }}" class="img-fluid d-block mx-auto" alt="">
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="card login-page shadow rounded border-0">
                         <div class="card-body">
                             <h4 class="card-title text-center">Connexion</h4>
@@ -114,7 +118,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="mb-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input"  type="checkbox" name="_remember_me" id="_remember_me">
+                                                    <input class="form-check-input"  type="checkbox" name="_remember_me" id="_remember_me" checked>
                                                     <label class="form-check-label" for="_remember_me">Se souvenir de moi</label>
 
                                                 </div>
