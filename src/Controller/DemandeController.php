@@ -101,7 +101,153 @@ class DemandeController extends AbstractController
         $organes = $organeRepository->findAll();
         $professions = $professionRepository->findAll();
 
-        // Tableau des nationalités
+        $nationalites = $this->getPays();
+
+        if ($request->isMethod('POST')) {
+            // Traitement des données soumises
+            $data = $request->request->all();
+
+            // Créer un nouvel utilisateur
+            $user = new User();
+            $user->setNom($data['nom']);
+            $user->setPrenoms($data['prenom']);
+            $user->setEmail($data['email']);
+            $user->setDateNaissance(new \DateTime($data['date_naissance']));
+            $user->setLieuNaissance($data['lieu_naissance']);
+            $user->setNpi($data['npi']);
+            $user->setSexe($data['sexe']);
+            $user->setNationalite($data['nationalite']);
+            $user->setAdresse($data['adresse']);
+            $user->setUsername($data['username']);
+            $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
+            $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setStatut(1);
+            $user->setRoles(['ROLE_PROFESSIONNEL']);
+            $motdePasse= $data['password'];
+
+            // Récupérer le fichier téléchargé
+            $fichier = $request->files->get('photo');
+
+            if ($fichier != null) {
+                $repertoire = "uploads";
+                // Récupérer le nom original du fichier sans l'extension
+                $nomOriginal = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                // Récupérer l'extension du fichier
+                $extension = $fichier->guessExtension();
+
+                // Combiner le nom et le prénom de l'utilisateur
+                $nomCompletUtilisateur = $user->getNom() . '_' . $user->getPrenoms();
+                // Formater la date du jour
+                $date = (new \DateTime())->format('Ymd_His');
+
+                // Générer un nom de fichier sécurisé
+                $nomFichierSecurise = $nomCompletUtilisateur . '_' . $date . '_' . $nomOriginal;
+                $nouveauNomFichier = $nomFichierSecurise . '.' . $extension;
+
+                // Déplacer le fichier vers le répertoire de destination
+                $fichier->move($repertoire, $nouveauNomFichier);
+
+                // Mettre à jour la photo de l'utilisateur
+                $user->setPhoto($nouveauNomFichier);
+            }
+
+            $entityManager->persist($user);
+
+            // Récupérer l'organe et la profession
+            $organe = $organeRepository->find($data['organe']);
+            $profession = $professionRepository->find($data['profession']);
+
+            // Créer l'historique de l'organe et de la profession pour l'utilisateur
+            $historiqueOrganeProfessionnel = new HistoriqueOrganeProfessionnel();
+            $historiqueOrganeProfessionnel->setProfessionnel($user);
+            $historiqueOrganeProfessionnel->setOrgane($organe);
+            $historiqueOrganeProfessionnel->setProfession($profession);
+
+            $entityManager->persist($historiqueOrganeProfessionnel);
+
+            // Créer une nouvelle demande
+            $demande = new Demande();
+            $demande->setProfessionnel($user);
+            $demande->setDateSoumission(new \DateTime());
+            // Générer le numéro de demande aléatoire
+            $numeroDemande = $this->genererNumeroAleatoire(6);
+            $demande->setStatut('En attente');
+            $demande->setNumDemande($numeroDemande);
+            $demande->setHistoriqueOrganeActuel($historiqueOrganeProfessionnel);
+            $demande->setTypeDemande("Etablissement");
+
+            // Assurez-vous d'ajouter les autres champs nécessaires pour la demande
+
+            $entityManager->persist($demande);
+
+            $data = $request->files->get('typePieces');
+
+            // Enregistrer les pièces jointes
+            foreach ($data as $key => $pieceJointe) {
+                $nomFichier = $pieceJointe->getClientOriginalName();
+                $typePieceId = $key; // Supposant que $key est l'ID du type de pièce
+                $typePiece = $typePieceRepository->find($typePieceId); // Récupérer l'entité TypePiece correspondante
+                $dateSoumission = new \DateTime();
+                $statut = 'En attente';
+                $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
+
+                $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $pieceJointe->move($directory, $url);
+
+                $piece = new PieceJointe();
+                $piece->setDemande($demande);
+                $piece->setUrl($url);
+                $piece->setTypePiece($typePiece);
+                $piece->setDateSoumission($dateSoumission);
+                $piece->setStatut($statut);
+
+                $entityManager->persist($piece);
+            }
+
+            $this->emailNotificationService->sendAccountCreationNotification(
+                $user->getNom(),
+                $user->getPrenoms(),
+                $user->getEmail(),
+                $user->getUsername(),
+                $motdePasse,
+                $numeroDemande
+            );
+            $entityManager->flush();
+
+            // Redirection ou message de confirmation
+            $this->addFlash('success', 'Demande enregistré avec succès');
+            return $this->redirectToRoute('app_demande_en_attente');
+        }
+
+        // Affichage du formulaire
+        return $this->render('demande/indexDemandeInterne.html.twig', [
+            'typePieces' => $typePieces,
+            'organes' => $organes,
+            'professions' => $professions,
+            'nationalites' => $nationalites,
+        ]);
+    }
+
+    /**
+     * Génère un numéro aléatoire composé de lettres majuscules et de chiffres.
+     *
+     * @param int $length La longueur du numéro à générer.
+     * @return string Le numéro généré.
+     */
+    private function genererNumeroAleatoire(int $length): string
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    public function getPays()
+    {
+         // Tableau des nationalités
         $nationalites =  [
             'Afghan(e)' => 'Afghan(e)',
             'Albanais(e)' => 'Albanais(e)',
@@ -289,89 +435,38 @@ class DemandeController extends AbstractController
             'Zimbabwéen(ne)' => 'Zimbabwéen(ne)',
         ];
 
+        return $nationalites;
+
+    }
+
+    #[Route('/nouvelle-demande', name: 'app_demande_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,
+                        UserRepository $userRepository,
+                        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+                        TypePieceRepository $typePieceRepository,
+                        NumEnregistrementService $numEnregistrementService
+    ): Response
+    {
+        // Récupération du professionnel connecté
+        $user = $this->getUser();
+        $professionnel = $userRepository->findOneBy(['id' => $user]);
+
+        // Type de pièce pour une nouvelle demande
+        $typePiece = $typePieceRepository->findBy(['typeDemande' => "Nouveau"]);
+        $demande = new Demande();
+
         if ($request->isMethod('POST')) {
-            // Traitement des données soumises
-            $data = $request->request->all();
-
-            // Créer un nouvel utilisateur
-            $user = new User();
-            $user->setNom($data['nom']);
-            $user->setPrenoms($data['prenom']);
-            $user->setEmail($data['email']);
-            $user->setDateNaissance(new \DateTime($data['date_naissance']));
-            $user->setLieuNaissance($data['lieu_naissance']);
-            $user->setNpi($data['npi']);
-            $user->setSexe($data['sexe']);
-            $user->setNationalite($data['nationalite']);
-            $user->setAdresse($data['adresse']);
-            $user->setUsername($data['username']);
-            $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
-            $user->setCreatedAt(new \DateTimeImmutable());
-            $user->setStatut(1);
-            $user->setRoles(['ROLE_PROFESSIONNEL']);
-            $motdePasse= $data['password'];
-
-
-            // Récupérer le fichier téléchargé
-            $fichier = $request->files->get('photo');
-
-            if ($fichier != null) {
-                $repertoire = "uploads";
-                // Récupérer le nom original du fichier sans l'extension
-                $nomOriginal = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
-                // Récupérer l'extension du fichier
-                $extension = $fichier->guessExtension();
-
-                // Combiner le nom et le prénom de l'utilisateur
-                $nomCompletUtilisateur = $user->getNom() . '_' . $user->getPrenoms();
-                // Formater la date du jour
-                $date = (new \DateTime())->format('Ymd_His');
-
-                // Générer un nom de fichier sécurisé
-                $nomFichierSecurise = $nomCompletUtilisateur . '_' . $date . '_' . $nomOriginal;
-                $nouveauNomFichier = $nomFichierSecurise . '.' . $extension;
-
-                // Déplacer le fichier vers le répertoire de destination
-                $fichier->move($repertoire, $nouveauNomFichier);
-
-                // Mettre à jour la photo de l'utilisateur
-                $user->setPhoto($nouveauNomFichier);
-            }
-
-            $entityManager->persist($user);
-
-
-            // Récupérer l'organe et la profession
-            $organe = $organeRepository->find($data['organe']);
-            $profession = $professionRepository->find($data['profession']);
-
-            // Créer l'historique de l'organe et de la profession pour l'utilisateur
-            $historiqueOrganeProfessionnel = new HistoriqueOrganeProfessionnel();
-            $historiqueOrganeProfessionnel->setProfessionnel($user);
-            $historiqueOrganeProfessionnel->setOrgane($organe);
-            $historiqueOrganeProfessionnel->setProfession($profession);
-
-            $entityManager->persist($historiqueOrganeProfessionnel);
-
-
-            // Créer une nouvelle demande
-            $demande = new Demande();
-            $demande->setProfessionnel($user);
-            $demande->setDateSoumission(new \DateTime());
-            // Générer le numéro d'enregistrement
-            $numeroEnregistrement = $numEnregistrementService->genererNumeroEnregistrement();
-            $demande->setStatut('En attente');
-            $demande->setNumDemande($numeroEnregistrement);
-            $demande->setHistoriqueOrganeActuel($historiqueOrganeProfessionnel);
-            $demande->setTypeDemande("Etablissement");
-
-
-            // Assurez-vous d'ajouter les autres champs nécessaires pour la demande
-
-            $entityManager->persist($demande);
-
-
             $data = $request->files->get('typePieces');
+            // Générer le numéro de demande aléatoire
+            $numeroDemande = $this->genererNumeroAleatoire(6);
+            $demande->setNumDemande($numeroDemande);
+            $demande->setStatut('En attente');
+            $demande->setProfessionnel($professionnel);
+            $demande->setDateSoumission(new \DateTime());
+            $demande->setTypeDemande('Etablissement');
+
+            $historiqueOrganeActuel = $historiqueOrganeProfessionnelRepository->findBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
+            $demande->setHistoriqueOrganeActuel($historiqueOrganeActuel[0]);
 
             // Enregistrer les pièces jointes
             foreach ($data as $key => $pieceJointe) {
@@ -382,7 +477,7 @@ class DemandeController extends AbstractController
                 $statut = 'En attente';
                 $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
 
-                $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $directory = 'uploads/' . date('Y');
                 $pieceJointe->move($directory, $url);
 
                 $piece = new PieceJointe();
@@ -395,24 +490,39 @@ class DemandeController extends AbstractController
                 $entityManager->persist($piece);
             }
 
-            $this->emailNotificationService->sendAccountCreationNotification( $user->getNom(), $user->getPrenoms(),
-               $user->getEmail(), $user->getUsername(),$motdePasse, $numeroEnregistrement
-            );
+            $entityManager->persist($demande);
             $entityManager->flush();
 
-            // Redirection ou message de confirmation
-            $this->addFlash('success', 'Demande enregistré avec succès');
-            return $this->redirectToRoute('app_demande_en_attente');
+            // Envoyer l'email de notification
+            $demandeData = [
+                'nom' => $demande->getProfessionnel()->getNom() . " " . $demande->getProfessionnel()->getPrenoms(),
+                'type' => "Demande d'établissement de carte",
+                'dateSoumission' => $demande->getDateSoumission(),
+                'statut' => $demande->getStatut(),
+                'numeroDemande' => $numeroDemande,
+                'lienSuiviDemande' => 'https://cartedepresse.net/demande/suivie',
+            ];
+            $this->emailNotificationService->sendDemandSubmissionEmail($professionnel->getEmail(), $demandeData);
+
+            $this->addFlash('success', 'Votre demande a été soumise avec succès.');
+            return $this->redirectToRoute('app_accueil');
         }
 
-        // Affichage du formulaire
-        return $this->render('demande/indexDemandeInterne.html.twig', [
-            'typePieces' => $typePieces,
-            'organes' => $organes,
-            'professions' => $professions,
-            'nationalites' => $nationalites,
+        // Récupération des historiques d'organe professionnel
+        $historiqueOrganeProfessionnel = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel]);
+
+        if ($historiqueOrganeProfessionnel == null) {
+            return $this->redirectToRoute('app_accueil');
+        }
+
+        return $this->render('demande/new.html.twig', [
+            'demande' => $demande,
+            'professionnel' => $professionnel,
+            'historiqueOrganeProfessionnel' => $historiqueOrganeProfessionnel,
+            "typePieces" => $typePiece,
         ]);
     }
+
 
     #[Route('/traitee', name: 'app_demande_traitee', methods: ['GET'])]
     public function indexDemandeTraitee(DemandeRepository $demandeRepository): Response
@@ -462,93 +572,9 @@ class DemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/nouvelle-demande', name: 'app_demande_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,
-                        UserRepository $userRepository,
-                        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
-                    TypePieceRepository $typePieceRepository,
-                        NumEnregistrementService $numEnregistrementService
-    ): Response
-    {
-
-        //recuperation du professionnel connecté
-        $user = $this->getUser();
-
-
-        $professionnel = $userRepository->findOneBy(['id' => $user]);
-
-        // type de piece pour une nouvelle demande
-        $typePiece = $typePieceRepository->findBy(['typeDemande' => "Nouveau"]);
-        $demande = new Demande();
-        if ($request->isMethod('POST')) {
-            $data = $request->files->get('typePieces');
-            // Générer le numéro d'enregistrement
-            $numeroEnregistrement = $numEnregistrementService->genererNumeroEnregistrement();
-            $demande->setNumDemande($numeroEnregistrement);
-            $demande->setStatut('En attente');
-            $demande->setProfessionnel($professionnel);
-            $demande->setDateSoumission(new \DateTime());
-            $demande->setTypeDemande('Etablissement');
-
-            $historiqueOrganeActuel = $historiqueOrganeProfessionnelRepository->findBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
-            $demande->setHistoriqueOrganeActuel($historiqueOrganeActuel[0]);
-
-
-            // Enregistrer les pièces jointes
-            foreach ($data as $key => $pieceJointe) {
-                $nomFichier = $pieceJointe->getClientOriginalName();
-                $typePieceId = $key; // Supposant que $key est l'ID du type de pièce
-                $typePiece = $typePieceRepository->find($typePieceId); // Récupérer l'entité TypePiece correspondante
-                $dateSoumission = new \DateTime();
-                $statut = 'En attente';
-                $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
-
-                $directory = 'uploads/' . date('Y') ;
-                $pieceJointe->move($directory, $url);
-
-                $piece = new PieceJointe();
-                $piece->setDemande($demande);
-                $piece->setUrl($url);
-                $piece->setTypePiece($typePiece);
-                $piece->setDateSoumission($dateSoumission);
-                $piece->setStatut($statut);
-
-                $entityManager->persist($piece);
-            }
 
 
 
-            $entityManager->persist($demande);
-            $entityManager->flush();
-
-
-            // Envoyer l'email de notification
-            $demandeData = [
-                'nom' => $demande->getProfessionnel()->getNom(). " " . $demande->getProfessionnel()->getPrenoms(),
-                'type' => "Demande d'établissement de carte",
-                'dateSoumission' => $demande->getDateSoumission(),
-                'statut' => $demande->getStatut(),
-            ];
-            $this->emailNotificationService->sendDemandSubmissionEmail($professionnel->getEmail(), $demandeData);
-
-            $this->addFlash('success', 'Votre demande a été soumise avec succès.');
-            return $this->redirectToRoute('app_accueil');
-        }
-
-        //recuperation des historiques d'organe professionnel
-        $historiqueOrganeProfessionnel = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel]);
-
-        if ($historiqueOrganeProfessionnel == null){
-            return  $this->redirectToRoute('app_accueil');
-        }
-        return $this->render('demande/new.html.twig', [
-            'demande' => $demande,
-            'professionnel' => $professionnel,
-            'historiqueOrganeProfessionnel' => $historiqueOrganeProfessionnel,
-            "typePieces" => $typePiece,
-
-        ]);
-    }
     #[Route('/{id}/traiter', name: 'app_demande_traiter', methods: ['GET'])]
     public function traiter(Demande $demande, PieceJointeRepository $pieceJointeRepository): Response
     {

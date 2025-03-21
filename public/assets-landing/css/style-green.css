@@ -5,9 +5,9 @@
    Version: 4.8.0
    File Description: Main Css file of the template
 */
-@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap");
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Montserrat", sans-serif;
   overflow-x: hidden !important;
   font-size: 1rem;
   color: #212529;
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: var(--bs-font-sans-serif);
+  font-family: 'Montserrat', sans-serif;
   line-height: 1.4;
   font-weight: 600;
 }
@@ -241,7 +241,7 @@ p {
   letter-spacing: 1px;
   line-height: 24px;
   text-transform: uppercase;
-  font-family: var(--bs-font-sans-serif);
+  font-family: 'Montserrat', sans-serif;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -256,6 +256,7 @@ p {
   letter-spacing: 0.04em;
   font-weight: 700;
   color: #161c2d !important;
+  font-family: "Montserrat", sans-serif;
 }
 #topnav .navigation-menu .has-submenu .menu-arrow {
   border: solid #212529;

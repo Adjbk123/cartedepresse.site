@@ -6,6 +6,7 @@ use App\Entity\Lot;
 use App\Repository\UserRepository;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -43,7 +44,7 @@ class EmailNotificationService
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>')
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($toEmail)
             ->subject($subject)
             ->html($htmlContent);
@@ -71,7 +72,7 @@ class EmailNotificationService
 
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>')
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -103,7 +104,7 @@ class EmailNotificationService
 
         // Création de l'email
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -146,7 +147,7 @@ class EmailNotificationService
 
         // Création de l'email avec le contenu HTML et l'objet
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($recipientEmail) // Adresse du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Contenu de l'email au format HTML
@@ -177,7 +178,7 @@ class EmailNotificationService
 
 
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>')
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($recipientEmail) // Adresse email du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Corps de l'email au format HTML
@@ -203,7 +204,7 @@ class EmailNotificationService
             ]);
 
             $email = (new Email())
-                ->from('Support Carte de Presse <support@cartedepresse.net>')
+                ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
                 ->to($toEmail)
                 ->subject($subject)
                 ->html($htmlContent);
@@ -243,7 +244,7 @@ class EmailNotificationService
 
         // Création de l'email avec le contenu HTML et l'objet
         $email = (new Email())
-            ->from('Support Carte de Presse <support@cartedepresse.net>') // Adresse expéditeur
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
             ->to($recipientEmail) // Adresse du destinataire
             ->subject($subject) // Objet de l'email
             ->html($htmlContent); // Contenu de l'email au format HTML

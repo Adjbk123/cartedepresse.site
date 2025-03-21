@@ -37,13 +37,13 @@
                     <td>{{ demande.dateSoumission ? demande.dateSoumission|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
                         {% if demande.statut == 'En attente' %}
-                            <span class="badge badge-round badge-warning badge-lg">{{ demande.statut }}</span>
+                            <span class="badge badge-round bg-warning ">{{ demande.statut }}</span>
                         {% elseif demande.statut == 'Validée' %}
-                            <span class="badge badge-round badge-success badge-lg">{{ demande.statut }}</span>
+                            <span class="badge badge-round bg-success ">{{ demande.statut }}</span>
                         {% elseif demande.statut == 'Rejetée' %}
-                            <span class="badge badge-round badge-danger badge-lg">{{ demande.statut }}</span>
+                            <span class="badge badge-round bg-danger ">{{ demande.statut }}</span>
                         {% else %}
-                            <span class="badge badge-round badge-secondary badge-lg">{{ demande.statut }}</span>
+                            <span class="badge badge-round bg-secondary">{{ demande.statut }}</span>
                         {% endif %}
                     </td>
                     <td>

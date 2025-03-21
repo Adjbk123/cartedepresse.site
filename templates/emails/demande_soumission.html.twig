@@ -72,6 +72,14 @@
                                     <td style="color: #333;">Date de Soumission :</td>
                                     <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
                                 </tr>
+                                <tr>
+                                    <td style="color: #333;">Numéro de Demande :</td>
+                                    <td>{{ demande.numeroDemande }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #333;">Lien de Suivi :</td>
+                                    <td><a href="{{ demande.lienSuiviDemande }}">Suivre ma demande</a></td>
+                                </tr>
                             </table>
                         </td>
                     </tr>

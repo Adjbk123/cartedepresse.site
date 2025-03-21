@@ -9,9 +9,8 @@
 
 
 {% block body %}
-    <h1>Demandes de Duplicata Validées</h1>
 
-    {% if duplicatas is not empty %}
+
         <table class="table datatable-init table-striped">
             <thead>
             <tr>
@@ -31,7 +30,4 @@
             {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>Aucune demande rejetée trouvée.</p>
-    {% endif %}
 {% endblock %}

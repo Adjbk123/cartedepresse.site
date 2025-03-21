@@ -14,6 +14,14 @@
             width: 85.60mm;
             height: 53.98mm;
         }
+        .organe-long{
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+        .organe-court{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -46,23 +54,23 @@
     <div class="page">
         <table style="width: 100%; border-collapse: collapse; margin: 0; padding:3px;">
             <tr>
-                <td style="text-align: center; vertical-align: middle; width: 15%; padding: 0;">
-                    <img src="{{ absolute_url(asset('assets/images/logo-haac.png')) }}" alt="Logo HAAC" width="50">
-                    <div style="font-size: 7px; padding: 0; color:green;">{{ profession.profession.libelle }}</div>
+                <td style="text-align: left; vertical-align: middle; width: 10%; padding-left: 5px;">
+                    <img src="{{ absolute_url(asset('assets/images/logo-haac_2.png')) }}" alt="Logo HAAC" width="50">
+                    <div style="font-size: 8px; padding: 0; color:#096d38; font-weight:900;"><strong>{{ profession.profession.libelle }}</strong></div>
                 </td>
-                <td style="text-align: center; vertical-align: middle; width: 65%; line-height: 1; padding: 0;">
-                    <div style="font-size: 11px; font-weight: bold; padding-right: 10px;">REPUBLIQUE DU BENIN</div>
-                    <div style="font-size: 9px; padding: 0;">HAUTE AUTORITE DE L'AUDIOVISUEL ET DE LA COMMUNICATION</div>
-                    <div style="color: red; font-size: 11px; font-weight: bold; padding: 0;">CARTE DE PRESSE</div>
+                <td style="text-align: center; vertical-align: middle; width: 65%; line-height: 1; padding-right: 10px;">
+                    <div style="font-size: 12px; font-weight: bold;">REPUBLIQUE DU BENIN</div>
+                    {# <div style="font-size: 8px; padding: 0;">HAUTE AUTORITE DE L'AUDIOVISUEL ET DE LA COMMUNICATION</div>#}
+                    <div style="color: #ed2024; font-size: 15px; font-weight: bold; padding-top: 0;">CARTE DE PRESSE</div>
                 </td>
-                <td style="text-align: center; vertical-align: middle; width: 20%; padding: 0;">
+                <td style="text-align: center; vertical-align: middle; width: 25%; padding: 0;">
                     <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="Logo Bénin" width="60">
-                    <div style="font-size: 7px; padding: 0; color:green;">{{ profession.organe.designation }}</div>
+                    <div style="font-size: 7px; padding: 0; color:#096d38;font-weight:900;"> <b>{{ profession.organe.designation }}</b></div>
                 </td>
             </tr>
-            <tr style="padding-bottom: -30px;">
-                <td colspan="3" style="text-align: start; padding-top: 4px; ">
-                    <div style="height:5px; padding-bottom: 2px;">
+            <tr style="padding-bottom: -40px;">
+                <td colspan="3" style="text-align: start; padding-top: 2px; ">
+                    <div style="height:3px; padding-bottom: 2px;">
                         <img src="{{ absolute_url(asset('assets/logo-horizontal.png')) }}" alt="" style="max-width: 100%; margin: 0; padding: 0;">
                     </div>
 
@@ -77,21 +85,63 @@
                     <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse;">
                         <tr>
                             <td style="padding: 0;">
-                                <div><strong>NPI / NPIR :</strong> {{ carte.professionnel.npi }}</div>
-                                <div><strong>Nom :</strong> {{ carte.professionnel.nom }}</div>
-                                <div><strong>Prénoms :</strong> {{ carte.professionnel.prenoms }}</div>
-                                <div><strong>Sexe :</strong> {{ carte.professionnel.sexe }}</div>
-                                <div><strong>Né(e) le :</strong> {{ carte.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.professionnel.lieuNaissance }}</div>
-                                <div><strong>Nationalité :</strong> {{ carte.professionnel.nationalite }}</div>
-                                <div style="margin-bottom: 3px;"><strong>Adresse :</strong> {{ carte.professionnel.adresse ? carte.professionnel.adresse : "Cotonou" }}</div>
+                                <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse; line-height: 1;">
+                                    <tr>
+                                        <td>
+                                            NPI / NPIR :
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.npi }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Nom :
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.professionnel.nom }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Prénoms :
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.professionnel.prenoms }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sexe :</td>
+                                        <td><span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.sexe }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Né(e) le :</td>
+                                        <td> <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.professionnel.lieuNaissance }}</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nationalité :</td>
+                                        <td><span style="text-transform: uppercase; font-weight:bold;" >{{ carte.professionnel.nationalite }}</span> </td>
+                                    </tr>
+                                    <tr style="margin-bottom:10px;">
+                                        <td>
+                                            Adresse :
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; vertical-align: middle; width: 70%; background-color: green; color: white; font-weight: bold; border-radius: 5px 0 0 5px; padding-top: 3px; padding-bottom: 3px; font-size: 12px;" colspan="2">
-                                LAISSEZ PASSER
+                                        <td >
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.adresse ? carte.professionnel.adresse : "Cotonou" }}</span>
+
+                                        </td>
+                                    </tr>
+
+                                </table>
                             </td>
                         </tr>
                     </table>
+                </td>
+            </tr>
+            <tr>
+
+                <td class="{% if profession.organe.designation|length > 12 %}organe-long{% else %}organe-court{% endif %}" style=" text-align: center; vertical-align: middle; background-color: #ed2024; color: white; font-weight: bold; border-radius: 5px 0 0 5px; font-size: 12px;" colspan="3">
+                    LAISSEZ PASSER
                 </td>
             </tr>
         </table>
@@ -101,35 +151,38 @@
     <table style="width: 100%;">
     <tr style="line-height:0.9;">
         <td style="text-align: center; vertical-align: middle; width: 20%;">
-            <img src="{{ absolute_url(asset('assets/images/logo-haac.png')) }}" alt="Logo HAAC" width="50">
+            <img src="{{ absolute_url(asset('assets/images/logo-haac_2.png')) }}" alt="Logo HAAC" width="80%">
 
         </td>
         <td style="text-align: center; vertical-align: middle; width: 60%;">
 
         </td>
-        <td style="text-align: center; vertical-align: middle; width: 20%;">
-            <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="Logo Bénin" width="50">
+        <td style="text-align: right; vertical-align: middle; width: 20%;">
+            <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="Logo Bénin" width="60%">
         </td>
     </tr>
 
     <tr>
-        <td colspan="3" style="text-align: justify; vertical-align: middle; font-size: 10px; line-height: 1; " >
+        <td colspan="3" style="text-align: justify; vertical-align: middle; font-size: 10px; line-height: 1; padding-left: 10px; padding-right: 10px;" >
+          <b>
+
             Le titulaire de cette carte est un professionnel des médias. Les Autorités béninoises et celles des pays
             hôtes sont priées de faciliter au porteur de la présente carte l'exercice de sa profession.
+        </b>
         </td>
     </tr>
     <tr>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; vertical-align: middle; width: 35%;" >
+        <td style="font-size: 10px; line-height: 0.9; text-align: center; vertical-align: middle; width: 30%;" >
 
                 <strong>Le Président</strong><br>
                 <img src="{{ absolute_url(asset('uploads/' ~ president.signature)) }}" alt="Signature Président" width="150">
                 <div><strong>{{ president.nom }} {{ president.prenoms }}</strong></div>
         </td>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 30%" >
+        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 30%; padding-left:-40px;" >
             <img src="{{ absolute_url(asset('uploads/' ~ president.cachet)) }}" alt="Cachet HAAC" width="80">
         </td>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 30%" >
-            <img src="{{ qrCode }}" alt="QR Code" width="100">
+        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 40%" >
+            <img src="{{ qrCode }}" alt="QR Code" width="100%">
         </td>
     </tr>
 </table>

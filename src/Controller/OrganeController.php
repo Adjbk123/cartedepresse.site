@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/organe')]
+
 class OrganeController extends AbstractController
 {
-    #[Route('/', name: 'app_organe_index', methods: ['GET'])]
+    #[Route('/liste-organe', name: 'app_organe_index', methods: ['GET'])]
     public function index(OrganeRepository $organeRepository): Response
     {
         return $this->render('organe/index.html.twig', [
@@ -22,7 +22,7 @@ class OrganeController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau', name: 'app_organe_new', methods: ['GET', 'POST'])]
+    #[Route('/organe-nouveau', name: 'app_organe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $organe = new Organe();
@@ -42,7 +42,7 @@ class OrganeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_organe_show', methods: ['GET'])]
+    #[Route('/organe/{id}', name: 'app_organe_show', methods: ['GET'])]
     public function show(Organe $organe): Response
     {
         return $this->render('organe/show.html.twig', [
@@ -50,7 +50,7 @@ class OrganeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_organe_edit', methods: ['GET', 'POST'])]
+    #[Route('/organe/{id}/edit', name: 'app_organe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Organe $organe, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OrganeType::class, $organe);
@@ -68,7 +68,7 @@ class OrganeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_organe_delete', methods: ['POST'])]
+    #[Route('/organe/{id}', name: 'app_organe_delete', methods: ['POST'])]
     public function delete(Request $request, Organe $organe, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$organe->getId(), $request->getPayload()->getString('_token'))) {

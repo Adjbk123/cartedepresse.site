@@ -1,7 +1,7 @@
 <div class="row">
     <!-- Card 1: Total Demandes -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style=" border-left: 4px solid #f39c12;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #f39c12;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Total des Demandes</h6>
                 <h2 class="card-text font-weight-bold" style="color: #f39c12;">{{ totalDemandes }}</h2>
@@ -11,7 +11,7 @@
 
     <!-- Card 2: Demandes en Cours -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style=" border-left: 4px solid #3498db;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #3498db;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Demandes en Cours</h6>
                 <h2 class="card-text font-weight-bold" style="color: #3498db;">{{ demandesEnCours }}</h2>
@@ -21,7 +21,7 @@
 
     <!-- Card 3: Demandes Rejetées -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #e74c3c;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #e74c3c;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Demandes Rejetées</h6>
                 <h2 class="card-text font-weight-bold" style="color: #e74c3c;">{{ demandesRejetees }}</h2>
@@ -31,7 +31,7 @@
 
     <!-- Card 4: Lot de Demandes -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #8e44ad;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #8e44ad;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Lot de Demandes</h6>
                 <h2 class="card-text font-weight-bold" style="color: #8e44ad;">{{ lotDemande }}</h2>
@@ -41,7 +41,7 @@
 
     <!-- Card 5: Demandes Validées -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #27ae60;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #27ae60;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Demandes Validées</h6>
                 <h2 class="card-text font-weight-bold" style="color: #27ae60;">{{ demandesValidees }}</h2>
@@ -51,7 +51,7 @@
 
     <!-- Card 6: Cartes Imprimées -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #f1c40f;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #f1c40f;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Cartes Imprimées</h6>
                 <h2 class="card-text font-weight-bold" style="color: #f1c40f;">{{ totalImpressions }}</h2>
@@ -61,7 +61,7 @@
 
     <!-- Card 7: Impression de l'Année Courante -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #2ecc71;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #2ecc71;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Impression de {{ date()|date('Y') }}</h6>
                 <h2 class="card-text font-weight-bold" style="color: #2ecc71;">{{ totalImpressionsCurrentYear }}</h2>
@@ -71,7 +71,7 @@
 
     <!-- Card 8: Cartes Expirées -->
     <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="border-left: 4px solid #c0392b;">
+        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #c0392b;">
             <div class="card-body">
                 <h6 class="card-title text-muted">Cartes Expirées</h6>
                 <h2 class="card-text font-weight-bold" style="color: #c0392b;">{{ cartesExpirees }}</h2>
@@ -80,9 +80,9 @@
     </div>
 </div>
 
-<div class="card mt-4">
+<div class="card mt-4 glassmorphic">
     <div class="card-header">
-        <h3>Statistiques de l'évolution des demandes par mois selon l'année</h3>
+        <h4>Statistiques de l'évolution des demandes par mois selon l'année</h4>
     </div>
     <div class="card-body">
         <div class="form-group">
@@ -117,11 +117,11 @@
 
                         chart = new ApexCharts(chartElement, {
                             chart: {
-                                type: 'line', // Passer au graphique en ligne
+                                type: 'line',
                                 height: 350,
                                 background: '#ffffff',
                                 toolbar: {
-                                    show: true // Afficher la barre d'outils
+                                    show: true
                                 }
                             },
                             series: [{
@@ -146,7 +146,7 @@
                                 },
                             },
                             stroke: {
-                                curve: 'smooth', // Ligne lisse
+                                curve: 'smooth',
                                 width: 4
                             },
                             markers: {
@@ -173,4 +173,14 @@
             fetchData(yearSelect.value);
         });
     </script>
+    <style>
+        .glassmorphic {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
 {% endblock %}

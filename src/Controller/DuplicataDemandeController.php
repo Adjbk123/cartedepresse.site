@@ -13,10 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/duplicata/demande')]
 class DuplicataDemandeController extends AbstractController
 {
-    #[Route('/', name: 'app_duplicata_demande_index', methods: ['GET'])]
+    #[Route('/duplicata-demande', name: 'app_duplicata_demande_index', methods: ['GET'])]
     public function index(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
         return $this->render('duplicata_demande/index.html.twig', [
@@ -24,7 +23,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('s/valides', name: 'app_duplicata_demande_validee', methods: ['GET'])]
+    #[Route('/duplis/valides', name: 'app_duplicata_demande_validee', methods: ['GET'])]
     public function validee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
         $validatedDuplicatas =  $duplicataDemandeRepository->findBy(['statut'=>"Validée"]);
@@ -33,7 +32,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/rejetees', name: 'app_duplicata_demande_rejetee', methods: ['GET'])]
+    #[Route('/dp/rejetees', name: 'app_duplicata_demande_rejetee', methods: ['GET'])]
     public function rejetee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
         $rejectedDuplicatas = $duplicataDemandeRepository->findBy(['statut'=>"Rejetée"]);
@@ -42,7 +41,7 @@ class DuplicataDemandeController extends AbstractController
             'duplicatas' => $rejectedDuplicatas,
         ]);
     }
-    #[Route('/new', name: 'app_duplicata_demande_new')]
+    #[Route('/duplicata-demande/new', name: 'app_duplicata_demande_new')]
     public function demandeDuplicata(Request $request,DemandeRepository $carteRepository, EntityManagerInterface $em): Response
     {
         $professionnel = $this->getUser()->getId();
@@ -92,7 +91,7 @@ class DuplicataDemandeController extends AbstractController
     }
 
 
-    #[Route('/valider/{id}', name: 'valider_duplicata')]
+    #[Route('/duplicata-demande/valider/{id}', name: 'valider_duplicata')]
     public function validerDuplicata(DuplicataDemande $duplicataDemande, EntityManagerInterface $em): Response
     {
         $duplicataDemande->setStatut('Validée');
@@ -102,7 +101,7 @@ class DuplicataDemandeController extends AbstractController
         return $this->redirectToRoute('app_duplicata_demande_index');
     }
 
-    #[Route('/rejeter/{id}', name: 'rejeter_duplicata')]
+    #[Route('/duplicata-demande/rejeter/{id}', name: 'rejeter_duplicata')]
     public function rejeterDuplicata(DuplicataDemande $duplicataDemande, EntityManagerInterface $em): Response
     {
         $duplicataDemande->setStatut('Rejetée');
@@ -112,7 +111,7 @@ class DuplicataDemandeController extends AbstractController
         return $this->redirectToRoute('app_duplicata_demande_index');
     }
 
-    #[Route('/{id}', name: 'app_duplicata_demande_show', methods: ['GET'])]
+    #[Route('/duplicata-demande/{id}', name: 'app_duplicata_demande_show', methods: ['GET'])]
     public function show(DuplicataDemande $duplicataDemande): Response
     {
         return $this->render('duplicata_demande/show.html.twig', [
@@ -120,7 +119,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_duplicata_demande_edit', methods: ['GET', 'POST'])]
+    #[Route('/duplicata-demande/{id}/edit', name: 'app_duplicata_demande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DuplicataDemande $duplicataDemande, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DuplicataDemandeType::class, $duplicataDemande);
@@ -138,7 +137,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_duplicata_demande_delete', methods: ['POST'])]
+    #[Route('/duplicata-demande/{id}', name: 'app_duplicata_demande_delete', methods: ['POST'])]
     public function delete(Request $request, DuplicataDemande $duplicataDemande, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$duplicataDemande->getId(), $request->getPayload()->getString('_token'))) {

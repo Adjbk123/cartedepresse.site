@@ -10,7 +10,7 @@
 
 {% block body %}
 
-    {% if duplicatas is not empty %}
+
         <table class="table datatable-init table-striped">
             <thead>
             <tr>
@@ -30,7 +30,4 @@
             {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>Aucune demande validée trouvée.</p>
-    {% endif %}
 {% endblock %}

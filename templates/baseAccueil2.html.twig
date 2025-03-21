@@ -28,7 +28,7 @@
     <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
     <!-- Style Css-->
-    <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/css/style-green.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}"/>
@@ -38,6 +38,11 @@
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
+    <style>
+        .sub-menu-item{
+            font-family: "Montserrat", sans-serif; !important;
+        }
+    </style>
 </head>
 
 <body>

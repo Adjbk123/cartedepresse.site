@@ -173,7 +173,6 @@ class UserController extends AbstractController
                 // Générer un nom de fichier sécurisé
                 $nomFichierSecurise = $this->slugify($nomCompletUtilisateur . '_' . $date . '_' . $nomOriginal);
                 $nouveauNomFichier = $nomFichierSecurise . '.' . $extension;
-
                 // Déplacer le fichier vers le répertoire de destination
                 $fichier->move($repertoire, $nouveauNomFichier);
 
