@@ -50,7 +50,7 @@
                 </div>
             {% endif %}
 
-            {% if derniere_demande and derniere_demande.dateExpiration < date() %}
+            {% if derniereDemande  and derniereDemande.dateSoumission < date() %}
                 <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3 ">
                     <a href="{{ path('app_duplicata_demande_new') }}">
                         <div class="d-flex features feature-success key-feature align-items-center p-3 rounded shadow border border-1">
@@ -65,7 +65,7 @@
                 </div>
             {% endif %}
 
-            {% if derniere_demande is not null %}
+            {% if derniereDemande is not null %}
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="nav nav-pills nav-justified flex-column flex-sm-row rounded" id="pills-tab" role="tablist">

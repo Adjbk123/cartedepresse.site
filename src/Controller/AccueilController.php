@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CarteRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\HistoriqueOrganeProfessionnelRepository;
 use App\Repository\OrganeRepository;
@@ -36,7 +37,7 @@ class AccueilController extends AbstractController
 
 
     #[Route('/', name: 'app_accueil')]
-    public function index(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository): Response
+    public function index(DemandeRepository $demandeRepository, HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository, CarteRepository $carteRepository): Response
     {
         if ($this->getUser() and !$this->isGranted("ROLE_PROFESSIONNEL")) {
             return $this->redirectToRoute('app_admin');
@@ -51,8 +52,12 @@ class AccueilController extends AbstractController
 
         $demandes = $demandeRepository->findBy(['professionnel'=>$professionnel->getId()]);
 
+        $derniereDemande  = $demandeRepository->findOneBy(['professionnel'=>$professionnel->getId()]);
+        $derniereCarte = $carteRepository->findOneBy(['demande'=>$derniereDemande->getId()]);
+
         return $this->render('accueil/indexAccueil.html.twig', [
             'demandes' => $demandes,
+            'derniereDemande' => $derniereDemande,
 
         ]);
     }
