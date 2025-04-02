@@ -49,9 +49,6 @@ class AccueilController extends AbstractController
 
         }
 
-
-
-
         return $this->render('accueil/indexAccueil.html.twig', [
 
         ]);
@@ -71,15 +68,15 @@ class AccueilController extends AbstractController
         // Récupération de l'utilisateur actuel
         $user = $this->getUser();
 
-        // Récupérer toutes les demandes du professionnel
-        $demandes = $demandeRepository->findBy(['professionnel' => $user]);
-
 
         $demandes = $demandeRepository->findBy(['professionnel'=>$user->getId()]);
 
-        $derniereDemande  = $demandeRepository->findOneBy(['professionnel'=>$user->getId()]);
-        $derniereCarte = $carteRepository->findOneBy(['demande'=>$derniereDemande->getId()]);
+        $derniereDemande  = $demandeRepository->findOneBy(['professionnel' => $user->getId()]);
 
+        $derniereCarte = null; // Initialiser à null par défaut
+        if ($derniereDemande !== null) {
+            $derniereCarte = $carteRepository->findOneBy(['demande' => $derniereDemande->getId()]);
+        }
 
         // Récupération des organes du professionnel
         $historiques = $historiqueOrganeProfessionnelRepository->findBy(['professionnel' => $user]);
