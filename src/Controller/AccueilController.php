@@ -50,14 +50,9 @@ class AccueilController extends AbstractController
         }
 
 
-        $demandes = $demandeRepository->findBy(['professionnel'=>$professionnel->getId()]);
 
-        $derniereDemande  = $demandeRepository->findOneBy(['professionnel'=>$professionnel->getId()]);
-        $derniereCarte = $carteRepository->findOneBy(['demande'=>$derniereDemande->getId()]);
 
         return $this->render('accueil/indexAccueil.html.twig', [
-            'demandes' => $demandes,
-            'derniereDemande' => $derniereDemande,
 
         ]);
     }
