@@ -28,7 +28,7 @@ class ImpressionController extends AbstractController
     public function index(CarteRepository $carteRepository): Response
     {
 
-        $cartePretes = $carteRepository->findBy(['imprimerPar'=>null]);
+        $cartePretes = $carteRepository->findBy(['urlFile'=>null]);
 
         return $this->render('impression/index.html.twig', [
             'cartePretes' => $cartePretes,
