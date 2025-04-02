@@ -179,13 +179,16 @@
                     {% if app.user %}
 
 
-                    {% if app.user.photo is not null %}
-                        <img src="{{ asset('uploads/' ~ app.user.photo) }}" class="avatar rounded avatar-ex-large" alt="">
-                    {% else %}
-                        <img src="{{ asset('uploads/user-defaut.png') }}" class="avatar rounded avatar-ex-large" alt="">
-                    {% endif %}
+                        {% if app.user.photo is not null %}
+                            <img src="{{ asset('uploads/' ~ app.user.photo) }}" class="avatar rounded-circle avatar-ex-large" alt="">
+                        {% else %}
+                            {% set initials = app.user.nom[:1]|upper ~ app.user.prenoms[:1]|upper %}
+                            <div class="m-auto avatar rounded-circle avatar-ex-large d-flex align-items-center justify-content-center bg-primary text-white  fw-bolder" style="font-size:70px;">
+                                {{ initials }}
+                            </div>
+                        {% endif %}
 
-                    <h4 class="title mb-0 mt-2">
+                        <h4 class="title mb-0 mt-2">
                         {% if app.user %}
                             {{ app.user.prenoms }} {{ app.user.nom }}
                         {% endif %}

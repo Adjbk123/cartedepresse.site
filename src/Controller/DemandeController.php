@@ -118,7 +118,6 @@ class DemandeController extends AbstractController
             $user->setSexe($data['sexe']);
             $user->setNationalite($data['nationalite']);
             $user->setAdresse($data['adresse']);
-            $user->setUsername($data['username']);
             $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setStatut(1);
@@ -182,6 +181,7 @@ class DemandeController extends AbstractController
 
             $data = $request->files->get('typePieces');
 
+
             // Enregistrer les pièces jointes
             foreach ($data as $key => $pieceJointe) {
                 $nomFichier = $pieceJointe->getClientOriginalName();
@@ -191,7 +191,7 @@ class DemandeController extends AbstractController
                 $statut = 'En attente';
                 $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
 
-                $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $directory = 'uploads/' . date('Y');
                 $pieceJointe->move($directory, $url);
 
                 $piece = new PieceJointe();
@@ -208,7 +208,6 @@ class DemandeController extends AbstractController
                 $user->getNom(),
                 $user->getPrenoms(),
                 $user->getEmail(),
-                $user->getUsername(),
                 $motdePasse,
                 $numeroDemande
             );
@@ -550,7 +549,7 @@ class DemandeController extends AbstractController
             $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
             $url = uniqid() . '_' . $user->getNom() . '_' . $user->getPrenoms() . '_' . $nomFichier;
 
-            $directory = 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+            $directory = 'uploads/' . date('Y');
             $fichier->move($directory, $url);
 
             // Mettre à jour les informations de la pièce jointe

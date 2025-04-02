@@ -123,7 +123,6 @@ class EmailNotificationService
         string $nom,
         string $prenoms,
         string $recipientEmail,
-        string $username,
         string $password,
         string $numeroDemande
     ): void {
@@ -135,7 +134,6 @@ class EmailNotificationService
             'nom'=>$nom,
             "prenoms"=>$prenoms,
             'email' => $recipientEmail,
-            'username' => $username,
             'password' => $password,
             'numeroDemande' => $numeroDemande,
             'lienConnexion' => 'https://cartedepresse.net/connexion-compte',

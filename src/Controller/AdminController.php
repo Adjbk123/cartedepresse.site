@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lot;
+use App\Repository\CarteRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\LotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
-    public function index(DemandeRepository $demandeRepository, LotRepository $lotRepository): Response
+    public function index(DemandeRepository $demandeRepository, LotRepository $lotRepository, CarteRepository $carteRepository): Response
     {
 
    
@@ -49,7 +50,7 @@ class AdminController extends AbstractController
 
         //statistique des impressions de l'année
         $totalImpressionsCurrentYear = $demandeRepository->getTotalImpressionsForCurrentYear();
-        $totalImpressions = $demandeRepository->getTotalImpressions();
+        $totalImpressions = $demandeRepository->countPrintedCards();
 
 
 

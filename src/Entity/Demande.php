@@ -55,23 +55,19 @@ class Demande
     #[ORM\Column(nullable: true)]
     private ?bool $isReadyForPrint = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateDelivrance = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateExpiration = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $isPrinted = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $urlFile = null;
+
 
     /**
      * @var Collection<int, DuplicataDemande>
      */
     #[ORM\OneToMany(targetEntity: DuplicataDemande::class, mappedBy: 'demande')]
     private Collection $duplicataDemandes;
+
+    #[ORM\OneToOne(mappedBy: 'demande', cascade: ['persist', 'remove'])]
+    private ?Carte $carte = null;
 
     public function __construct()
     {
@@ -246,29 +242,8 @@ class Demande
         return $this;
     }
 
-    public function getDateDelivrance(): ?\DateTimeInterface
-    {
-        return $this->dateDelivrance;
-    }
 
-    public function setDateDelivrance(?\DateTimeInterface $dateDelivrance): static
-    {
-        $this->dateDelivrance = $dateDelivrance;
 
-        return $this;
-    }
-
-    public function getDateExpiration(): ?\DateTimeInterface
-    {
-        return $this->dateExpiration;
-    }
-
-    public function setDateExpiration(?\DateTimeInterface $dateExpiration): static
-    {
-        $this->dateExpiration = $dateExpiration;
-
-        return $this;
-    }
 
     public function isPrinted(): ?bool
     {
@@ -278,18 +253,6 @@ class Demande
     public function setPrinted(?bool $isPrinted): static
     {
         $this->isPrinted = $isPrinted;
-
-        return $this;
-    }
-
-    public function getUrlFile(): ?string
-    {
-        return $this->urlFile;
-    }
-
-    public function setUrlFile(?string $urlFile): static
-    {
-        $this->urlFile = $urlFile;
 
         return $this;
     }
@@ -320,6 +283,23 @@ class Demande
                 $duplicataDemande->setDemande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCarte(): ?Carte
+    {
+        return $this->carte;
+    }
+
+    public function setCarte(Carte $carte): static
+    {
+        // set the owning side of the relation if necessary
+        if ($carte->getDemande() !== $this) {
+            $carte->setDemande($this);
+        }
+
+        $this->carte = $carte;
 
         return $this;
     }

@@ -9,10 +9,6 @@
                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
                 <p>Etape 2</p>
             </div>
-            <div class="stepwizard-step">
-                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                <p>Etape 3</p>
-            </div>
         </div>
     </div>
     <form role="form" action="{{ path('app_demande_new') }}" enctype="multipart/form-data" method="post">
@@ -98,42 +94,30 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <button class="btn btn-outline-success nextBtn  pull-right" type="button" >Suivant</button>
-                </div>
-            </div>
-        </div>
-        <div class="row setup-content" id="step-3">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3 class="blockquote mt-3 p-3 "> Quittance</h3>
-                    <div class="col-md-12">
-                        {% for typePiece in typePieces %}
-                            {% if typePiece.libelle == 'Quittance' %}
-                                <div class="mb-3">
-                                    <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
-                                    <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
-                                        <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
+                    <h3 class="blockquote mt-3 p-3"> Quittance</h3>
+                    {% for typePiece in typePieces %}
+                        {% if typePiece.libelle == 'Quittance' %}
+                            <div class="mb-3">
+                                <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
+                                <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
+                                    <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;">
 
-                                        <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+                                    <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
 
-                                        <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
-                                            <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+                                    <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+                                        <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
 
-                                            <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+                                        <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
 
-                                            <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
-                                        </div>
+                                        <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
                                     </div>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <button class="btn btn-success  pull-right" type="submit">Envoyer la demande</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button class="btn btn-success pull-right" type="submit">Envoyer la demande</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-
-
-

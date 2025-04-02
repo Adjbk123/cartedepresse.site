@@ -11,7 +11,8 @@
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
     <!-- Page Title  -->
     <title>{% block title %}{% endblock %} | SGACP </title>
-
+    {% block stylesheets %}
+    {% endblock %}
     {{ include('partials/stylesheet.html.twig') }}
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
@@ -183,6 +184,7 @@
 <!-- app-root @e -->
 <!-- JavaScript -->
 {{ include('partials/script.html.twig') }}
+
 </body>
 
 </html>

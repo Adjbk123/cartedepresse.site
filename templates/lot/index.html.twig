@@ -51,7 +51,7 @@
                     </td>
                 <td>
                     {% if lot.rapport %}
-                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewRapportModal-{{ lot.id }}">
+                        <button type="button" class="btn btn-outline-secondary btn-sm btn-round" data-bs-toggle="modal" data-bs-target="#viewRapportModal-{{ lot.id }}">
                             Voir
                         </button>
                     {% else %}
@@ -60,7 +60,7 @@
                 </td>
                 <td>
                     {% if lot.decision %}
-                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewDecisionModal-{{ lot.id }}">
+                        <button type="button" class="btn btn-info btn-sm btn-round" data-bs-toggle="modal" data-bs-target="#viewDecisionModal-{{ lot.id }}">
                             Voir
                         </button>
                     {% else %}
@@ -72,7 +72,7 @@
                 <td>
 
                     {% if lot.statut == "En attente" %}
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#validateModal-{{ lot.id }}">
+                        <button type="button" class="btn btn-success btn-sm " data-bs-toggle="modal" data-bs-target="#validateModal-{{ lot.id }}">
                             Valider
                         </button>
 

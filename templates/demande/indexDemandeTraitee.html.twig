@@ -20,7 +20,7 @@
             <thead class="table-light">
             <tr>
                 <th>N°</th>
-                <th>Demandeur</th>
+                <th>Professionnel</th>
                 <th>Numéro de la demande</th>
 
                 <th>Traitée par</th>
@@ -43,10 +43,6 @@
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="{{ path('app_demande_show', {'id': demande.id}) }}">Détails </a>
                     </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">Aucun enregistrement trouvé</td>
                 </tr>
             {% endfor %}
             </tbody>

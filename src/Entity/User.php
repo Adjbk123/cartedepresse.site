@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,8 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
-    private ?string $username = null;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     /**
      * @var list<string> The user roles
@@ -48,8 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $statut = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
 
     /**
      * @var Collection<int, Demande>
@@ -90,11 +88,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
 
+    /**
+     * @var Collection<int, Carte>
+     */
+    #[ORM\OneToMany(targetEntity: Carte::class, mappedBy: 'imprimerPar')]
+    private Collection $cartes;
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
         $this->historiqueOrganeProfessionnels = new ArrayCollection();
         $this->demandesTraitant = new ArrayCollection();
+        $this->cartes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,17 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
 
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
-
-        return $this;
-    }
 
     /**
      * A visual identifier that represents this user.
@@ -121,9 +116,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
+    }
+    public function getEmail(): ?string
+    {
+        return $this->email;
     }
 
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
     /**
      * @see UserInterface
      *
@@ -220,17 +225,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
 
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Demande>
@@ -405,6 +400,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse(?string $adresse): static
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Carte>
+     */
+    public function getCartes(): Collection
+    {
+        return $this->cartes;
+    }
+
+    public function addCarte(Carte $carte): static
+    {
+        if (!$this->cartes->contains($carte)) {
+            $this->cartes->add($carte);
+            $carte->setImprimerPar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarte(Carte $carte): static
+    {
+        if ($this->cartes->removeElement($carte)) {
+            // set the owning side to null (unless already changed)
+            if ($carte->getImprimerPar() === $this) {
+                $carte->setImprimerPar(null);
+            }
+        }
 
         return $this;
     }

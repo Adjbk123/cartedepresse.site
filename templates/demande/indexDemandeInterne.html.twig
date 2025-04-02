@@ -4,12 +4,25 @@
 {% block breadcrumb %} Demande {% endblock %}
 {% block breadcrumbActive %} Nouveau {% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #11832b;
+            padding-bottom: 0.5rem;
+            color: #11832b;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <form action="{{ path('app_demande_interne') }}" class="form-validate is-later " method="post" enctype="multipart/form-data">
+    <form action="{{ path('app_demande_interne') }}" class="form-validate is-later" method="post" enctype="multipart/form-data">
         <div class="container">
             <!-- Étape 1 : Informations du Professionnel et Compte -->
             <div id="step-1" class="form-step">
-                <h4>Étape 1 : Informations du Professionnel</h4>
+                <h4 class="step-title">Étape 1 : Informations du Professionnel</h4>
                 <div class="row">
                     <!-- Nom -->
                     <div class="form-group col-md-6">
@@ -66,12 +79,11 @@
                     <!-- Nationalité -->
                     <div class="form-group col-md-6">
                         <label for="nationalite" class="form-label">Nationalité</label>
-                        <select name="nationalite" id="nationalite" class="form-control" class="form-select js-select2" data-search="on">
+                        <select name="nationalite" id="nationalite" class="form-control js-select2" data-search="on">
                             {% for key, value in nationalites %}
                                 <option value="{{ key }}" {% if key == 'Béninois(e)' %}selected{% endif %}>{{ value }}</option>
                             {% endfor %}
                         </select>
-
                     </div>
                 </div>
 
@@ -81,25 +93,22 @@
                         <select name="organe" id="organe" class="form-select js-select2" data-search="on" required>
                             <option value="">Choisir...</option>
                             {% for organe in organes %}
-                                <option value="{{ organe.id }}" >{{ organe.designation }}</option>
+                                <option value="{{ organe.id }}">{{ organe.designation }}</option>
                             {% endfor %}
                         </select>
-
                     </div>
-                    <div class="form-group  col-md-6">
-                            <label for="profession" class="form-label">Profession</label>
+                    <div class="form-group col-md-6">
+                        <label for="profession" class="form-label">Profession</label>
                         <div class="form-control-wrap">
                             <select name="profession" id="profession" class="form-select js-select2" data-search="on" required>
                                 <option value="">Choisir...</option>
                                 {% for profession in professions %}
-                                    <option value="{{ profession.id }}" >{{ profession.libelle }}</option>
+                                    <option value="{{ profession.id }}">{{ profession.libelle }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-
                     </div>
                 </div>
-
 
                 <div class="row">
                     <!-- Photo -->
@@ -114,66 +123,47 @@
                         <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Photo -->
-                    <div class="form-group col-md-6">
-                        <label for="username" class="form-label">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur">
-                    </div>
 
-                    <!-- Adresse -->
-                    <div class="form-group col-md-6">
-                        <label for="password" class="form-label">Mot de passe </label>
+                <div class="row">
+                    <!-- Mot de passe -->
+                    <div class="form-group col-md-12">
+                        <label for="password" class="form-label">Mot de passe</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-outline-success" id="next-step-1">Suivant</button>
+                    <div class="form-group col-md-12 text-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary text-center btn-lg" id="next-step-1">Suivant</button>
                     </div>
                 </div>
             </div>
 
             <!-- Étape 2 : Documents -->
             <div id="step-2" class="form-step" style="display: none;">
-                <h3>Étape 2 : Documents</h3>
+                <h3 class="step-title">Étape 2 : Documents</h3>
                 {% for typePiece in typePieces %}
                     {% if typePiece.libelle != 'Quittance' %}
                         <div class="mb-3">
                             <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
-
-                                <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="form-control">
-
+                            <input type="file" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="form-control">
                         </div>
                     {% endif %}
                 {% endfor %}
 
-                <div class="row">
-                    <div class="form-group col-md-12 d-flex">
-                        <button type="button"  class="btn btn-outline-secondary me-2" id="previous-step-2">Précédent</button>
-                        <button type="button" class="btn btn-outline-success" id="next-step-2">Suivant</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Étape 3 : Quittance -->
-            <div id="step-3" class="form-step" style="display: none;">
-                <h3>Étape 3 : Quittance</h3>
+                <h3 class="step-title">Quittance</h3>
                 {% for typePiece in typePieces %}
                     {% if typePiece.libelle == 'Quittance' %}
                         <div class="mb-3">
                             <label class="form-label" for="typePiece_{{ typePiece.id }}">{{ typePiece.libelle }}</label>
-
-                                <input type="file" class="form-control" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required">
-
+                            <input type="file" class="form-control" id="typePiece_{{ typePiece.id }}" name="typePieces[{{ typePiece.id }}]" required="required">
                         </div>
                     {% endif %}
                 {% endfor %}
 
                 <div class="row">
                     <div class="form-group col-md-12 d-flex">
-                        <button type="button" class="btn btn-outline-secondary me-2" id="previous-step-3">Précédent</button>
+                        <button type="button" class="btn btn-outline-secondary me-2" id="previous-step-2">Précédent</button>
                         <button type="submit" class="btn btn-success">Soumettre</button>
                     </div>
                 </div>
@@ -181,6 +171,7 @@
         </div>
     </form>
 {% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script>
@@ -188,14 +179,11 @@
             // Sélectionner tous les formulaires d'étapes
             const step1Form = document.querySelector('#step-1');
             const step2Form = document.querySelector('#step-2');
-            const step3Form = document.querySelector('#step-3');
 
             const nextStep1Btn = document.getElementById('next-step-1');
-            const nextStep2Btn = document.getElementById('next-step-2');
 
             // Désactiver les boutons suivants par défaut
             nextStep1Btn.disabled = true;
-            nextStep2Btn.disabled = true;
 
             // Fonction de validation pour une étape donnée
             function validateStep(stepForm) {
@@ -211,43 +199,21 @@
 
             // Surveille les changements dans les champs d'étape 1
             step1Form.addEventListener('input', function () {
-                if (validateStep(step1Form)) {
-                    nextStep1Btn.disabled = false; // Activer le bouton "Suivant" si tous les champs sont valides
-                } else {
-                    nextStep1Btn.disabled = true; // Désactiver le bouton si un champ n'est pas valide
-                }
-            });
-
-            // Surveille les changements dans les champs d'étape 2
-            step2Form.addEventListener('input', function () {
-                if (validateStep(step2Form)) {
-                    nextStep2Btn.disabled = false;
-                } else {
-                    nextStep2Btn.disabled = true;
-                }
+                nextStep1Btn.disabled = !validateStep(step1Form);
             });
 
             // Étape 1
             nextStep1Btn.addEventListener('click', function () {
-                document.getElementById('step-1').style.display = 'none';
-                document.getElementById('step-2').style.display = 'block';
+                if (validateStep(step1Form)) {
+                    document.getElementById('step-1').style.display = 'none';
+                    document.getElementById('step-2').style.display = 'block';
+                }
             });
 
             // Étape 2
             document.getElementById('previous-step-2').addEventListener('click', function () {
                 document.getElementById('step-2').style.display = 'none';
                 document.getElementById('step-1').style.display = 'block';
-            });
-
-            nextStep2Btn.addEventListener('click', function () {
-                document.getElementById('step-2').style.display = 'none';
-                document.getElementById('step-3').style.display = 'block';
-            });
-
-            // Étape 3
-            document.getElementById('previous-step-3').addEventListener('click', function () {
-                document.getElementById('step-3').style.display = 'none';
-                document.getElementById('step-2').style.display = 'block';
             });
         });
     </script>

@@ -45,7 +45,7 @@
 
                 <!-- Modal Valider -->
                 <div class="modal fade" id="modalValider{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalValider{{ pieceJointe.id }}Label" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalValider{{ pieceJointe.id }}Label">Valider le fichier</h5>
@@ -66,7 +66,7 @@
 
                 <!-- Modal Rejeter -->
                 <div class="modal fade" id="modalRejeter{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalRejeter{{ pieceJointe.id }}Label" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalRejeter{{ pieceJointe.id }}Label">Rejeter le fichier</h5>
@@ -87,14 +87,14 @@
 
                 <!-- Modal Consulter -->
                 <div class="modal fade" id="modalConsulter{{ pieceJointe.id }}" tabindex="-1" aria-labelledby="modalConsulter{{ pieceJointe.id }}Label" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalConsulter{{ pieceJointe.id }}Label">Consulter la pièce jointe</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <embed src="{{ asset('uploads/' ~ pieceJointe.dateSoumission|date('Y') ~ '/' ~ pieceJointe.dateSoumission|date('m') ~ '/' ~ pieceJointe.dateSoumission|date('d') ~ '/' ~ pieceJointe.url) }}" type="application/pdf" width="100%" height="600px" />
+                                <embed src="{{ asset('uploads/' ~ pieceJointe.dateSoumission|date('Y') ~ '/' ~ pieceJointe.url) }}" type="application/pdf" width="100%" height="600px" />
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
         <div class="col-md-6">
             <!-- Modal Valider Toute La Demande -->
             <div class="modal fade" id="modalValiderTout" tabindex="-1" aria-labelledby="modalValiderToutLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalValiderToutLabel">Valider toute la demande</h5>
@@ -134,7 +134,7 @@
         <div class="col-md-6">
             <!-- Modal Rejeter Toute La Demande -->
             <div class="modal fade" id="modalRejeterTout" tabindex="-1" aria-labelledby="modalRejeterToutLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalRejeterToutLabel">Rejeter toute la demande</h5>

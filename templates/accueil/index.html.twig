@@ -3,54 +3,41 @@
 {% block title %}Mon compte{% endblock %}
 {% block breadcrumb %}Mon compte{% endblock %}
 
-
 {% block body %}
-
     {% for message in app.flashes('error') %}
         <div class="flash-notice">
-
-
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Message :</strong>     {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+                <strong>Message :</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
     {% endfor %}
 
     {% for message in app.flashes('success') %}
         <div class="flash-notice">
-
-
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Message :</strong>     {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+                <strong>Message :</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
     {% endfor %}
 
     {% if is_granted('ROLE_PROFESSIONNEL') %}
-
-        {% if app.user.sexe is null or app.user.photo is null or app.user.dateNaissance is null  %}
-         <div class="alert bg-soft-warning fw-medium text-center mb-5  pb-3" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i>
-             Vous devez completer vos informations personnelles avant d'éffectuer une demande de carte
-
-
-
-         </div>
-        <div>
-            <div class="text-center ">
-                <a href="{{ path('app_professionnel_edit', { 'id' : app.user.id }) }}" class="btn btn-primary mb-2">Completer</a>
-
-                <a href="{{ path('app_espace_completer_plus_tard') }}" class="btn btn-outline-primary mb-2 "> Complèter plus tard</a>
+        {% if app.user.sexe is null or app.user.photo is null or app.user.dateNaissance is null %}
+            <div class="alert bg-soft-warning fw-medium text-center mb-5 pb-3" role="alert">
+                <i class="uil uil-info-circle fs-5 align-middle me-1"></i>
+                Vous devez compléter vos informations personnelles avant d'effectuer une demande de carte.
             </div>
-        </div>
+            <div class="text-center">
+                <a href="{{ path('app_professionnel_edit', { 'id' : app.user.id }) }}" class="btn btn-primary mb-2">Compléter</a>
+                <a href="{{ path('app_espace_completer_plus_tard') }}" class="btn btn-outline-primary mb-2">Compléter plus tard</a>
+            </div>
         {% else %}
-            {% if app.user.demandes is not null %}'
-               
+            {% if app.user.demandes is  null %}
                 <div class="row">
                     <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3">
                         <a href="{{ path('app_demande_new') }}">
-                            <div class="d-flex features feature-success  key-feature align-items-center p-3 rounded shadow">
+                            <div class="d-flex features feature-success key-feature align-items-center p-3 rounded shadow">
                                 <div class="icon text-center rounded-circle me-3">
                                     <i class="mdi mdi-plus"></i>
                                 </div>
@@ -60,34 +47,25 @@
                             </div>
                         </a>
                     </div>
-
-                {% if derniere_demande %}
-                    {% if   derniere_demande.dateExpiration < date() %}
-                        <div class="col-lg-6 col-md-6 mt-4 pt-2 mb-3">
-                            <a href="{{ path('app_duplicata_demande_new') }}">
-                                <div class="d-flex features feature-success key-feature align-items-center p-3 rounded shadow">
-                                    <div class="icon text-center rounded-circle me-3">
-                                        <i class="mdi mdi-plus"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="title mb-0">Demande de duplicata de carte de presse</h4>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endif %}
-
-
-                {% endif %}
-
-
                 </div>
-
-
             {% endif %}
 
+            {% if derniere_demande and derniere_demande.dateExpiration < date() %}
+                <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3 ">
+                    <a href="{{ path('app_duplicata_demande_new') }}">
+                        <div class="d-flex features feature-success key-feature align-items-center p-3 rounded shadow border border-1">
+                            <div class="icon text-center rounded-circle me-3">
+                                <i class="mdi mdi-plus"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="title mb-0">Demande de duplicata de carte de presse</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
 
-            {% if  derniere_demande is not null  %}
+            {% if derniere_demande is not null %}
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="nav nav-pills nav-justified flex-column flex-sm-row rounded" id="pills-tab" role="tablist">
@@ -127,12 +105,10 @@
                                             <table class="table table-hover">
                                                 <thead class="table-light">
                                                 <tr>
-
                                                     <th>N°</th>
                                                     <th>Type de demande</th>
                                                     <th>Date de Soumission</th>
                                                     <th>Statut</th>
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -140,26 +116,31 @@
                                                     <tr>
                                                         <td>{{ loop.index }}</td>
                                                         <td>
-                                                            {% if demande.typeDemande=='Etablissement' %}
+                                                            {% if demande.typeDemande == 'Etablissement' %}
                                                                 NOUVELLE ATTRIBUTION DE CARTE
-                                                            {% elseif demande.typeDemande=='Renouvellement' %}
+                                                            {% elseif demande.typeDemande == 'Renouvellement' %}
                                                                 RENOUVELLEMENT DE CARTE
-
                                                             {% endif %}
-
                                                         </td>
-                                                        <td>{{demande.dateSoumission|date('d/m/Y H:i') }}</td>
-                                                        <td>{{ demande.statut|upper }}</td>
+                                                        <td>{{ demande.dateSoumission|date('d/m/Y H:i') }}</td>
+                                                        <td>
 
+                                                            {% if demande.statut == 'En attente' %}
+                                                                <span class="badge badge-round bg-warning ">{{ demande.statut }}</span>
+                                                            {% elseif demande.statut == 'Validée' %}
+                                                                <span class="badge badge-round bg-success ">{{ demande.statut }}</span>
+                                                            {% elseif demande.statut == 'Rejetée' %}
+                                                                <span class="badge badge-round bg-danger ">{{ demande.statut }}</span>
+                                                            {% else %}
+                                                                <span class="badge badge-round bg-secondary">{{ demande.statut }}</span>
+                                                            {% endif %}
+                                                        </td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
-
-
 
                                     <div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-documents-tab">
                                         <h2>Documents soumis</h2>
@@ -200,7 +181,7 @@
                                                                             {% elseif piece.statut == 'A corrigé' %}
                                                                                 <span class="badge bg-warning text-dark">{{ piece.statut }}</span>
                                                                             {% elseif piece.statut == 'Rejetée' %}
-                                                                                <span class="badge bg-warning">A corrigée</span>
+                                                                                <span class="badge bg-danger">{{ piece.statut }}</span>
                                                                             {% endif %}
                                                                         </td>
                                                                         <td>
@@ -228,18 +209,18 @@
                                                                                     <p><strong>Date de soumission :</strong> {{ piece.dateSoumission|date('d/m/Y') }}</p>
                                                                                     <p><strong>Statut :</strong>
                                                                                         <span>
-                                {% if piece.statut == 'En attente' %}
-                                    <span class="badge bg-info">{{ piece.statut }}</span>
-                                {% elseif piece.statut == 'Validé' %}
-                                    <span class="badge bg-success">{{ piece.statut }}</span>
-                                {% elseif piece.statut == 'A corrigé' %}
-                                    <span class="badge bg-warning text-dark">{{ piece.statut }}</span>
-                                {% elseif piece.statut == 'Rejetée' %}
-                                    <span class="badge bg-danger">{{ piece.statut }}</span>
-                                {% endif %}
-                            </span>
+                                                                                            {% if piece.statut == 'En attente' %}
+                                                                                                <span class="badge bg-info">{{ piece.statut }}</span>
+                                                                                            {% elseif piece.statut == 'Validé' %}
+                                                                                                <span class="badge bg-success">{{ piece.statut }}</span>
+                                                                                            {% elseif piece.statut == 'A corrigé' %}
+                                                                                                <span class="badge bg-warning text-dark">{{ piece.statut }}</span>
+                                                                                            {% elseif piece.statut == 'Rejetée' %}
+                                                                                                <span class="badge bg-danger">{{ piece.statut }}</span>
+                                                                                            {% endif %}
+                                                                                        </span>
                                                                                     </p>
-                                                                                    <iframe src="{{ asset('uploads/' ~ piece.dateSoumission|date('Y') ~ '/' ~ piece.dateSoumission|date('m') ~ '/' ~ piece.dateSoumission|date('d') ~ '/' ~ piece.url) }}" frameborder="0" width="100%" height="400px"></iframe>
+                                                                                    <iframe src="{{ asset('uploads/' ~ piece.dateSoumission|date('Y') ~ '/' ~ piece.url) }}" frameborder="0" width="100%" height="400px"></iframe>
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -271,7 +252,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
                                                                 {% else %}
                                                                     <tr>
                                                                         <td colspan="4">Aucun document associé.</td>
@@ -292,34 +272,26 @@
                                                 </div>
                                             {% endfor %}
                                         </div>
-
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-organe" role="tabpanel" aria-labelledby="pills-organe-tab">
                                         <h2>Informations sur l'Organe de Presse</h2>
-
                                         {% for historique in historiques %}
                                             <div style="border-left: 2px solid #16A34A; padding-left: 10px;" class="mb-4 ms-3">
                                                 <p>Nom : {{ historique.organe.designation }} - {{ historique.organe.typeOrgane.libelle }}</p>
-                                                <p>Profession : {{ historique.profession.libelle}} </p>
+                                                <p>Profession : {{ historique.profession.libelle }}</p>
                                             </div>
-
                                         {% endfor %}
-
                                         <button class="btn btn-link">Changer d'organe de presse</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             {% endif %}
         {% endif %}
     {% endif %}
-
-
-
 
     <style>
         .non-active-tab {
@@ -332,5 +304,4 @@
             color: rgba(0, 0, 0, 0.8); /* Couleur de texte légèrement moins fade au survol */
         }
     </style>
-
 {% endblock %}

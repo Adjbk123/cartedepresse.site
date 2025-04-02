@@ -39,13 +39,6 @@ class RegistrationFormType extends AbstractType
                     'class'=>"ps-5"
                 ]
             ])
-            ->add('username', TextType::class,[
-                'attr' => [
-                    'placeholder' => 'Nom d\'utilisateur',
-                    'class'=>"ps-5"
-                ],
-                'label'=>'Nom d\'utilisateur',
-            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'=> PasswordType::class,
                 // instead of being set onto the object directly,

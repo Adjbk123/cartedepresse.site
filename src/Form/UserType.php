@@ -248,17 +248,11 @@ class UserType extends AbstractType
                     'Féminin' => 'Féminin',
                 ],
                 'placeholder'=>"Sélectionner le sexe",
-                'attr'=> [
-                    'class' => 'select2',
-                ],
                 'required'=>true
 
             ])
             ->add('nationalite', ChoiceType::class, [
                 'choices' => $nationalities,
-                'attr'=>[
-                    'class' => 'select2',
-                ],
                 'data'=>"Béninois(e)",
                 'required' => true
             ])
@@ -283,9 +277,6 @@ class UserType extends AbstractType
                 'choice_label'=>'designation',
                 'class'=> Organe::class,
                 'mapped'=>false,
-                "attr"=>[
-                    'class'=> 'select2',
-                ],
                 "required"=> true,
                 "placeholder"=> "Choisir l'organe"
             ])
@@ -293,9 +284,6 @@ class UserType extends AbstractType
                 'choice_label'=>'libelle',
                 'class'=> Profession::class,
                 'mapped'=>false,
-                "attr"=>[
-                    'class'=> 'select2',
-                ],
                 "required"=> true,
                 "placeholder"=> "Choisir la profession"
             ])

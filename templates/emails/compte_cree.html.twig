@@ -7,14 +7,14 @@
     <meta name="x-apple-disable-message-reformatting">
     <title>Demande enregistrée</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet" type="text/css">
     <style>
         html, body {
             margin: 0 auto !important;
             padding: 0 !important;
             height: 100% !important;
             width: 100% !important;
-            font-family: 'Roboto', sans-serif !important;
+            font-family: 'Montserrat', sans-serif !important;
             font-size: 14px;
             line-height: 24px;
             color: #8094ae;
@@ -63,18 +63,17 @@
                             </div>
                             <h2 style="font-size: 18px; color: #11832b; font-weight: 400; margin-top: 20px;">Bonjour, {{ prenoms }} {{ nom }} !</h2>
                             <p>Nous vous informons que votre dossier de demande de carte de presse a bien été enregistré au sein de nos services.</p>
-                            <p>Un compte personnel a été créé pour vous ; utilisez les informations ci-dessous pour vous connecter :</p>
+                            <p>Un compte personnel a été créé pour vous ; utilisez les informations ci-dessous pour vous connecter :</p>
                             <ul style="text-align: left; margin: 20px auto; display: inline-block;">
-                                <li>Nom d'utilisateur : {{ username }}</li>
+                                <li>Email : {{ email }}</li>
                                 <li>Mot de passe : {{ password }}</li>
                             </ul>
                             <p>Vous pouvez vous connecter via le lien suivant :</p>
                             <a href="{{ lienConnexion }}" style="display:inline-block;padding:10px 20px;background-color:#11832b;color:#ffffff;text-decoration:none;border-radius:5px;">Se connecter</a>
                             <p style="margin-top: 20px;">Pour suivre l'évolution de votre demande, cliquez ici :</p>
-                            <a href="{{ lienSuiviDemande }}" style="display:inline-block;padding:10px 20px;background-color:#6576ff;color:#ffffff;text-decoration:none;border-radius:5px;">Suivre ma demande</a>
-                            <p style="margin-top: 20px;">Informations sur votre demande :</p>
+                            <a href="{{ lienSuiviDemande }}" style="display:inline-block;padding:10px 20px;background-color:#11832b;color:#ffffff;text-decoration:none;border-radius:5px;">Suivre ma demande</a>
+                            <p style="margin-top: 20px;">Informations sur votre demande :</p>
                             <ul style="text-align: left; margin: 20px auto; display: inline-block;">
-                                <li>Email : {{ email }}</li>
                                 <li>Numéro de la demande : {{ numeroDemande }}</li>
                             </ul>
                         </td>
