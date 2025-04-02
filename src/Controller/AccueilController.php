@@ -42,11 +42,17 @@ class AccueilController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
 
+        $professionnel = $this->getUser();
         if ($this->getUser() and $this->isGranted("ROLE_PROFESSIONNEL")) {
             return $this->redirectToRoute('app_espace');
+
         }
 
+
+        $demandes = $demandeRepository->findBy(['professionnel'=>$professionnel->getId()]);
+
         return $this->render('accueil/indexAccueil.html.twig', [
+            'demandes' => $demandes,
 
         ]);
     }

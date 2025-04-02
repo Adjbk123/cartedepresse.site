@@ -33,7 +33,7 @@
                 <a href="{{ path('app_espace_completer_plus_tard') }}" class="btn btn-outline-primary mb-2">Compléter plus tard</a>
             </div>
         {% else %}
-            {% if app.user.demandes is  null %}
+            {% if demandes is empty %}
                 <div class="row">
                     <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3">
                         <a href="{{ path('app_demande_new') }}">
