@@ -65,7 +65,7 @@ class AccueilController extends AbstractController
     #[Route('/mon-espace', name: 'app_espace')]
     public function indexEspace(
         DemandeRepository $demandeRepository,
-        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository, CarteRepository $carteRepository
     ): Response {
 
         // Vérification du rôle
@@ -79,19 +79,22 @@ class AccueilController extends AbstractController
         // Récupérer toutes les demandes du professionnel
         $demandes = $demandeRepository->findBy(['professionnel' => $user]);
 
-        // Récupérer la dernière demande du professionnel, triée par date de création descendante
-        $derniereDemande = $demandeRepository->findOneBy(
-            ['professionnel' => $user],
-            ['dateSoumission' => 'DESC']
-        );
+
+        $demandes = $demandeRepository->findBy(['professionnel'=>$user->getId()]);
+
+        $derniereDemande  = $demandeRepository->findOneBy(['professionnel'=>$user->getId()]);
+        $derniereCarte = $carteRepository->findOneBy(['demande'=>$derniereDemande->getId()]);
+
 
         // Récupération des organes du professionnel
         $historiques = $historiqueOrganeProfessionnelRepository->findBy(['professionnel' => $user]);
 
         return $this->render('accueil/index.html.twig', [
             'demandes' => $demandes,
-            'derniere_demande' => $derniereDemande,
+            'derniereDemande' => $derniereDemande,
             'historiques' => $historiques,
+            'derniere_carte' => $derniereCarte,
+
         ]);
     }
 
