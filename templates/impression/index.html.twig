@@ -19,9 +19,9 @@
             <tbody>
             {% for carte in cartePretes %}
                 <tr>
-                    <td>{{ carte.numDemande }}</td>
-                    <td>{{ carte.professionnel.nom }}</td>
-                    <td>{{ carte.professionnel.prenoms }}</td>
+                    <td>{{ carte.demande.numDemande }}</td>
+                    <td>{{carte.demande.professionnel.nom }}</td>
+                    <td>{{carte.demande.professionnel.prenoms }}</td>
                     <td>
                         <a href="{{ path('app_print_card_second', { 'id': carte.id }) }}" class="btn btn-primary">Visualiser & Imprimer</a>
                     </td>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>Carte De Presse | {{ carte.professionnel.nom }} {{ carte.professionnel.prenoms }} - {{ carte.numDemande }}</title>
+    <title>Carte De Presse | {{ carte.demande.professionnel.nom }} {{ carte.demande.professionnel.prenoms }} - {{ carte.demande.numDemande }}</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
     <style>
@@ -78,8 +78,8 @@
             </tr>
             <tr>
                 <td style="text-align: center; vertical-align: middle; width: 30%; padding: 0;">
-                    <img src="{{ carte.professionnel.photo ? absolute_url(asset('uploads/' ~ carte.professionnel.photo)) : '' }}" alt="Photo du professionnel" style="padding: 0; width: 800px; margin: 0;">
-                    <div style="font-weight: bold; font-size: 10px; padding: 0;">{{ carte.numDemande }}</div>
+                    <img src="{{ carte.demande.professionnel.photo ? absolute_url(asset('uploads/' ~ carte.demande.professionnel.photo)) : '' }}" alt="Photo du professionnel" style="padding: 0; width: 800px; margin: 0;">
+                    <div style="font-weight: bold; font-size: 10px; padding: 0;">{{ carte.demande.numDemande }}</div>
                 </td>
                 <td style="text-align: left; vertical-align: middle; width: 70%; font-size: 10px; line-height: 1.1; padding-left: 4px;" colspan="2">
                     <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse;">
@@ -91,7 +91,7 @@
                                             NPI / NPIR :
                                         </td>
                                         <td>
-                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.npi }}</span>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.npi }}</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -99,7 +99,7 @@
                                             Nom :
                                         </td>
                                         <td>
-                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.professionnel.nom }}</span>
+                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.demande.professionnel.nom }}</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -107,27 +107,27 @@
                                             Prénoms :
                                         </td>
                                         <td>
-                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.professionnel.prenoms }}</span>
+                                            <span style="text-transform: uppercase; font-weight:bold;"> {{ carte.demande.professionnel.prenoms }}</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Sexe :</td>
-                                        <td><span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.sexe }}</span></td>
+                                        <td><span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.sexe }}</span></td>
                                     </tr>
                                     <tr>
                                         <td>Né(e) le :</td>
-                                        <td> <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.professionnel.lieuNaissance }}</span> </td>
+                                        <td> <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.demande.professionnel.lieuNaissance }}</span> </td>
                                     </tr>
                                     <tr>
                                         <td>Nationalité :</td>
-                                        <td><span style="text-transform: uppercase; font-weight:bold;" >{{ carte.professionnel.nationalite }}</span> </td>
+                                        <td><span style="text-transform: uppercase; font-weight:bold;" >{{ carte.demande.professionnel.nationalite }}</span> </td>
                                     </tr>
                                     <tr style="margin-bottom:10px;">
                                         <td>
                                             Adresse :
                             </td>
                                         <td >
-                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.professionnel.adresse ? carte.professionnel.adresse : "Cotonou" }}</span>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.adresse ? carte.demande.professionnel.adresse : "Cotonou" }}</span>
 
                                         </td>
                                     </tr>

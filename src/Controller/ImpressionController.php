@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Carte;
 use App\Entity\Demande;
+use App\Repository\CarteRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\HistoriqueOrganeProfessionnelRepository;
 use App\Repository\PresidentRepository;
@@ -24,10 +25,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class ImpressionController extends AbstractController
 {
     #[Route('/impression', name: 'app_impression')]
-    public function index(DemandeRepository $demandeRepository): Response
+    public function index(CarteRepository $carteRepository): Response
     {
 
-        $cartePretes = $demandeRepository->findBy(['isReadyForPrint'=>1, 'isPrinted'=>null]);
+        $cartePretes = $carteRepository->findBy(['imprimerPar'=>null]);
 
         return $this->render('impression/index.html.twig', [
             'cartePretes' => $cartePretes,
@@ -129,11 +130,11 @@ class ImpressionController extends AbstractController
         return $this->redirectToRoute('app_impression_apercu', ['id' => $carte->getId()]);
     }
 */
-    #[Route('/print/card/save/{id}', name: 'app_print_card_second')]
-    public function saveCardSecond(
+
+    #[Route('/print/card/test/{id}', name: 'app_print_card_test')]
+    public function testCardGeneration(
         Demande $demande,
         PresidentRepository $presidentRepository,
-        EntityManagerInterface $entityManager,
         HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
         QrCodeService $qrCodeService,
         PdfService $pdfService
@@ -148,6 +149,60 @@ class ImpressionController extends AbstractController
         if (!$carte) {
             throw $this->createNotFoundException('La carte associée à cette demande n\'existe pas.');
         }
+
+        // Générer le PDF sans enregistrer les modifications
+        $pdfContent = $this->generatePdfContent($carte, $pdfService, $qrCodeService, $historiqueOrganeProfessionnelRepository, $presidentRepository);
+
+        // Retourner le PDF généré en tant que réponse HTTP
+        return new Response(
+            $pdfContent,
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="carte_test.pdf"',
+            ]
+        );
+    }
+    private function generatePdfContent(
+        Carte $carte,
+        PdfService $pdfService,
+        QrCodeService $qrCodeService,
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+        PresidentRepository $presidentRepository
+    ): string
+    {
+        $demande = $carte->getDemande();
+        $numDemande = str_replace('/', '-', $demande->getNumDemande());
+        $qrCodeDataUri = $qrCodeService->generateQrCodeUrl($numDemande);
+
+        $professionnel = $demande->getProfessionnel();
+        $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
+        $presidentActuel = $presidentRepository->findOneBy(['isPresident' => 1]);
+
+        $html = $this->renderView('impression/cardD.html.twig', [
+            'carte' => $carte,
+            'profession' => $profession,
+            'qrCode' => $qrCodeDataUri,
+            'president' => $presidentActuel,
+        ]);
+
+        return $pdfService->generatePdf('impression/cardD.html.twig', [
+            'carte' => $carte,
+            'profession' => $profession,
+            'qrCode' => $qrCodeDataUri,
+            'president' => $presidentActuel,
+        ], [0, 0, 242.65, 153.98]);
+    }
+    #[Route('/print/card/save/{id}', name: 'app_print_card_second')]
+    public function saveCardSecond(
+        Carte $carte,
+        PresidentRepository $presidentRepository,
+        EntityManagerInterface $entityManager,
+        HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
+        QrCodeService $qrCodeService,
+        PdfService $pdfService
+    ): Response
+    {
 
         // Mettre à jour la carte si nécessaire
         $carte->setImprimerPar($this->getUser());
@@ -180,14 +235,14 @@ class ImpressionController extends AbstractController
         $profession = $historiqueOrganeProfessionnelRepository->findOneBy(['professionnel' => $professionnel], ['id' => 'DESC'], 1);
         $presidentActuel = $presidentRepository->findOneBy(['isPresident' => 1]);
 
-        $html = $this->renderView('impression/card.html.twig', [
+        $html = $this->renderView('impression/cardD.html.twig', [
             'carte' => $carte,
             'profession' => $profession,
             'qrCode' => $qrCodeDataUri,
             'president' => $presidentActuel,
         ]);
 
-        $pdfContent = $pdfService->generatePdf('impression/card.html.twig', [
+        $pdfContent = $pdfService->generatePdf('impression/cardD.html.twig', [
             'carte' => $carte,
             'profession' => $profession,
             'qrCode' => $qrCodeDataUri,
