@@ -1,17 +1,22 @@
+
 <!doctype html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="utf-8">
     <title>Créer votre compte | Système Automatique de Gestion des Cartes de Presse</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Système Automatique de Gestion des Cartes de Presse" />
     <meta name="keywords" content="Carte de presse, Demande, HAAC" />
     <meta name="author" content="HAAC" />
     <meta name="email" content="contact@haac.bj" />
     <meta name="website" content="https://haac.bj/" />
+
+
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+
 
     <!-- Css -->
     <!-- Bootstrap Css -->
@@ -22,31 +27,20 @@
     <!-- Style Css-->
     <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <style>
-        body {
-            font-family: "Montserrat", sans-serif !important;
+        body{
+            font-family: "Montserrat", sans-serif; !important;
         }
-
         @keyframes subtleShake {
-            0%, 100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-2px);
-            }
-
-            50% {
-                transform: translateX(2px);
-            }
-
-            75% {
-                transform: translateX(-2px);
-            }
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-2px); }
         }
 
         .animated-message {
             animation: subtleShake 3s infinite ease-in-out;
         }
+
     </style>
 </head>
 
@@ -62,6 +56,7 @@
 </div>
 <!-- Loader -->
 
+
 <div class="back-to-home">
     <a href="" class="back-button btn btn-icon btn-primary"><i data-feather="arrow-left" class="icons"></i></a>
 </div>
@@ -70,6 +65,7 @@
 <section class="bg-home d-flex align-items-center">
     <div class="container">
         <div class="row align-items-center">
+
             <div class="col-lg-6 col-md-6">
                 <div class="me-lg-5">
                     <img style="width:80%" src="{{ asset('assets-landing/images/user/signup.png') }}" class="img-fluid d-block mx-auto" alt="">
@@ -163,7 +159,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div><!---->
             </div> <!--end col-->
         </div><!--end row-->
     </div> <!--end container-->
@@ -196,6 +192,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 <script>
     // Lorsque le bouton est cliqué
@@ -224,9 +222,9 @@
 <!-- Javascript -->
 <!-- JAVASCRIPT -->
 <script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- Feather Icon -->
+<!-- Main Js -->
 <script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
-
+<script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+<script src="{{ asset('assets-landing/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
 </body>
-
 </html>
