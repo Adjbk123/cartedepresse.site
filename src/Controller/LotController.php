@@ -59,7 +59,7 @@ class LotController extends AbstractController
                 'demandes' => $demandes,
             ]);
 
-            $pdfContent = $pdfService->generatePdf('demande/rapport_lot.html.twig', ['lot' => $lot, 'demandes' => $demandes], (array)'A4');
+            $pdfContent = $pdfService->generatePdf('demande/rapport_lot.html.twig', ['lot' => $lot, 'demandes' => $demandes], [0, 0, 595.28, 841.89]);
 
             $pdfPath = 'uploads/rapports/';
             if (!file_exists($pdfPath)) {
