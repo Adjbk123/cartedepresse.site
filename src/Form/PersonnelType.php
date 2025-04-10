@@ -60,13 +60,6 @@ class PersonnelType extends AbstractType
                 'label'=> 'Adresse email',
             ])
 
-            ->add('username', TextType::class,[
-                'attr' => [
-                    'placeholder' => 'Nom d\'utilisateur',
-                ],
-
-                'label' => 'Nom d\'utilisateur',
-            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'=> PasswordType::class,
                 // instead of being set onto the object directly,
