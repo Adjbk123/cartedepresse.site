@@ -1,12 +1,228 @@
 {% extends 'baseAccueil.html.twig' %}
 
 {% block title %}Mon compte{% endblock %}
-{% block breadcrumb %} Complèter mon profil{% endblock %}
+{% block breadcrumb %} Compléter mon profil{% endblock %}
 
 {% block body %}
+    <form id="profileForm" action="{{ path('app_professionnel_edit', {'id': user.id}) }}" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="prenoms">Prénoms</label>
+                    <input type="text" id="prenoms" name="prenoms" class="form-control" value="{{ user.prenoms }}" required>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" class="form-control" value="{{ user.nom }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="dateNaissance">Date de naissance</label>
+                    <input type="date" id="dateNaissance" name="dateNaissance" class="form-control" value="{{ user.dateNaissance|date('Y-m-d') }}" required>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="lieuNaissance">Lieu de naissance</label>
+                    <input type="text" id="lieuNaissance" name="lieuNaissance" class="form-control" value="{{ user.lieuNaissance }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="npi">Numéro NPI</label>
+                    <input type="text" id="npi" name="npi" class="form-control" value="{{ user.npi }}" required>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="nationalite">Nationalité</label>
+                    <select id="nationalite" name="nationalite" class="form-control" required>
+                        {% for nationality in nationalities %}
+                            <option value="{{ nationality }}" {% if user.nationalite == nationality %}selected{% endif %} {% if nationality == 'Béninois(e)' %}selected{% endif %}>{{ nationality }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="organe">Organe</label>
+                    <select id="organe" name="organe" class="form-control" required>
+                        <option value="">--Sélectionner--</option>
+                        {% for organe in organes %}
+                            <option value="{{ organe.id }}">{{ organe.designation }}</option>
+                        {% endfor %}
+                        <option value="autre">AUTRE</option>
+                    </select>
+                </div>
+                <div class="form-group mt-3" id="nouvelOrgane" style="display: none;">
+                    <label for="nouvelOrganeNom">Nom du nouvel organe</label>
+                    <input type="text" id="nouvelOrganeNom" name="nouvelOrganeNom" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="profession">Profession</label>
+                    <select id="profession" name="profession" class="form-control" required>
+                        <option value="">--Sélectionner--</option>
+                        {% for profession in professions %}
+                            <option value="{{ profession.id }}">{{ profession.libelle }}</option>
+                        {% endfor %}
+                        <option value="autre">AUTRE</option>
+                    </select>
+                </div>
+                <div class="form-group mt-3" id="nouvelleProfession" style="display: none;">
+                    <label for="nouvelleProfessionNom">Nom de la nouvelle profession</label>
+                    <input type="text" id="nouvelleProfessionNom" name="nouvelleProfessionNom" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="sexe">Sexe</label>
+                    <select id="sexe" name="sexe" class="form-control" required>
+                        <option value="">--Sélectionner--</option>
+                        <option value="Masculin" {% if user.sexe == 'Masculin' %}selected{% endif %}>Masculin</option>
+                        <option value="Féminin" {% if user.sexe == 'Féminin' %}selected{% endif %}>Féminin</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="text" id="telephone" name="telephone" class="form-control" value="{{ user.telephone }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label class="form-label" for="photo">Votre photo</label>
+                        <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
+                            <input type="file" id="photo" name="photo" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;" accept="image/*">
+                            <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
+                            <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+                                <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+                                <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+                                <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" id="submitButton" class="btn btn-primary" disabled>Enregistrer les mises à jour</button>
+        </div>
+    </form>
 
+    <script>
+        document.getElementById('organe').addEventListener('change', function () {
+            var nouvelOrgane = document.getElementById('nouvelOrgane');
+            nouvelOrgane.style.display = (this.value === 'autre') ? 'block' : 'none';
+        });
 
-    {{ include('user/_form.html.twig', {'button_label': 'Valider les informations'}) }}
+        document.getElementById('profession').addEventListener('change', function () {
+            var nouvelleProfession = document.getElementById('nouvelleProfession');
+            nouvelleProfession.style.display = (this.value === 'autre') ? 'block' : 'none';
+        });
 
+        const form = document.getElementById('profileForm');
+        const photoInput = document.getElementById('photo');
+        const submitButton = document.getElementById('submitButton');
+
+        // Vérifier les dimensions de l'image lorsqu'une nouvelle photo est sélectionnée
+        photoInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    if (this.width === 413 && this.height === 531) {
+                        submitButton.disabled = false; // Activer le bouton si les dimensions sont correctes
+                    } else {
+                        toastr.error('La photo doit mesurer 413x531 pixels.', 'Erreur', { timeOut: 5000 });
+                        submitButton.disabled = true; // Désactiver le bouton si les dimensions sont incorrectes
+                        photoInput.value = ''; // Réinitialiser le champ de fichier
+                    }
+                };
+            }
+        });
+
+        // Vérifier les dimensions de l'image avant de soumettre le formulaire
+        form.addEventListener('submit', function (event) {
+            const file = photoInput.files[0];
+            if (file) {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    if (this.width !== 413 || this.height !== 531) {
+                        event.preventDefault(); // Empêcher la soumission du formulaire si les dimensions sont incorrectes
+                        toastr.error('La photo doit mesurer 413x531 pixels.', 'Erreur', { timeOut: 5000 });
+                        submitButton.disabled = true; // Désactiver le bouton
+                        photoInput.value = ''; // Réinitialiser le champ de fichier
+                    }
+                };
+            }
+        });
+    </script>
+    <script>
+        const phoneInput = document.getElementById('telephone');
+        const fixedPrefix = '+229 01';
+
+        // Initialiser avec le préfixe
+        phoneInput.value = fixedPrefix + ' ';
+
+        // Empêcher la suppression/modification du préfixe
+        phoneInput.addEventListener('keydown', function (e) {
+            const cursorPosition = this.selectionStart;
+
+            // Bloquer backspace/delete au niveau du préfixe
+            if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPosition <= fixedPrefix.length + 1) {
+                e.preventDefault();
+            }
+
+            // Empêcher de positionner le curseur dans le préfixe
+            if (cursorPosition < fixedPrefix.length + 1 && !['ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                e.preventDefault();
+                this.setSelectionRange(fixedPrefix.length + 1, fixedPrefix.length + 1);
+            }
+        });
+
+        phoneInput.addEventListener('click', function () {
+            if (this.selectionStart < fixedPrefix.length + 1) {
+                this.setSelectionRange(fixedPrefix.length + 1, fixedPrefix.length + 1);
+            }
+        });
+
+        // Format automatique en groupes de 2 chiffres
+        phoneInput.addEventListener('input', function () {
+            let raw = this.value;
+
+            // Garder la partie saisissable
+            let numberPart = raw.replace(fixedPrefix, '').replace(/\s+/g, '').replace(/[^\d]/g, '');
+
+            // Limiter à 8 chiffres
+            numberPart = numberPart.substring(0, 8);
+
+            // Ajouter espaces tous les 2 chiffres
+            let formatted = numberPart.match(/.{1,2}/g)?.join(' ') || '';
+
+            // Réafficher le champ complet
+            this.value = fixedPrefix + ' ' + formatted;
+        });
+    </script>
 
 {% endblock %}

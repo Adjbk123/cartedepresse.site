@@ -32,9 +32,11 @@
     <!-- Style Css-->
     <link href="{{ asset('assets-landing/css/style-green.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}"/>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
     <style>
         body{
@@ -180,7 +182,7 @@
 
 
                         {% if app.user.photo is not null %}
-                            <img src="{{ asset('uploads/' ~ app.user.photo) }}" class="avatar rounded-circle avatar-ex-large" alt="">
+                            <img src="{{ asset('uploads/' ~ app.user.photo) }}" class="avatar rounded-2" width="15%" alt="" >
                         {% else %}
                             {% set initials = app.user.nom[:1]|upper ~ app.user.prenoms[:1]|upper %}
                             <div class="m-auto avatar rounded-circle avatar-ex-large d-flex align-items-center justify-content-center bg-primary text-white  fw-bolder" style="font-size:70px;">
@@ -286,7 +288,8 @@
 <!-- Back to top -->
 <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fs-5"><i data-feather="arrow-up" class="fea icon-sm icons align-middle"></i></a>
 <!-- Back to top -->
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- javascript -->
 <!-- JAVASCRIPT -->
 <script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -296,6 +299,8 @@
 <script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
 <script src="{{ asset('assets-landing/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+
+
 <!-- JAVASCRIPT -->
 {% if block('datatables') is defined %}
     <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
@@ -317,7 +322,6 @@
         });
     </script>
 {% endif %}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
     $(document).ready(function() {

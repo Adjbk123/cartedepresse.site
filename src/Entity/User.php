@@ -94,6 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Carte::class, mappedBy: 'imprimerPar')]
     private Collection $cartes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telephone = null;
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
@@ -433,4 +436,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+
 }

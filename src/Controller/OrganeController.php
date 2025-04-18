@@ -22,6 +22,17 @@ class OrganeController extends AbstractController
         ]);
     }
 
+    #[Route('/organe/toggle/{id}', name: 'app_organe_toggle', methods: ['GET'])]
+    public function toggleActivation(Organe $organe, EntityManagerInterface $entityManager): Response
+    {
+        $organe->setActif(!$organe->isActif());
+        $entityManager->flush();
+
+        $this->addFlash('success', sprintf('Organe %s avec succès.', $organe->isActif() ? 'activé' : 'désactivé'));
+
+        return $this->redirectToRoute('app_organe_index');
+    }
+
     #[Route('/organe-nouveau', name: 'app_organe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

@@ -1,25 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des organes{% endblock %}
-{% block  bouton  %}
-
+{% block bouton %}
     <a class="btn btn-outline-secondary" href="{{ path('app_organe_new') }}">Nouvel ajout</a>
-
 {% endblock %}
-
 
 {% block body %}
     <table class="table datatable-init">
         <thead class="table-secondary">
-            <tr>
-                <th>#</th>
-                <th>Designation</th>
-                <th>Type d'organe</th>
-                <th>Adresse</th>
-                <th>Contact</th>
-                <th>Commune</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>#</th>
+            <th>Designation</th>
+            <th>Type d'organe</th>
+            <th>Adresse</th>
+            <th>Contact</th>
+            <th>Commune</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for organe in organes %}
@@ -30,27 +28,37 @@
                     {% if organe.typeOrgane is not null %}
                         {{ organe.typeOrgane.libelle }}
                     {% endif %}
-
                 </td>
                 <td>{{ organe.adresse }}</td>
                 <td>{{ organe.contact }}</td>
                 <td>{{ organe.commune }}</td>
                 <td>
+                    {% if organe.isActif %}
+                        Actif
+                    {% else %}
+                        Inactif
+                    {% endif %}
+                </td>
+                <td>
                     <div class="dropdown mt-4 mt-sm-0">
-                        <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border " data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="icon ni ni-opt-dot-alt"></i>
                         </a>
                         <div class="dropdown-menu" style="">
                             <a class="dropdown-item link-info" href="{{ path('app_organe_show', {'id': organe.id}) }}">Voir</a>
                             <a class="dropdown-item link-success" href="{{ path('app_organe_edit', {'id': organe.id}) }}">Editer</a>
-                            {{ include('organe/_delete_form.html.twig') }}
+                            <a class="dropdown-item link-warning" href="{{ path('app_organe_toggle', {'id': organe.id}) }}">
+                                {% if organe.isActif %}
+                                    Désactiver
+                                {% else %}
+                                    Activer
+                                {% endif %}
+                            </a>
                         </div>
                     </div>
                 </td>
             </tr>
-
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

@@ -65,15 +65,31 @@
 <section class="bg-home d-flex align-items-center">
     <div class="container">
         <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-4 fw-bold text-dark fs-5">
+                    Professionnel des médias ?<br>
 
-            <div class="col-lg-6 col-md-6">
-                <div class="me-lg-5">
-                    <img style="width:80%" src="{{ asset('assets-landing/images/user/signup.png') }}" class="img-fluid d-block mx-auto" alt="">
+                <div class="alert alert-light alert-pills text-dark" role="alert">
+                    <span class="badge rounded-pill bg-primary me-1">HAAC</span>
+                    <span class="content"> Créez un compte pour demander votre carte de presse.</span>
                 </div>
+
+                    Une fois inscrit, il vous suffira de compléter votre profil et d'envoyer votre demande de carte de presse en quelques clics.
+                </p>
+
+                <img src="{{ asset('assets-landing/images/user/signup.png') }}" alt="Logo" class="img-fluid" style="max-height: 350px;" />
             </div>
+
+
             <div class="col-lg-6 col-md-6">
                 <div class="card login-page shadow rounded border-0">
                     <div class="card-body">
+                        <div class="text-center">
+                            <a href="{{ path('app_accueil') }}">
+                                <img src="{{ asset('assets/images/logo-haac.png') }}" alt="Logo HAAC" style="width: 100px;">
+                            </a>
+                        </div>
+
                         <p class="bg-primary text-white fw-medium p-3 mb-3 text-center rounded-1 animated-message">
                             Professionnels des médias, inscrivez-vous sur notre plateforme avec vos informations véridiques et un email fonctionnel pour faire votre demande de carte de presse.
                         </p>

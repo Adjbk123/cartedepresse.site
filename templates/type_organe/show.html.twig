@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}TypeOrgane{% endblock %}
+{% block bouton %}
+    <a href="{{ path('app_type_organe_index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+{% endblock %}
 
 {% block body %}
-    <h1>TypeOrgane</h1>
+
 
     <table class="table">
         <tbody>
@@ -15,7 +18,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_type_organe_index') }}">back to list</a>
+
 
     <a href="{{ path('app_type_organe_edit', {'id': type_organe.id}) }}">edit</a>
 

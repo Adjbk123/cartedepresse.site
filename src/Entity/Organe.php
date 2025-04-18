@@ -45,6 +45,9 @@ class Organe
     #[ORM\OneToMany(targetEntity: HistoriqueOrganeProfessionnel::class, mappedBy: 'organe')]
     private Collection $historiqueOrganeProfessionnels;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isActif = null;
+
     public function __construct()
     {
         $this->historiqueOrganeProfessionnels = new ArrayCollection();
@@ -177,6 +180,18 @@ class Organe
                 $historiqueOrganeProfessionnel->setOrgane(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->isActif;
+    }
+
+    public function setActif(?bool $isActif): static
+    {
+        $this->isActif = $isActif;
 
         return $this;
     }

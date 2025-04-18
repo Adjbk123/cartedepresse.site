@@ -4,6 +4,7 @@
 {% block breadcrumb %}Mon compte{% endblock %}
 
 {% block body %}
+
     {% for message in app.flashes('error') %}
         <div class="flash-notice">
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -50,7 +51,8 @@
                 </div>
             {% endif %}
 
-            {% if derniereDemande  and derniereDemande.dateSoumission < date() %}
+            {% if derniere_carte is not null %}
+
                 <div class="col-lg-12 col-md-12 mt-4 pt-2 mb-3 ">
                     <a href="{{ path('app_duplicata_demande_new') }}">
                         <div class="d-flex features feature-success key-feature align-items-center p-3 rounded shadow border border-1">
@@ -70,7 +72,7 @@
                     <div class="col-lg-12">
                         <ul class="nav nav-pills nav-justified flex-column flex-sm-row rounded" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link rounded active" id="pills-demandes-tab" data-bs-toggle="pill" href="#pills-demandes" role="tab" aria-controls="pills-demandes" aria-selected="true">
+                                <a class="nav-link rounded active non-active-tab" id="pills-demandes-tab" data-bs-toggle="pill" href="#pills-demandes" role="tab" aria-controls="pills-demandes" aria-selected="true">
                                     <div class="text-center py-2">
                                         <h6 class="mb-0">Statut des Demandes</h6>
                                     </div>
@@ -297,6 +299,7 @@
         .non-active-tab {
             background-color: #f8f9fa; /* Gris clair */
             color: rgba(0, 0, 0, 0.6); /* Couleur de texte fade */
+            border: 1px solid #dee2e6; /* Bordure simple */
         }
 
         .non-active-tab:hover {

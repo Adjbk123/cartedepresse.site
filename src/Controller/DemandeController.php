@@ -443,12 +443,24 @@ class DemandeController extends AbstractController
                         UserRepository $userRepository,
                         HistoriqueOrganeProfessionnelRepository $historiqueOrganeProfessionnelRepository,
                         TypePieceRepository $typePieceRepository,
-                        NumEnregistrementService $numEnregistrementService
+                        NumEnregistrementService $numEnregistrementService,
+                        EmailNotificationService $emailNotificationService
     ): Response
     {
         // Récupération du professionnel connecté
         $user = $this->getUser();
         $professionnel = $userRepository->findOneBy(['id' => $user]);
+
+        // Vérifier si l'utilisateur a déjà une demande en cours
+        $demandeEnCours = $entityManager->getRepository(Demande::class)->findOneBy([
+            'professionnel' => $professionnel,
+            'statut' => 'En attente'
+        ]);
+
+        if ($demandeEnCours) {
+            $this->addFlash('error', 'Vous avez déjà une demande en cours.');
+            return $this->redirectToRoute('app_espace');
+        }
 
         // Type de pièce pour une nouvelle demande
         $typePiece = $typePieceRepository->findBy(['typeDemande' => "Nouveau"]);
@@ -501,7 +513,7 @@ class DemandeController extends AbstractController
                 'numeroDemande' => $numeroDemande,
                 'lienSuiviDemande' => 'https://cartedepresse.net/demande/suivie',
             ];
-            $this->emailNotificationService->sendDemandSubmissionEmail($professionnel->getEmail(), $demandeData);
+            $emailNotificationService->sendDemandSubmissionEmail($professionnel->getEmail(), $demandeData);
 
             $this->addFlash('success', 'Votre demande a été soumise avec succès.');
             return $this->redirectToRoute('app_accueil');
@@ -521,7 +533,6 @@ class DemandeController extends AbstractController
             "typePieces" => $typePiece,
         ]);
     }
-
 
     #[Route('/traitee', name: 'app_demande_traitee', methods: ['GET'])]
     public function indexDemandeTraitee(DemandeRepository $demandeRepository): Response
