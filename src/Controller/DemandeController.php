@@ -87,7 +87,7 @@ class DemandeController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/interne', name: 'app_demande_interne', methods: ['GET', 'POST'])]
+    #[Route('-interne', name: 'app_demande_interne', methods: ['GET', 'POST'])]
     public function demandeInterne(
         Request $request,
         EntityManagerInterface $entityManager,
