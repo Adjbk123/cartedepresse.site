@@ -26,6 +26,27 @@ class EmailNotificationService
         $this->userRepository = $userRepository;
     }
 
+    public function sendNewDemandeNotification(array $toEmails, array $demandeData): void
+    {
+        $subject = 'Nouvelle Demande de Carte Soumise';
+        $htmlTemplate = 'emails/new_demande_notification.html.twig';
+        $context = [
+            'nom' => $demandeData['nom'],
+            'demande' => $demandeData,
+        ];
+
+        $htmlContent = $this->twig->render($htmlTemplate, $context);
+
+        $email = (new Email())
+            ->from(new Address('support@cartedepresse.net', 'Support Carte de Presse HAAC'))
+            ->to(...$toEmails) //
+            ->subject($subject)
+            ->html($htmlContent);
+
+        $this->mailer->send($email);
+    }
+
+
     /**
      * @throws SyntaxError
      * @throws TransportExceptionInterface

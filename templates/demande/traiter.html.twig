@@ -28,7 +28,7 @@
             {% for pieceJointe in demande.pieceJointes %}
                 {% set userHasOpinion = false %}
                 {% for avis in pieceJointe.pieceJointeAvisMembres %}
-                    {% if avis.membre == app.user %}
+                    {% if avis.isActif and avis.membre == app.user %}
                         {% set userHasOpinion = true %}
                     {% endif %}
                 {% endfor %}

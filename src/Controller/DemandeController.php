@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/demande')]
@@ -434,7 +435,6 @@ class DemandeController extends AbstractController
         return $nationalites;
 
     }
-
     #[Route('/nouvelle-demande', name: 'app_demande_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,
                         UserRepository $userRepository,
@@ -442,8 +442,7 @@ class DemandeController extends AbstractController
                         TypePieceRepository $typePieceRepository,
                         NumEnregistrementService $numEnregistrementService,
                         EmailNotificationService $emailNotificationService
-    ): Response
-    {
+    ): Response {
         // Récupération du professionnel connecté
         $user = $this->getUser();
         $professionnel = $userRepository->findOneBy(['id' => $user]);
@@ -501,16 +500,24 @@ class DemandeController extends AbstractController
             $entityManager->persist($demande);
             $entityManager->flush();
 
-            // Envoyer l'email de notification
+            // Envoyer l'email de notification au professionnel
             $demandeData = [
                 'nom' => $demande->getProfessionnel()->getNom() . " " . $demande->getProfessionnel()->getPrenoms(),
                 'type' => "Demande d'établissement de carte",
                 'dateSoumission' => $demande->getDateSoumission(),
                 'statut' => $demande->getStatut(),
                 'numeroDemande' => $numeroDemande,
-                'lienSuiviDemande' => 'https://cartedepresse.net/demande/suivie',
+                'lienSuiviDemande' => $this->generateUrl('app_demande_traiter', ['id' => $demande->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
             ];
             $emailNotificationService->sendDemandSubmissionEmail($professionnel->getEmail(), $demandeData);
+
+            // Envoyer l'email de notification aux membres du comité
+            $comiteMembers = $userRepository->findByRole('ROLE_COMITE_MEMBRE');
+            $comiteEmails = array_map(function($member) {
+                return $member->getEmail();
+            }, $comiteMembers);
+
+            $emailNotificationService->sendNewDemandeNotification($comiteEmails, $demandeData);
 
             $this->addFlash('success', 'Votre demande a été soumise avec succès.');
             return $this->redirectToRoute('app_accueil');
@@ -547,8 +554,11 @@ class DemandeController extends AbstractController
     }
 
     #[Route('/{id}/piece-reupload', name: 'app_piece_reupload', methods: ['POST'])]
-    public function reuploadPieceJointe(PieceJointe $pieceJointe, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function reuploadPieceJointe(
+        PieceJointe $pieceJointe,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         // Gestion de l'upload du nouveau fichier
         $fichier = $request->files->get('fichier');
 
@@ -564,6 +574,28 @@ class DemandeController extends AbstractController
             $pieceJointe->setUrl($url);
             $pieceJointe->setDateSoumission(new \DateTime());
             $pieceJointe->setStatut('En attente');
+
+            // Réinitialiser les compteurs et le statut de validation
+            $statut = $entityManager->getRepository(PieceJointeValidationStatut::class)
+                ->findOneBy(['piece' => $pieceJointe]);
+
+            if ($statut) {
+                $statut->setNbAvisTotal(0);
+                $statut->setNbFavorable(0);
+                $statut->setNbDefavorable(0);
+                $statut->setStatutValidation('En attente');
+                $entityManager->persist($statut);
+            }
+
+            // Marquer tous les avis associés à cette pièce comme inactifs
+            $avis = $entityManager->getRepository(PieceJointeAvisMembre::class)
+                ->findBy(['piece' => $pieceJointe]);
+
+            foreach ($avis as $a) {
+                $a->setActif(false);
+                $entityManager->persist($a);
+            }
+
             $entityManager->flush();
         }
 
@@ -571,7 +603,8 @@ class DemandeController extends AbstractController
         return $this->redirectToRoute('app_accueil');
     }
 
- #[Route('/attente', name: 'app_demande_en_attente', methods: ['GET'])]
+
+    #[Route('/attente', name: 'app_demande_en_attente', methods: ['GET'])]
     public function indexAttente(DemandeRepository $demandeRepository): Response
     {
         return $this->render('demande/indexAttente.html.twig', [
@@ -579,21 +612,33 @@ class DemandeController extends AbstractController
         ]);
     }
 
-
-
-
     #[Route('/{id}/traiter', name: 'app_demande_traiter', methods: ['GET'])]
-    public function traiter(Demande $demande, PieceJointeRepository $pieceJointeRepository): Response
+    public function traiter(Demande $demande, PieceJointeRepository $pieceJointeRepository, UserRepository $userRepository): Response
     {
-
+        $user = $this->getUser();
         $fichiers = $pieceJointeRepository->findBy(['demande' => $demande]);
 
+        foreach ($fichiers as $fichier) {
+            $userHasOpinion = false;
+            $pieceReuploaded = $fichier->getStatut() === 'En attente';
+
+            foreach ($fichier->getPieceJointeAvisMembres() as $avis) {
+                if ($avis->getMembre() === $user) {
+                    $userHasOpinion = true;
+                    break;
+                }
+            }
+
+            // Ajouter une propriété pour indiquer si l'utilisateur peut donner son avis
+            $fichier->canGiveOpinion = !$userHasOpinion || $pieceReuploaded;
+        }
 
         return $this->render('demande/traiter.html.twig', [
             'demande' => $demande,
             'fichiers' => $fichiers,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_demande_show', methods: ['GET'])]
     public function show(Demande $demande): Response
@@ -609,6 +654,11 @@ class DemandeController extends AbstractController
         EntityManagerInterface $entityManager,
         UserRepository $userRepository,
     ): RedirectResponse {
+        if ($pieceJointe->getStatut() === 'Rejetée') {
+            $this->addFlash('warning', 'Cette pièce a été rejetée. Veuillez la mettre à jour avant de la valider.');
+            return $this->redirectToRoute('app_demande_traiter', ['id' => $pieceJointe->getDemande()->getId()]);
+        }
+
         $user = $this->getUser();
         $justification = $request->request->get('observation');
 
@@ -627,6 +677,7 @@ class DemandeController extends AbstractController
         $avis->setMembre($user);
         $avis->setFavorable(true);
         $avis->setJustification($justification);
+        $avis->setActif(1);
         $avis->setCreatedAt(new \DateTimeImmutable());
         $entityManager->persist($avis);
 
@@ -685,6 +736,7 @@ class DemandeController extends AbstractController
         $this->addFlash('success', 'Votre avis favorable a été enregistré.');
         return $this->redirectToRoute('app_demande_traiter', ['id' => $demande->getId()]);
     }
+
     #[Route('/{id}/fichier-rejeter', name: 'app_fichier_rejeter', methods: ['POST'])]
     public function rejeterFichier(
         PieceJointe $pieceJointe,
@@ -692,6 +744,11 @@ class DemandeController extends AbstractController
         EntityManagerInterface $entityManager,
         UserRepository $userRepository
     ): RedirectResponse {
+        if ($pieceJointe->getStatut() === 'Rejetée') {
+            $this->addFlash('warning', 'Cette pièce a été rejetée. Veuillez la mettre à jour avant de la rejeter à nouveau.');
+            return $this->redirectToRoute('app_demande_traiter', ['id' => $pieceJointe->getDemande()->getId()]);
+        }
+
         $user = $this->getUser();
         $justification = $request->request->get('observation');
 
@@ -708,6 +765,7 @@ class DemandeController extends AbstractController
         $avis->setMembre($user);
         $avis->setFavorable(false);
         $avis->setJustification($justification);
+        $avis->setActif(1);
         $avis->setCreatedAt(new \DateTimeImmutable());
         $entityManager->persist($avis);
 
@@ -726,6 +784,7 @@ class DemandeController extends AbstractController
         $statut->setNbDefavorable($statut->getNbDefavorable() + 1); // Incrémentation du compteur d'avis défavorables
 
         $totalMembres = count($userRepository->findByRole('ROLE_COMITE_MEMBRE'));
+        $demande = $pieceJointe->getDemande();
 
         if ($totalMembres > 0) {
             $ratioDefavorable = $statut->getNbDefavorable() / $totalMembres;
@@ -733,6 +792,13 @@ class DemandeController extends AbstractController
             if ($ratioDefavorable >= (2 / 3)) {
                 $pieceJointe->setStatut('Rejetée');
                 $statut->setStatutValidation('Rejetée');
+
+
+                $emailProfessionnel = $demande->getProfessionnel()->getEmail();
+                $professionnel = $demande->getProfessionnel()->getNom() . " " . $demande->getProfessionnel()->getPrenoms();
+                $piece = $pieceJointe->getTypePiece()->getLibelle();
+
+                $this->emailNotificationService->sendRejectionPieceNotification($emailProfessionnel, $justification, $professionnel, $piece);
             } else {
                 $statut->setStatutValidation('En attente');
             }
@@ -743,17 +809,10 @@ class DemandeController extends AbstractController
         $entityManager->persist($statut);
         $entityManager->flush();
 
-        // Notification email
-        $demande = $pieceJointe->getDemande();
-        $emailProfessionnel = $demande->getProfessionnel()->getEmail();
-        $professionnel = $demande->getProfessionnel()->getNom() . " " . $demande->getProfessionnel()->getPrenoms();
-        $piece = $pieceJointe->getTypePiece()->getLibelle();
-
-        $this->emailNotificationService->sendRejectionPieceNotification($emailProfessionnel, $justification, $professionnel, $piece);
-
         $this->addFlash('success', 'Votre avis défavorable a été enregistré.');
         return $this->redirectToRoute('app_demande_traiter', ['id' => $demande->getId()]);
     }
+
 
     /*
      *     #[Route('/{id}/demande-valider', name: 'app_demande_valider', methods: ['POST'])]

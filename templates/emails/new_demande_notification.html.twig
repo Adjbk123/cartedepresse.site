@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Nouvelle Demande de Carte</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-size: 14px;
+            line-height: 24px;
+            color: #8094ae;
+            font-weight: 400;
+        }
+        table, td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+        a {
+            text-decoration: none;
+        }
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #f5f6fa;">
+<center style="width: 100%; background-color: #f5f6fa;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f6fa">
+        <tr>
+            <td style="padding: 40px 0;">
+                <table style="width:100%;max-width:620px;margin:0 auto;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding-bottom:25px">
+                            <a href="#"><img style="height: 40px" src="http://haac.bj/wp-content/uploads/2024/07/logo-haac.png" alt="logo"></a>
+                            <p style="font-size: 14px; color: #16a34a; padding-top: 12px;">Nouvelle Demande de Carte</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align:center;padding: 50px 30px;">
+                            <div style="color: #16a34a; border: 1px solid #16a34a; border-radius: 6px; padding: 10px; font-weight: 600;">
+                                Une nouvelle demande de carte a été soumise.
+                            </div>
+                            <h2 style="font-size: 18px; color: #333; font-weight: 400; margin-top: 20px;">Bonjour,</h2>
+                            <p>Une nouvelle demande de carte a été soumise par {{ nom }}. Voici les détails :</p>
+                            <table style="margin: 20px auto; text-align: left; border-spacing: 10px;">
+                                <tr>
+                                    <td style="color: #333;">Type de Demande :</td>
+                                    <td>{{ demande.type }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #333;">Date de Soumission :</td>
+                                    <td>{{ demande.dateSoumission|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #333;">Numéro de Demande :</td>
+                                    <td>{{ demande.numeroDemande }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #333;">Lien de Traitement :</td>
+                                    <td><a href="{{ demande.lienSuiviDemande }}">Traiter la demande</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table style="width:100%;max-width:620px;margin:0 auto;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding:25px 20px 0;">
+                            <p style="font-size: 13px;">Merci pour votre attention. <br> L'équipe de la HAAC</p>
+                            <p style="font-size: 12px; margin-top: 15px; color: #8094ae;">© {{ "now"|date("Y") }} HAAC. Tous droits réservés.</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>
