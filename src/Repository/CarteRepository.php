@@ -27,6 +27,21 @@ class CarteRepository extends ServiceEntityRepository
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
+    public function countForYear(int $year): int
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $start = (new \DateTime("$year-01-01"))->setTime(0, 0, 0);
+        $end = (new \DateTime("$year-12-31"))->setTime(23, 59, 59);
+
+        return (int) $qb
+            ->select('COUNT(c.id)')
+            ->where('c.dateDelivrance BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
     //    /**
     //     * @return Carte[] Returns an array of Carte objects

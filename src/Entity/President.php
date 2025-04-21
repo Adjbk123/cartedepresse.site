@@ -26,8 +26,7 @@ class President
     #[ORM\Column(length: 255)]
     private ?string $signature = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cachet = null;
+
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datePriseFonction = null;
@@ -89,17 +88,6 @@ class President
         return $this;
     }
 
-    public function getCachet(): ?string
-    {
-        return $this->cachet;
-    }
-
-    public function setCachet(string $cachet): static
-    {
-        $this->cachet = $cachet;
-
-        return $this;
-    }
 
     public function getDatePriseFonction(): ?\DateTimeInterface
     {

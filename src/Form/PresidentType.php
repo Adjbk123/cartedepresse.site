@@ -25,13 +25,6 @@ class PresidentType extends AbstractType
                 'required'=>false
 
             ])
-            ->add('cachet', DropzoneType::class,[
-                'label'=> 'Cachet du président',
-                'mapped' => false,
-                'data_class' => null,
-                'required'=>false
-
-            ] )
 
         ;
     }

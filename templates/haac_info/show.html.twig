@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HaacInfo{% endblock %}
+
+{% block body %}
+    <h1>HaacInfo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ haac_info.id }}</td>
+            </tr>
+            <tr>
+                <th>LogoPath</th>
+                <td>{{ haac_info.logoPath }}</td>
+            </tr>
+            <tr>
+                <th>AmoiriePath</th>
+                <td>{{ haac_info.amoiriePath }}</td>
+            </tr>
+            <tr>
+                <th>CachetPath</th>
+                <td>{{ haac_info.cachetPath }}</td>
+            </tr>
+            <tr>
+                <th>TextIntro</th>
+                <td>{{ haac_info.textIntro }}</td>
+            </tr>
+            <tr>
+                <th>MentionFinale</th>
+                <td>{{ haac_info.mentionFinale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_haac_info_index') }}">back to list</a>
+
+    <a href="{{ path('app_haac_info_edit', {'id': haac_info.id}) }}">edit</a>
+
+    {{ include('haac_info/_delete_form.html.twig') }}
+{% endblock %}

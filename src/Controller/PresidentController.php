@@ -33,19 +33,15 @@ class PresidentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $fileSignature = $form['signature']->getData();
-            $fileCachet = $form['cachet']->getData();
+
             $directory = "uploads";
 
             if ($fileSignature)
                 $nomFichier= $fileSignature->getClientOriginalName();
                 $fileSignature->move($directory, $nomFichier);
-                $president->setSignature($nomFichier);
+                $president->setSignature($directory.'/'.$nomFichier);
 
 
-            if ($fileCachet)
-                $nomFichier = $fileCachet->getClientOriginalName();
-                $fileCachet->move($directory, $nomFichier);
-                $president->setCachet($nomFichier);
 
             $entityManager->persist($president);
             $entityManager->flush();

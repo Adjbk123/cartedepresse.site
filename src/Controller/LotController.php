@@ -6,6 +6,7 @@ use App\Entity\Carte;
 use App\Entity\Demande;
 use App\Entity\Lot;
 use App\Form\LotType;
+use App\Repository\CarteRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\LotRepository;
 use App\Service\EmailNotificationService;
@@ -91,7 +92,7 @@ class LotController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_lot_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Lot $lot, EntityManagerInterface $entityManager, DemandeRepository $demandeRepository): Response
+    public function edit(Request $request, Lot $lot, EntityManagerInterface $entityManager, DemandeRepository $demandeRepository, CarteRepository $carteRepository): Response
     {
         if ($request->isMethod('POST')) {
             $fichier = $request->files->get('decision');
@@ -109,7 +110,7 @@ class LotController extends AbstractController
 
             foreach ($demandes as $demande) {
                 $demande->setReadyForPrint(true);
-                $this->createCarteForDemande($demande, $entityManager);
+                $this->createCarteForDemande($demande, $entityManager, $carteRepository);
             }
 
             $entityManager->flush();
@@ -123,14 +124,28 @@ class LotController extends AbstractController
         ]);
     }
 
-    private function createCarteForDemande(Demande $demande, EntityManagerInterface $entityManager): void
+    private function createCarteForDemande(Demande $demande, EntityManagerInterface $entityManager, CarteRepository $carteRepository): void
     {
         $carte = new Carte();
-        $carte->setDateDelivrance(new \DateTime());
+        $dateDelivrance = new \DateTime();
+        $carte->setDateDelivrance($dateDelivrance);
         $carte->setDemande($demande);
-        $dateExpiration = (clone $carte->getDateDelivrance())->modify('+3 years');
+
+        // Année et mois
+        $annee = $dateDelivrance->format('Y');
+        $mois = $dateDelivrance->format('m');
+
+        // Récupérer le nombre de cartes déjà générées cette année
+        $count = $carteRepository->countForYear((int)$annee);
+        $numeroOrdre = str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+
+        // Générer le numCarte
+        $numCarte = $annee . $mois . $numeroOrdre;
+        $carte->setNumCarte($numCarte);
+
+        // Expiration
+        $dateExpiration = (clone $dateDelivrance)->modify('+3 years');
         $carte->setDateExpiration($dateExpiration);
-        $carte->setImprimerPar($this->getUser());
 
         $entityManager->persist($carte);
         $entityManager->flush();

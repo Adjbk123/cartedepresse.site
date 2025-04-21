@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations HAAC{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_haac_info_new') }}">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>LogoPath</th>
+                <th>AmoiriePath</th>
+                <th>CachetPath</th>
+                <th>TextIntro</th>
+                <th>MentionFinale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for haac_info in haac_infos %}
+            <tr>
+                <td>{{ haac_info.id }}</td>
+                <td>{{ haac_info.logoPath }}</td>
+                <td>{{ haac_info.amoiriePath }}</td>
+                <td>{{ haac_info.cachetPath }}</td>
+                <td>{{ haac_info.textIntro }}</td>
+                <td>{{ haac_info.mentionFinale }}</td>
+                <td>
+                    <a href="{{ path('app_haac_info_show', {'id': haac_info.id}) }}">show</a>
+                    <a href="{{ path('app_haac_info_edit', {'id': haac_info.id}) }}">edit</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

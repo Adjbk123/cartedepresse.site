@@ -24,6 +24,9 @@ class Profession
     #[ORM\OneToMany(targetEntity: HistoriqueOrganeProfessionnel::class, mappedBy: 'profession')]
     private Collection $historiqueOrganeProfessionnels;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code = null;
+
     public function __construct()
     {
         $this->historiqueOrganeProfessionnels = new ArrayCollection();
@@ -74,6 +77,18 @@ class Profession
                 $historiqueOrganeProfessionnel->setProfession(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): static
+    {
+        $this->code = $code;
 
         return $this;
     }

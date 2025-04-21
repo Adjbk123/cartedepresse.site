@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier les infos{% endblock %}
+{% block bouton %}
+    <a href="{{ path('app_haac_info_index') }}" class="btn btn-outline-primary">Retour</a>
+
+{% endblock %}
+
+{% block body %}
+
+
+    {{ include('haac_info/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+{% endblock %}

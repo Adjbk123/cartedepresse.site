@@ -50,10 +50,7 @@
                         <a class="btn btn-outline-success btn-sm" href="{{ path('app_demande_traiter', {'id': demande.id}) }}">Traiter</a>
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">Aucun enregistrement trouvé</td>
-                </tr>
+
             {% endfor %}
             </tbody>
         </table>

@@ -30,6 +30,9 @@ class Carte
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $urlFile = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $numCarte = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Carte
     public function setUrlFile(string $urlFile): static
     {
         $this->urlFile = $urlFile;
+
+        return $this;
+    }
+
+    public function getNumCarte(): ?string
+    {
+        return $this->numCarte;
+    }
+
+    public function setNumCarte(string $numCarte): static
+    {
+        $this->numCarte = $numCarte;
 
         return $this;
     }

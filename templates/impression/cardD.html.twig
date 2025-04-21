@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>Carte De Presse | {{ carte.demande.professionnel.nom }} {{ carte.demande.professionnel.prenoms }} - {{ carte.demande.numDemande }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+          rel="stylesheet">
+    <title>Carte De Presse
+        | {{ carte.demande.professionnel.nom }} {{ carte.demande.professionnel.prenoms }}
+        - {{ carte.demande.numDemande }}</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
     <style>
@@ -14,11 +17,13 @@
             width: 85.60mm;
             height: 53.98mm;
         }
-        .organe-long{
+
+        .organe-long {
             padding-top: 1px;
             padding-bottom: 1px;
         }
-        .organe-court{
+
+        .organe-court {
             padding-top: 5px;
             padding-bottom: 5px;
         }
@@ -44,6 +49,7 @@
             max-width: 100%;
             height: auto;
         }
+
         .page {
             page-break-after: always;
         }
@@ -52,40 +58,54 @@
 <body>
 <div class="container">
     <div class="page">
-        <table style="width: 100%; border-collapse: collapse; margin: 0; padding:3px;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: -5px; padding-left:3px; padding-right:3px;">
             <tr>
-                <td style="text-align: left; vertical-align: middle; width: 10%; padding-left: 5px;">
-                    <img src="{{ absolute_url(asset('assets/images/logo-haac_2.png')) }}" alt="Logo HAAC" width="50">
-                    <div style="font-size: 8px; padding: 0; color:#096d38; font-weight:900;"><strong>{{ profession.profession.libelle }}</strong></div>
+                <td style="text-align: center; vertical-align: middle; width: 10%; padding-left: 5px;">
+                    <img src="{{ absolute_url(asset(haacInfo.logoPath)) }}"
+                         alt="Logo HAAC" width="50">
+                    <div style="text-align: center; font-size: 7px; padding: 0; color:#096d38; font-weight:900;">
+                        <strong>{{ profession.profession.libelle }}</strong>
+                    </div>
                 </td>
                 <td style="text-align: center; vertical-align: middle; width: 65%; line-height: 1; padding-right: 10px;">
-                    <div style="font-size: 12px; font-weight: bold;">REPUBLIQUE DU BENIN</div>
-                    {# <div style="font-size: 8px; padding: 0;">HAUTE AUTORITE DE L'AUDIOVISUEL ET DE LA COMMUNICATION</div>#}
-                    <div style="color: #ed2024; font-size: 15px; font-weight: bold; padding-top: 0;">CARTE DE PRESSE</div>
+                    <div style="font-size: 12px; font-weight: bold;">REPUBLIQUE
+                        DU BENIN
+                    </div>
+                    {# <div style="font-size: 8px; padding: 0;">HAUTE AUTORITE DE L'AUDIOVISUEL ET DE LA COMMUNICATION</div> #}
+                    <div style="color: #ed2024; font-size: 15px; font-weight: bold; padding-top: 3px;">
+                        CARTE DE PRESSE
+                    </div>
                 </td>
-                <td style="text-align: center; vertical-align: middle; width: 25%; padding: 0;">
-                    <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="Logo Bénin" width="60">
-                    <div style="font-size: 7px; padding: 0; color:#096d38;font-weight:900;"> <b>{{ profession.organe.designation }}</b></div>
+                <td style=" vertical-align: middle; width: 25%; padding: 0;">
+                    <img src="{{ absolute_url(asset(haacInfo.logoBeninPath)) }}"
+                         alt="Logo Bénin" width="60">
+                    <div style="text-align: center;  font-size: 7px; padding: 0; color:#096d38;font-weight:900;">
+                        <b>{{ profession.organe.designation }}</b></div>
                 </td>
             </tr>
             <tr style="padding-bottom: -40px;">
-                <td colspan="3" style="text-align: start; padding-top: 2px; ">
-                    <div style="height:3px; padding-bottom: 2px;">
-                        <img src="{{ absolute_url(asset('assets/logo-horizontal.png')) }}" alt="" style="max-width: 100%; margin: 0; padding: 0;">
+                <td colspan="3" style="text-align: start; padding-top: 1px; ">
+                    <div style="height:2px; padding-bottom: 2px;">
+                        <img src="{{ absolute_url(asset('assets/logo-horizontal.png')) }}"
+                             alt=""
+                             style="max-width: 100%; margin: 0; padding: 0;">
                     </div>
 
                 </td>
             </tr>
             <tr>
                 <td style="text-align: center; vertical-align: middle; width: 30%; padding: 0;">
-                    <img src="{{ carte.demande.professionnel.photo ? absolute_url(asset('uploads/' ~ carte.demande.professionnel.photo)) : '' }}" alt="Photo du professionnel" style="padding: 0; width: 800px; margin: 0;">
-                    <div style="font-weight: bold; font-size: 10px; padding: 0;">{{ carte.demande.numDemande }}</div>
+                    <img src="{{ carte.demande.professionnel.photo ? absolute_url(asset('uploads/' ~ carte.demande.professionnel.photo)) : '' }}"
+                         alt="Photo du professionnel"
+                         style="padding: 0; width: 800px; margin: 0;">
+                    <div style="font-weight: bold; font-size: 10px; margin: 0; padding-bottom:6px;">{{ carte.numCarte }}</div>
                 </td>
-                <td style="text-align: left; vertical-align: middle; width: 70%; font-size: 10px; line-height: 1.1; padding-left: 4px;" colspan="2">
+                <td style="text-align: left; vertical-align: middle; width: 70%; font-size: 10px; line-height: 0.8; padding-left: 4px;"
+                    colspan="2">
                     <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse;">
                         <tr>
                             <td style="padding: 0;">
-                                <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse; line-height: 1;">
+                                <table style="width: 100%; margin: 0; padding: 0; border-collapse: collapse; line-height: 0.8;">
                                     <tr>
                                         <td>
                                             NPI / NPIR :
@@ -112,80 +132,102 @@
                                     </tr>
                                     <tr>
                                         <td>Sexe :</td>
-                                        <td><span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.sexe }}</span></td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.sexe }}</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Né(e) le :</td>
-                                        <td> <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.demande.professionnel.lieuNaissance }}</span> </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.dateNaissance|date('d/m/Y') }} à {{ carte.demande.professionnel.lieuNaissance }}</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Nationalité :</td>
-                                        <td><span style="text-transform: uppercase; font-weight:bold;" >{{ carte.demande.professionnel.nationalite }}</span> </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.nationalite }}</span>
+                                        </td>
                                     </tr>
                                     <tr style="margin-bottom:10px;">
                                         <td>
-                                            Adresse :
-                            </td>
-                                        <td >
-                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.adresse ? carte.demande.professionnel.adresse : "Cotonou" }}</span>
+                                            Téléphone :
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.demande.professionnel.telephone }}</span>
 
                                         </td>
                                     </tr>
-
+                                    <tr>
+                                        <td>Expire le :</td>
+                                        <td>
+                                            <span style="text-transform: uppercase; font-weight:bold;">{{ carte.dateExpiration|date('d/m/Y') }}</span>
+                                        </td>
+                                    </tr>
                                 </table>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr>
-
-                <td class="{% if profession.organe.designation|length > 12 %}organe-long{% else %}organe-court{% endif %}" style=" text-align: center; vertical-align: middle; background-color: #ed2024; color: white; font-weight: bold; border-radius: 5px 0 0 5px; font-size: 12px;" colspan="3">
-                    LAISSEZ PASSER
-                </td>
-            </tr>
         </table>
-
+        <div class="{% if profession.organe.designation|length > 12 %}organe-long{% else %}organe-court{% endif %}"
+             style="text-align: center; background-color: green; color: white; font-weight: bold; font-size: 11px; border-radius: 5px; margin:0;">
+            LAISSEZ PASSER
+        </div>
     </div>
 
-    <table style="width: 100%;">
-    <tr style="line-height:0.9;">
-        <td style="text-align: center; vertical-align: middle; width: 20%;">
-            <img src="{{ absolute_url(asset('assets/images/logo-haac_2.png')) }}" alt="Logo HAAC" width="80%">
+    <table style="width: 100%; margin:0; padding:3px; border-collapse: collapse;">
+        <tr style="line-height:0.9;">
+            <td style="text-align: left; width: 50%;">
+                <img src="{{ absolute_url(asset(haacInfo.amoiriePath)) }}"
+                     alt="Logo HAAC" width="50">
 
-        </td>
-        <td style="text-align: center; vertical-align: middle; width: 60%;">
+            </td>
 
-        </td>
-        <td style="text-align: right; vertical-align: middle; width: 20%;">
-            <img src="{{ absolute_url(asset('assets/images/logo-benin.png')) }}" alt="Logo Bénin" width="60%">
-        </td>
-    </tr>
+            <td style="text-align: right; width: 50%;">
+                <img src="{{ absolute_url(asset(haacInfo.logoBeninPath)) }}"
+                     alt="Logo Bénin" width="60">
+            </td>
+        </tr>
 
-    <tr>
-        <td colspan="3" style="text-align: justify; vertical-align: middle; font-size: 10px; line-height: 1; padding-left: 10px; padding-right: 10px;" >
-          <b>
 
-            Le titulaire de cette carte est un professionnel des médias. Les Autorités béninoises et celles des pays
-            hôtes sont priées de faciliter au porteur de la présente carte l'exercice de sa profession.
-        </b>
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; vertical-align: middle; width: 30%;" >
+    </table>
 
-                <strong>Le Président</strong><br>
-                <img src="{{ absolute_url(asset('uploads/' ~ president.signature)) }}" alt="Signature Président" width="150">
-                <div><strong>{{ president.nom }} {{ president.prenoms }}</strong></div>
-        </td>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 30%; padding-left:-40px;" >
-            <img src="{{ absolute_url(asset('uploads/' ~ president.cachet)) }}" alt="Cachet HAAC" width="80">
-        </td>
-        <td style="font-size: 10px; line-height: 0.9; text-align: center; width: 40%" >
-            <img src="{{ qrCode }}" alt="QR Code" width="100%">
-        </td>
-    </tr>
-</table>
+    <table style="width: 100%; margin:0; border-collapse: collapse;">
+        <tr>
+            <td colspan="3"
+                style="text-align: justify; vertical-align: middle; font-size: 10px; line-height: 1;padding-left:5px; padding-right:5px;">
+
+                {{ haacInfo.textIntro }}
+                <div style="text-align: center;">
+                    <b>
+                        <i>{{ haacInfo.mentionFinale }}</i>
+                    </b>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 10px; line-height: 1;  vertical-align: middle; width: 40%; padding-left: 5px; margin: 0;">
+                <div style="width: 100%;">
+                    <div style="font-size:7px; width: 100%;">
+                        <strong>Le Président</strong>
+                    </div>
+                    <img src="{{ absolute_url(asset(president.signature)) }}"
+                         alt="Signature Président" style="max-width:70px">
+                    <div style="width: 100%; font-size: 11px;">
+                        <strong>{{ president.nom }} {{ president.prenoms }}</strong>
+                    </div>
+                </div>
+            </td>
+            <td style="font-size: 10px; line-height: 0.9; text-align: left; width: 35%; vertical-align: middle; ">
+                <img src="{{ absolute_url(asset(haacInfo.cachetPath)) }}"
+                     alt="Cachet HAAC" style="max-width:80px">
+            </td>
+            <td style="text-align: right; width:25%">
+                <img src="{{ qrCode }}" alt="QR Code" style="max-width:80px">
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
