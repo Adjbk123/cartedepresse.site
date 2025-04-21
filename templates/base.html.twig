@@ -1,190 +1,96 @@
+<!doctype html>
 
-<!DOCTYPE html>
-<html lang="fr" class="js">
+<html
+        lang="fr"
+        class="layout-navbar-fixed layout-menu-fixed layout-compact"
+        dir="ltr"
+        data-skin="default"
+        data-assets-path="../../assets_admin/"
+        data-template="vertical-menu-template"
+        data-bs-theme="light">
 <head>
-    <base href="../">
-    <meta charset="utf-8">
-    <meta name="author" content="HAAC">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse">
-    <!-- Fav Icon  -->
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title> {%  block title %} {%  endblock %} | SGACP</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
-    <!-- Page Title  -->
-    <title>{% block title %}{% endblock %} | SGACP </title>
-    {% block stylesheets %}
-    {% endblock %}
-    {{ include('partials/stylesheet.html.twig') }}
-    {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
+
+    {{ include('partials_admin/_stylesheets.html.twig') }}
 </head>
 
-<body class="nk-body bg-lighter npc-default has-sidebar  ">
-<div class="nk-app-root">
-    <!-- main @s -->
-    <div class="nk-main ">
-        <!-- sidebar @s -->
-        {{ include('partials/sidebar.html.twig') }}
-        <!-- sidebar @e -->
-        <!-- wrap @s -->
-        <div class="nk-wrap ">
-            <!-- main header @s -->
-            <div class="nk-header nk-header-fixed is-light">
-                <div class="container-fluid">
-                    <div class="nk-header-wrap">
-                        <div class="nk-menu-trigger d-xl-none ms-n1">
-                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        {{ include('partials_admin/_menu.html.twig') }}
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            {{ include('partials_admin/_navbar.html.twig') }}
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="row g-6">
+                        <div class="col-xl-12 col">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <h5 class="card-title mb-0">{{ block('title') }}</h5>
+                                    <div>{% block bouton %} {% endblock %}</div>
+                                </div>
+
+                                <div class="card-body">
+                                    {%  block body %} {%  endblock %}
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="nk-header-brand d-xl-none">
-                            <a href="{{ path('app_admin') }}" class="logo-link">
-                                <img class="logo-light logo-img" src="{{ asset('images/logo.png') }}" srcset="{{ asset('images/logo.png')}} 2x" alt="logo">
-                                <img class="logo-dark logo-img" src="{{ asset('images/logo-dark.png') }}" srcset="{{ asset('images/logo-dark.png')}} 2x" alt="logo-dark">
-                            </a>
-                        </div><!-- .nk-header-brand -->
 
-                        <div class="nk-header-tools">
-                            <ul class="nk-quick-nav">
 
-                                <li class="dropdown user-dropdown">
-                                    <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
-                                        <div class="user-toggle">
-                                            <div class="user-avatar sm">
-                                                <em class="icon ni ni-user-alt"></em>
-                                            </div>
-                                            <div class="user-info d-none d-xl-block">
-                                                <div class="user-status user-status-verified">
-                                                    {% if app.user %}
-                                                        {% if is_granted("ROLE_AGENT_TRAITEMENT") %}
-                                                            Agent traitant
-                                                        {% elseif is_granted('ROLE_AUTORITE') %}
-                                                            Autorité
-                                                        {% elseif is_granted('ROLE_IMPRIMEUR') %}
-                                                            Imprimeur
-                                                        {% elseif is_granted('ROLE_ADMIN') %}
-                                                            Administrateur
-                                                        {% elseif is_granted('ROLE_CHEF_SERVICE') %}
-                                                            Chef service
 
-                                                        {% endif %}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="user-name dropdown-indicator">
-                                                    {% if app.user %}
-                                                        {{ app.user.prenoms }} {{ app.user.nom }}
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
-                                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                                            <div class="user-card">
-                                                <div class="user-avatar">
-                                                    <span>AB</span>
-                                                </div>
-                                                <div class="user-info">
-                                                    <span class="lead-text">
-                                                          {% if app.user %}
-                                                              {{ app.user.prenoms }} {{ app.user.nom }}
-                                                          {% endif %}
-                                                    </span>
-                                                    <span class="sub-text">
-                                                          {% if app.user %}
-                                                              {{ app.user.email }}
-                                                          {% endif %}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-inner">
-                                            <ul class="link-list">
-                                                <li><a href="{{ path('app_profil') }}"><em class="icon ni ni-user-alt"></em><span>Mon profi</span></a></li>
-                                                <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Thème sombre</span></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="dropdown-inner">
-                                            <ul class="link-list">
-                                                <li><a href="{{ path('app_logout') }}"><em class="icon ni ni-signout"></em><span>Déconnexion</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!-- .nk-header-wrap -->
-                </div><!-- .container-fliud -->
-            </div>
-            <!-- main header @e -->
-            <!-- content @s -->
-            <div class="nk-content ">
-                <div class="container-fluid">
-                    <div class="nk-content-inner">
-                        <div class="nk-content-body">
-                            <div class="nk-block-head nk-block-head-sm">
-                                <div class="nk-block-between">
-                                    <div class="nk-block-head-content">
-                                        <h4 >{{ block('title') }}</h4>
-                                    </div><!-- .nk-block-head-content -->
-                                    <div class="nk-block-head-content">
-                                        <div class="toggle-wrap nk-block-tools-toggle">
-                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
-                                            <div class="toggle-expand-content" data-content="pageMenu">
-                                                <ul class="nk-block-tools g-3">
-                                                    <li class="nk-block-tools-opt">
-                                                        {% block bouton %}  {% endblock %}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div><!-- .nk-block-head-content -->
-                                </div><!-- .nk-block-between -->
-                            </div><!-- .nk-block-head -->
-                            <div class="nk-block">
-                                <div class="row g-gs">
-                                    <div class="col-xxl-12 col-sm-12">
-                                        <div class="card">
-                                            <div class="nk-ecwg nk-ecwg6">
-                                                <div class="card-inner">
-                                                    {% block body %} {% endblock %}
-                                                </div><!-- .card-inner -->
-                                            </div><!-- .nk-ecwg -->
-                                        </div><!-- .card -->
-                                    </div><!-- .col -->
-
-                                </div><!-- .row -->
-                            </div><!-- .nk-block -->
-                        </div>
+                        <!--/ Projects table -->
                     </div>
                 </div>
-            </div>
-            <!-- content @e -->
-            <!-- footer @s -->
-            <div class="nk-footer">
-                <div class="container-fluid">
-                    <div class="nk-footer-wrap">
-                        <div class="nk-footer-copyright"> &copy; {{ date()|date('Y')}} HAAC.
-                        </div>
-                        <div class="nk-footer-links">
-                            <ul class="nav nav-sm">
-                                <li class="nav-item dropup">
-                                    <a href="https://www.haac.bj" class="nav-link"><span>Site HAAC</span></a>
-                                </li>
+                <!-- / Content -->
 
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <!-- Footer -->
+                {{ include('partials_admin/_footer.html.twig') }}
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
             </div>
-            <!-- footer @e -->
+            <!-- Content wrapper -->
         </div>
-        <!-- wrap @e -->
+        <!-- / Layout page -->
     </div>
-    <!-- main @e -->
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"></div>
 </div>
-<!-- app-root @e -->
-<!-- JavaScript -->
-{{ include('partials/script.html.twig') }}
+<!-- / Layout wrapper -->
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/theme.js -->
+{{ include('partials_admin/_javascripts.html.twig') }}
+
+
 
 </body>
-
 </html>

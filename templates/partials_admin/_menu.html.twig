@@ -1,0 +1,288 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu">
+    <div class="app-brand demo">
+        <a href="{{ path('app_admin') }}" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <span class="text-primary">
+                   <img src="{{ asset('assets/images/logo-haac_2.png') }}" alt="" class="" width="50" >
+                </span>
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold ms-3">SGACP</span>
+        </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+            <i class="icon-base ti menu-toggle-icon d-none d-xl-block"></i>
+            <i class="icon-base ti tabler-x d-block d-xl-none"></i>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-1">
+        <!-- Tableau de Bord -->
+        <li class="menu-item {% if app.current_route == 'app_admin' %}active{% endif %}">
+            <a href="{{ path('app_admin') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-layout-dashboard"></i>
+                <div data-i18n="Tableau de bord">Tableau de bord</div>
+            </a>
+        </li>
+
+        <!-- Admin Utilisateur -->
+        <li class="menu-header small"><span class="menu-header-text">Main</span></li>
+
+        <!-- Demande de carte -->
+        {% if is_granted('ROLE_AGENT_TRAITEMENT') or is_granted('ROLE_COMITE_MEMBRE') or is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_ADMIN') %}
+            <li class="menu-header small"><span class="menu-header-text">Demande de carte</span></li>
+
+            <li class="menu-item {% if app.current_route == 'app_demande_interne' %}active{% endif %}">
+                <a href="{{ path('app_demande_interne') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-file-plus"></i>
+                    <div data-i18n="Enregistrer une demande">Enregistrer une demande</div>
+                </a>
+            </li>
+
+            <li class="menu-header small"><span class="menu-header-text">Opérations demande</span></li>
+
+            <li class="menu-item {% if app.current_route == 'app_demande_en_attente' %}active{% endif %}">
+                <a href="{{ path('app_demande_en_attente') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-hourglass"></i>
+                    <div data-i18n="Demandes en attente">Demandes en attente</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_demande_traitee' %}active{% endif %}">
+                <a href="{{ path('app_demande_traitee') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-circle-check"></i>
+                    <div data-i18n="Demandes validées">Demandes validées</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_demande_rejetee' %}active{% endif %}">
+                <a href="{{ path('app_demande_rejetee') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-circle-x"></i>
+                    <div data-i18n="Demandes rejetées">Demandes rejetées</div>
+                </a>
+            </li>
+
+            <li class="menu-header small"><span class="menu-header-text">Traitement des Duplicatas</span></li>
+
+            <li class="menu-item {% if app.current_route == 'app_duplicata_demande_index' %}active{% endif %}">
+                <a href="{{ path('app_duplicata_demande_index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-hourglass"></i>
+                    <div data-i18n="Demandes en attente">Demandes en attente</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_duplicata_demande_validee' %}active{% endif %}">
+                <a href="{{ path('app_duplicata_demande_validee') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-circle-check"></i>
+                    <div data-i18n="Demandes validées">Demandes validées</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_duplicata_demande_rejetee' %}active{% endif %}">
+                <a href="{{ path('app_duplicata_demande_rejetee') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-circle-x"></i>
+                    <div data-i18n="Demandes rejetées">Demandes rejetées</div>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_AUTORITE') %}
+            <li class="menu-header small"><span class="menu-header-text">Traitement des Duplicatas</span></li>
+
+            <li class="menu-item {% if app.current_route == 'app_lot_index' %}active{% endif %}">
+                <a href="{{ path('app_lot_index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-archive"></i>
+                    <div data-i18n="Lots de demande">Lots de demande</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_printed_cards' %}active{% endif %}">
+                <a href="{{ path('app_printed_cards') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-printer"></i>
+                    <div data-i18n="Liste des impressions">Liste des impressions</div>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_CHEF_SERVICE') or is_granted('ROLE_COMITE_MEMBRE') %}
+            <li class="menu-header small"><span class="menu-header-text">Impression</span></li>
+
+            <li class="menu-item {% if app.current_route == 'app_printed_cards' %}active{% endif %}">
+                <a href="{{ path('app_printed_cards') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-printer"></i>
+                    <div data-i18n="Liste des impressions">Liste des impressions</div>
+                </a>
+            </li>
+
+            <li class="menu-header small"><span class="menu-header-text">Paramètres</span></li>
+
+            <li class="menu-item {% if app.current_route in ['app_lot_new', 'app_lot_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-package"></i>
+                    <div data-i18n="Lot de demande">Lot de demande</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_lot_new' %}active{% endif %}">
+                        <a href="{{ path('app_lot_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_lot_index' %}active{% endif %}">
+                        <a href="{{ path('app_lot_index') }}" class="menu-link"><div data-i18n="Liste des lots">Liste des lots</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_user_professionnel' %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-users"></i>
+                    <div data-i18n="Professionnels">Professionnels</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ path('app_user_professionnel') }}" class="menu-link"><div data-i18n="Liste des professionnels">Liste des professionnels</div></a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_IMPRIMEUR') %}
+            <li class="menu-item {% if app.current_route == 'app_impression' %}active{% endif %}">
+                <a href="{{ path('app_impression') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-printer"></i>
+                    <div data-i18n="Imprimer une carte">Imprimer une carte</div>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="menu-header small"><span class="menu-header-text">Paramètres</span></li>
+
+            <li class="menu-item {% if app.current_route in ['app_profession_new', 'app_profession_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-briefcase"></i>
+                    <div data-i18n="Profession">Profession</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_profession_new' %}active{% endif %}">
+                        <a href="{{ path('app_profession_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_profession_index' %}active{% endif %}">
+                        <a href="{{ path('app_profession_index') }}" class="menu-link"><div data-i18n="Liste des professions">Liste des professions</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_type_piece_new', 'app_type_piece_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-file-text"></i>
+                    <div data-i18n="Pièce à fournir">Pièce à fournir</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_type_piece_new' %}active{% endif %}">
+                        <a href="{{ path('app_type_piece_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_type_piece_index' %}active{% endif %}">
+                        <a href="{{ path('app_type_piece_index') }}" class="menu-link"><div data-i18n="Liste des pièces">Liste des pièces</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_promoteur_new', 'app_promoteur_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-star"></i>
+                    <div data-i18n="Promoteur">Promoteur</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_promoteur_new' %}active{% endif %}">
+                        <a href="{{ path('app_promoteur_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_promoteur_index' %}active{% endif %}">
+                        <a href="{{ path('app_promoteur_index') }}" class="menu-link"><div data-i18n="Liste des promoteurs">Liste des promoteurs</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_organe_new', 'app_organe_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-building"></i>
+                    <div data-i18n="Organe">Organe</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_organe_new' %}active{% endif %}">
+                        <a href="{{ path('app_organe_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_organe_index' %}active{% endif %}">
+                        <a href="{{ path('app_organe_index') }}" class="menu-link"><div data-i18n="Liste des organes">Liste des organes</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_type_organe_new', 'app_type_organe_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-tags"></i>
+                    <div data-i18n="Type d'Organe">Type d'Organe</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_type_organe_new' %}active{% endif %}">
+                        <a href="{{ path('app_type_organe_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_type_organe_index' %}active{% endif %}">
+                        <a href="{{ path('app_type_organe_index') }}" class="menu-link"><div data-i18n="Liste des types d'organe">Liste des types d'organe</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_president_new', 'app_president_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-user"></i>
+                    <div data-i18n="Président">Président</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_president_new' %}active{% endif %}">
+                        <a href="{{ path('app_president_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_president_index' %}active{% endif %}">
+                        <a href="{{ path('app_president_index') }}" class="menu-link"><div data-i18n="Liste des présidents">Liste des présidents</div></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {% if app.current_route == 'app_haac_info_index' %}active{% endif %}">
+                <a href="{{ path('app_haac_info_index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-info-circle"></i>
+                    <div data-i18n="HAAC INFOS">HAAC INFOS</div>
+                </a>
+            </li>
+
+            <li class="menu-item {% if app.current_route in ['app_personnel_new', 'app_user_index'] %}active open{% endif %}">
+                <a href="#" class="menu-link menu-toggle">
+                    <i class="menu-icon icon-base ti tabler-users"></i>
+                    <div data-i18n="Utilisateurs">Utilisateurs</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {% if app.current_route == 'app_personnel_new' %}active{% endif %}">
+                        <a href="{{ path('app_personnel_new') }}" class="menu-link"><div data-i18n="Ajouter">Ajouter</div></a>
+                    </li>
+                    <li class="menu-item {% if app.current_route == 'app_user_index' %}active{% endif %}">
+                        <a href="{{ path('app_user_index') }}" class="menu-link"><div data-i18n="Liste des utilisateurs">Liste des utilisateurs</div></a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+
+        <!-- Déconnexion -->
+        <li class="menu-item">
+            <a href="{{ path('app_logout') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-power"></i>
+                <div data-i18n="Déconnexion">Déconnexion</div>
+            </a>
+        </li>
+
+    </ul>
+</aside>
+
+<div class="menu-mobile-toggler d-xl-none rounded-1">
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1">
+        <i class="ti tabler-menu icon-base"></i>
+        <i class="ti tabler-chevron-right icon-base"></i>
+    </a>
+</div>

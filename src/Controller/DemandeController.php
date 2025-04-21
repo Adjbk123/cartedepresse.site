@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Demande;
 use App\Entity\HistoriqueOrganeProfessionnel;
 use App\Entity\PieceJointe;
+use App\Entity\PieceJointeAvisMembre;
+use App\Entity\PieceJointeValidationStatut;
 use App\Entity\User;
 use App\Form\DemandeType;
 use App\Repository\DemandeRepository;
@@ -227,12 +229,7 @@ class DemandeController extends AbstractController
         ]);
     }
 
-    /**
-     * Génère un numéro aléatoire composé de lettres majuscules et de chiffres.
-     *
-     * @param int $length La longueur du numéro à générer.
-     * @return string Le numéro généré.
-     */
+
     private function genererNumeroAleatoire(int $length): string
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -605,13 +602,64 @@ class DemandeController extends AbstractController
             'demande' => $demande,
         ]);
     }
-
     #[Route('/{id}/fichier-valider', name: 'app_fichier_valider', methods: ['POST'])]
-    public function validerFichier(PieceJointe $pieceJointe, Request $request, EntityManagerInterface $entityManager, SessionInterface $session): RedirectResponse
-    {
-        $observation = $request->request->get('observation');
-        $pieceJointe->setStatut('Validé');
-        $pieceJointe->setObservation($observation);
+    public function validerFichier(
+        PieceJointe $pieceJointe,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+    ): RedirectResponse {
+        $user = $this->getUser();
+        $justification = $request->request->get('observation');
+
+        // Vérifier si l'utilisateur a déjà donné un avis
+        $avisExistant = $entityManager->getRepository(PieceJointeAvisMembre::class)
+            ->findOneBy(['piece' => $pieceJointe, 'membre' => $user]);
+
+        if ($avisExistant) {
+            $this->addFlash('warning', 'Vous avez déjà donné votre avis sur ce fichier.');
+            return $this->redirectToRoute('app_demande_traiter', ['id' => $pieceJointe->getDemande()->getId()]);
+        }
+
+        // Créer un nouvel avis
+        $avis = new PieceJointeAvisMembre();
+        $avis->setPiece($pieceJointe);
+        $avis->setMembre($user);
+        $avis->setFavorable(true);
+        $avis->setJustification($justification);
+        $avis->setCreatedAt(new \DateTimeImmutable());
+        $entityManager->persist($avis);
+
+        // Mettre à jour le suivi
+        $statut = $entityManager->getRepository(PieceJointeValidationStatut::class)
+            ->findOneBy(['piece' => $pieceJointe]);
+
+        if (!$statut) {
+            $statut = new PieceJointeValidationStatut();
+            $statut->setPiece($pieceJointe);
+            $statut->setNbAvisTotal(0);
+            $statut->setNbFavorable(0);
+        }
+
+        $statut->setNbAvisTotal($statut->getNbAvisTotal() + 1);
+        $statut->setNbFavorable($statut->getNbFavorable() + 1);
+
+        $totalMembres = count($userRepository->findByRole('ROLE_COMITE_MEMBRE'));
+
+        if ($totalMembres > 0) {
+            $ratio = $statut->getNbFavorable() / $totalMembres;
+
+            if ($ratio >= (2 / 3)) {
+                $pieceJointe->setStatut('Validé');
+                $statut->setStatutValidation('Validé');
+            } else {
+                $statut->setStatutValidation('En attente');
+            }
+        } else {
+            $statut->setStatutValidation('En attente');
+        }
+
+        $entityManager->persist($statut);
         $entityManager->flush();
 
         // Vérifier si tous les fichiers de la demande sont validés
@@ -626,64 +674,89 @@ class DemandeController extends AbstractController
         }
 
         if ($tousFichiersValides) {
-            // agent traitant
-            $user = $this->getUser();
             $demande->setAgentTraitant($user);
-
-            // date de validation
             $demande->setDateTraitement(new \DateTime());
-
             $demande->setStatut('Validée');
             $entityManager->flush();
-            $this->addFlash('success', 'Tous les fichiers de la demande ont été validés avec succès.');
+            $this->addFlash('success', 'Tous les fichiers ont été validés. La demande est maintenant validée.');
             return $this->redirectToRoute('app_demande_index');
         }
 
-        $this->addFlash('success', 'Le fichier a été validé avec succès.');
+        $this->addFlash('success', 'Votre avis favorable a été enregistré.');
         return $this->redirectToRoute('app_demande_traiter', ['id' => $demande->getId()]);
     }
-
     #[Route('/{id}/fichier-rejeter', name: 'app_fichier_rejeter', methods: ['POST'])]
-    public function rejeterFichier(PieceJointe $pieceJointe, Request $request, EntityManagerInterface $entityManager, SessionInterface $session): RedirectResponse
-    {
-        $observation = $request->request->get('observation');
-        $pieceJointe->setStatut('Rejetée');
-        $pieceJointe->setObservation($observation);
+    public function rejeterFichier(
+        PieceJointe $pieceJointe,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
+    ): RedirectResponse {
+        $user = $this->getUser();
+        $justification = $request->request->get('observation');
+
+        $avisExistant = $entityManager->getRepository(PieceJointeAvisMembre::class)
+            ->findOneBy(['piece' => $pieceJointe, 'membre' => $user]);
+
+        if ($avisExistant) {
+            $this->addFlash('warning', 'Vous avez déjà donné votre avis sur ce fichier.');
+            return $this->redirectToRoute('app_demande_traiter', ['id' => $pieceJointe->getDemande()->getId()]);
+        }
+
+        $avis = new PieceJointeAvisMembre();
+        $avis->setPiece($pieceJointe);
+        $avis->setMembre($user);
+        $avis->setFavorable(false);
+        $avis->setJustification($justification);
+        $avis->setCreatedAt(new \DateTimeImmutable());
+        $entityManager->persist($avis);
+
+        $statut = $entityManager->getRepository(PieceJointeValidationStatut::class)
+            ->findOneBy(['piece' => $pieceJointe]);
+
+        if (!$statut) {
+            $statut = new PieceJointeValidationStatut();
+            $statut->setPiece($pieceJointe);
+            $statut->setNbAvisTotal(0);
+            $statut->setNbFavorable(0);
+            $statut->setNbDefavorable(0); // Ajout du compteur d'avis défavorables
+        }
+
+        $statut->setNbAvisTotal($statut->getNbAvisTotal() + 1);
+        $statut->setNbDefavorable($statut->getNbDefavorable() + 1); // Incrémentation du compteur d'avis défavorables
+
+        $totalMembres = count($userRepository->findByRole('ROLE_COMITE_MEMBRE'));
+
+        if ($totalMembres > 0) {
+            $ratioDefavorable = $statut->getNbDefavorable() / $totalMembres;
+
+            if ($ratioDefavorable >= (2 / 3)) {
+                $pieceJointe->setStatut('Rejetée');
+                $statut->setStatutValidation('Rejetée');
+            } else {
+                $statut->setStatutValidation('En attente');
+            }
+        } else {
+            $statut->setStatutValidation('En attente');
+        }
+
+        $entityManager->persist($statut);
         $entityManager->flush();
 
-        // Vérifier si tous les fichiers de la demande sont rejetés
+        // Notification email
         $demande = $pieceJointe->getDemande();
-        $tousFichiersRejetes = true;
-
-        foreach ($demande->getPieceJointes() as $pj) {
-            if ($pj->getStatut() !== 'Rejetée') {
-                $tousFichiersRejetes = false;
-                break;
-            }
-        }
-
-        if ($tousFichiersRejetes) {
-            // agent traitant
-            $user = $this->getUser();
-            $demande->setAgentTraitant($user);
-            // date de validation
-            $demande->setDateTraitement(new \DateTime());
-            $demande->setStatut('Rejetée');
-            $this->addFlash('success', 'Tous les fichiers de la demande ont été rejetés.');
-            return $this->redirectToRoute('app_demande_index');
-        }
         $emailProfessionnel = $demande->getProfessionnel()->getEmail();
-        $professionnel= $demande->getProfessionnel()->getNom()." ".$demande->getProfessionnel()->getPrenoms();
-        $observation =  $pieceJointe->getObservation();
+        $professionnel = $demande->getProfessionnel()->getNom() . " " . $demande->getProfessionnel()->getPrenoms();
         $piece = $pieceJointe->getTypePiece()->getLibelle();
-        // Envoyer l'email de notification de rejet
-        $this->emailNotificationService->sendRejectionPieceNotification($emailProfessionnel,  $observation,$professionnel, $piece);
 
-        $this->addFlash('success', 'Le fichier a été rejeté avec succès.');
+        $this->emailNotificationService->sendRejectionPieceNotification($emailProfessionnel, $justification, $professionnel, $piece);
+
+        $this->addFlash('success', 'Votre avis défavorable a été enregistré.');
         return $this->redirectToRoute('app_demande_traiter', ['id' => $demande->getId()]);
     }
 
-    #[Route('/{id}/demande-valider', name: 'app_demande_valider', methods: ['POST'])]
+    /*
+     *     #[Route('/{id}/demande-valider', name: 'app_demande_valider', methods: ['POST'])]
     public function validerDemande(Request $request,Demande $demande, EntityManagerInterface $entityManager, SessionInterface $session): RedirectResponse
     {
         foreach ($demande->getPieceJointes() as $pieceJointe) {
@@ -729,6 +802,8 @@ class DemandeController extends AbstractController
         $this->addFlash('success', 'La demande a été rejetée avec succès.');
         return $this->redirectToRoute('app_demande_index');
     }
+
+     * */
 
     #[Route('/{id}/edit', name: 'app_demande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Demande $demande, EntityManagerInterface $entityManager): Response

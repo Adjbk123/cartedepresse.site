@@ -38,6 +38,8 @@ security:
         ROLE_AUTORITE: ROLE_USER
         ROLE_IMPRIMEUR: ROLE_USER
         ROLE_PROMOTEUR: ROLE_USER
+        ROLE_COMITE_MEMBRE: ROLE_USER
+        ROLE_COMITE_CHEF: ROLE_USER
 
 
     # Easy way to control access for large sections of your site

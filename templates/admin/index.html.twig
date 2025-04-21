@@ -15,7 +15,7 @@
          {{ include('admin/_adminImpression.html.twig') }}
     {% endif %}
 
-    {% if is_granted('ROLE_AGENT_TRAITEMENT') %}
+    {% if is_granted('ROLE_AGENT_TRAITEMENT') or is_granted('ROLE_COMITE_MEMBRE') %}
         {{ include('admin/_adminAgent.html.twig') }}
     {% endif %}
 

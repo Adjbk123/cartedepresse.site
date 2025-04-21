@@ -1,21 +1,34 @@
-
 <div class="row">
     <!-- Card for Impressions for Current Year -->
-    <div class="col-sm-6 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #118329;">
+    <div class="col-md-6 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Impressions pour l'année {{ "now"|date("Y") }}</h6>
-                <h2 class="card-text font-weight-bold" style="color: #118329;">{{ totalImpressionsCurrentYear }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-calendar icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ totalImpressionsCurrentYear }}</h4>
+                </div>
+                <p class="mb-1">Impressions pour l'année {{ "now"|date("Y") }}</p>
             </div>
         </div>
     </div>
 
     <!-- Card for Total Impressions -->
-    <div class="col-sm-6 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #FF8C00;">
+    <div class="col-md-6 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Impressions Totales</h6>
-                <h2 class="card-text font-weight-bold" style="color: #FF8C00;">{{ totalImpressions }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-printer icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ totalImpressions }}</h4>
+                </div>
+                <p class="mb-1">Impressions Totales</p>
             </div>
         </div>
     </div>
@@ -28,7 +41,7 @@
     <div class="card-body">
         <div class="form-group">
             <label for="year-select">Sélectionner une année :</label>
-            <select id="year-select" class="form-control">
+            <select id="year-select" class="form-select">
                 {% for year in years %}
                     <option value="{{ year }}" {% if year == "now"|date("Y") %}selected{% endif %}>{{ year }}</option>
                 {% endfor %}

@@ -33,6 +33,9 @@ class Carte
     #[ORM\Column(length: 255)]
     private ?string $numCarte = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isPrinted = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +109,18 @@ class Carte
     public function setNumCarte(string $numCarte): static
     {
         $this->numCarte = $numCarte;
+
+        return $this;
+    }
+
+    public function isPrinted(): ?bool
+    {
+        return $this->isPrinted;
+    }
+
+    public function setPrinted(?bool $isPrinted): static
+    {
+        $this->isPrinted = $isPrinted;
 
         return $this;
     }

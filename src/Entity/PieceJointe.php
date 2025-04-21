@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PieceJointeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,17 @@ class PieceJointe
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $observation = null;
+
+    /**
+     * @var Collection<int, PieceJointeAvisMembre>
+     */
+    #[ORM\OneToMany(targetEntity: PieceJointeAvisMembre::class, mappedBy: 'piece')]
+    private Collection $pieceJointeAvisMembres;
+
+    public function __construct()
+    {
+        $this->pieceJointeAvisMembres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,6 +122,36 @@ class PieceJointe
     public function setObservation(?string $observation): static
     {
         $this->observation = $observation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PieceJointeAvisMembre>
+     */
+    public function getPieceJointeAvisMembres(): Collection
+    {
+        return $this->pieceJointeAvisMembres;
+    }
+
+    public function addPieceJointeAvisMembre(PieceJointeAvisMembre $pieceJointeAvisMembre): static
+    {
+        if (!$this->pieceJointeAvisMembres->contains($pieceJointeAvisMembre)) {
+            $this->pieceJointeAvisMembres->add($pieceJointeAvisMembre);
+            $pieceJointeAvisMembre->setPiece($this);
+        }
+
+        return $this;
+    }
+
+    public function removePieceJointeAvisMembre(PieceJointeAvisMembre $pieceJointeAvisMembre): static
+    {
+        if ($this->pieceJointeAvisMembres->removeElement($pieceJointeAvisMembre)) {
+            // set the owning side to null (unless already changed)
+            if ($pieceJointeAvisMembre->getPiece() === $this) {
+                $pieceJointeAvisMembre->setPiece(null);
+            }
+        }
 
         return $this;
     }

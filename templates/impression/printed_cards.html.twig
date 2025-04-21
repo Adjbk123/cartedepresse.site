@@ -15,12 +15,14 @@
                 <button class="nav-link" id="expired-tab" data-bs-toggle="tab" data-bs-target="#expired" type="button" role="tab" aria-controls="expired" aria-selected="false">Cartes Expirées</button>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+
+        <div class="tab-content mt-3" id="myTabContent">
+
             <!-- Cartes Valides -->
             <div class="tab-pane fade show active" id="valid" role="tabpanel" aria-labelledby="valid-tab">
-               <div class="my-3 bg-secondary text-white p-2 rounded-2">
-                   <h4>Liste des cartes valides</h4>
-               </div>
+                <div class="my-3 border-dark border-3 border rounded-2">
+                    <h4 class="p-2">Liste des cartes valides</h4>
+                </div>
                 <table class="table table-striped datatable-init">
                     <thead>
                     <tr>
@@ -35,28 +37,28 @@
                     <tbody>
                     {% for carte in cartesValides %}
                         <tr>
-                            <td>{{ carte.numDemande }}</td>
-                            <td>{{ carte.professionnel.nom }}</td>
-                            <td>{{ carte.historiqueOrganeActuel.organe.designation }}</td>
-                            <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
+                            <td>{{ carte.numCarte }}</td>
+                            <td>{{ carte.demande.professionnel.nom }}</td>
+                            <td>{{ carte.demande.historiqueOrganeActuel.organe.designation }}</td>
+                            <td>{{ carte.demande.historiqueOrganeActuel.profession.libelle }}</td>
                             <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
                             <td>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-valide-{{ carte.demande.id }}">
+                                    Voir la Carte
+                                </button>
                             </td>
                         </tr>
 
-                        <!-- Modal pour la visualisation -->
-                        <div class="modal fade" id="modal-{{ carte.getId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal-valide-{{ carte.demande.id }}" tabindex="-1" aria-labelledby="modalLabelValide-{{ carte.demande.id }}" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Carte: {{ carte.numDemande }}</h5>
-                                        <button type="button" class="btn-close btn-outline-secondary btn" data-bs-dismiss="modal" aria-label="Close">x</button>
-
+                                        <h5 class="modal-title" id="modalLabelValide-{{ carte.demande.id }}">Carte : {{ carte.numCarte }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <embed src="{{ absolute_url('uploads/cartes/')  }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
-
+                                        <embed src="{{ absolute_url('uploads/cartes/') }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +70,7 @@
 
             <!-- Cartes Expirées -->
             <div class="tab-pane fade" id="expired" role="tabpanel" aria-labelledby="expired-tab">
-                <div class="my-3 bg-danger text-white p-2 rounded-2">
+                <div class="my-3 border-danger border-3 border p-2 rounded-2">
                     <h4>Liste des cartes expirées</h4>
                 </div>
                 <table class="table table-striped datatable-init">
@@ -85,27 +87,28 @@
                     <tbody>
                     {% for carte in cartesExpirees %}
                         <tr>
-                            <td>{{ carte.numDemande }}</td>
-                            <td>{{ carte.professionnel.nom }}</td>
-                            <td>{{ carte.historiqueOrganeActuel.organe.designation }}</td>
-                            <td>{{ carte.historiqueOrganeActuel.profession.libelle }}</td>
+                            <td>{{ carte.numCarte }}</td>
+                            <td>{{ carte.demande.professionnel.nom }}</td>
+                            <td>{{ carte.demande.historiqueOrganeActuel.organe.designation }}</td>
+                            <td>{{ carte.demande.historiqueOrganeActuel.profession.libelle }}</td>
                             <td>{{ carte.dateExpiration|date('d/m/Y') }}</td>
                             <td>
-                                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-{{ carte.getId }}">Voir la Carte</button>
+                                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-expiree-{{ carte.demande.id }}">
+                                    Voir la Carte
+                                </button>
                             </td>
                         </tr>
 
-
-                        <!-- Modal pour la visualisation -->
-                        <div class="modal fade" id="modal-{{ carte.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal-expiree-{{ carte.demande.id }}" tabindex="-1" aria-labelledby="modalLabelExpiree-{{ carte.demande.id }}" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Carte: {{ carte.numDemande }}</h5>
-                                        <button type="button" class="btn-close btn-outline-secondary btn" data-bs-dismiss="modal" aria-label="Close">x</button>
+                                        <h5 class="modal-title" id="modalLabelExpiree-{{ carte.demande.id }}">Carte : {{ carte.numCarte }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <embed src="{{ absolute_url('uploads/cartes/')  }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
+                                        <embed src="{{ absolute_url('uploads/cartes/') }}{{ carte.urlFile }}" type="application/pdf" width="100%" height="500px" />
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +117,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 {% endblock %}

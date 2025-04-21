@@ -1,0 +1,77 @@
+<script src="{{ asset('assets_admin/vendor/libs/jquery/jquery.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/popper/popper.js') }}"></script>
+<script src="{{ asset('assets_admin/vendor/js/bootstrap.js') }}"></script>
+<script src="{{ asset('assets_admin/vendor/libs/node-waves/node-waves.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/@algolia/autocomplete-js.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/pickr/pickr.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/hammer/hammer.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/libs/i18n/i18n.js') }}"></script>
+
+<script src="{{ asset('assets_admin/vendor/js/menu.js') }}"></script>
+
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<script src="{{ asset('assets_admin/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script src="{{ asset('assets_admin/vendor/libs/swiper/swiper.js') }}"></script>
+<script src="{{ asset('assets_admin/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+
+<!-- Main JS -->
+<script src="{{ asset('assets_admin/js/main.js') }}"  defer></script>
+
+<!-- Vendors JS -->
+<script src="{{ asset('assets_admin/vendor/libs/notyf/notyf.js') }}"></script>
+
+
+<script src="{{ asset('assets_admin/vendor/libs/bs-stepper/bs-stepper.js') }}" ></script>
+<!-- Page JS -->
+<script src="{{ asset('assets_admin/js/dashboards-analytics.js') }}"></script>
+
+<!-- Page JS -->
+<script src="{{ asset('assets_admin/js/tables-datatables-basic.js') }}"></script>
+<script src="{{ asset('assets_admin/js/form-wizard-validation.js') }}"></script>
+<script>
+    let table = new DataTable('#myTable');
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+
+<script src="{{ asset('/assets-admin/tiny-mce/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+<script src="{{ asset('/assets-admin/tiny-mce/tinymce-iconic-styles/lang/fr_FR.js') }}"></script>
+<script>
+
+    const initTinymceEditor = () => {
+        tinymce.init({
+            skin: null,
+            selector: '.js-tiny-editor',
+            language: 'fr_FR',
+            license_key: 'gpl',
+            // advcode_inline: true,
+            line_height_formats: '0.5 0.8 1 1.2 1.4 1.6 2',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount code',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | code | bootstrap',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    tinymce.triggerSave(); // Synchronise automatiquement avec le textarea
+                });
+            }
+        });
+    }
+
+    initTinymceEditor();
+
+</script>
+
+
+{% block javascripts %}
+
+{% endblock %}

@@ -117,6 +117,7 @@ class ImpressionController extends AbstractController
 
         // Mettre à jour la carte si nécessaire
         $carte->setImprimerPar($this->getUser());
+        $carte->setPrinted(1);
         $entityManager->persist($carte);
         $entityManager->flush();
 
@@ -281,10 +282,10 @@ class ImpressionController extends AbstractController
         ]);
     }
     #[Route('/cartes-imprimees', name: 'app_printed_cards')]
-    public function printedCards(DemandeRepository $demandeRepository): Response
+    public function printedCards(CarteRepository $carteRepository): Response
     {
         // Récupérer toutes les demandes dont isPrinted est à 1 et urlFile n'est pas null
-        $cartes = $demandeRepository->findBy([
+        $cartes = $carteRepository->findBy([
             'isPrinted' => 1
         ]);
 

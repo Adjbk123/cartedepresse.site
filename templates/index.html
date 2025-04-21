@@ -1,178 +1,189 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" class="js">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .carte {
-            width: 85mm;
-            height: 54mm;
-            border: 1px solid #000;
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            display: flex;
-            flex-direction: column;
-            padding: 4mm;
-            box-sizing: border-box;
-        }
-
-        .recto .entete,
-        .verso .entete {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-haac, .logo-benin, .armoiries {
-            width: 15mm;
-        }
-
-        .titre-benin {
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .titre-carte {
-            color: red;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .sous-entete {
-            display: flex;
-            justify-content: space-between;
-            font-size: 9px;
-            margin-top: 2mm;
-        }
-
-        .bande-nationale {
-            height: 4mm;
-            margin: 2mm 0;
-            background: linear-gradient(to right, green 33%, yellow 33% 66%, red 66%);
-        }
-
-        .corps {
-            display: flex;
-            justify-content: space-between;
-            gap: 5mm;
-        }
-
-        .photo-section .photo {
-            width: 20mm;
-            height: 25mm;
-            object-fit: cover;
-            border: 1px solid #000;
-        }
-
-        .numero-carte {
-            font-size: 9px;
-            text-align: center;
-            margin-top: 2mm;
-        }
-
-        .infos p {
-            margin: 0.5mm 0;
-        }
-
-        .verso .texte {
-            margin: 5mm 0;
-            text-align: justify;
-        }
-
-        .finale {
-            font-style: italic;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 5mm;
-        }
-
-        .signature-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: auto;
-        }
-
-        .signature img,
-        .cachet img,
-        .qr-code {
-            width: 15mm;
-            height: auto;
-        }
-
-        .bande-pied {
-            background-color: green;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            padding: 1mm 0;
-            margin-top: 3mm;
-        }
-
-    </style>
+    <base href="../">
+    <meta charset="utf-8">
+    <meta name="author" content="HAAC">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+    <!-- Page Title  -->
+    <title>{% block title %}{% endblock %} | SGACP </title>
+    {% block stylesheets %}
+    {% endblock %}
+    {{ include('partials/stylesheet.html.twig') }}
+    {% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
 </head>
-<body>
-<div class="carte recto">
-    <div class="entete">
-        <img src="/images/logo_haac.png" class="logo-haac" alt="Logo HAAC">
-        <div class="texte-entete">
-            <div class="titre-benin">RÉPUBLIQUE DU BÉNIN</div>
-            <div class="titre-carte">CARTE DE PRESSE</div>
-        </div>
-        <img src="/images/logo_benin.png" class="logo-benin" alt="Couleurs nationales">
-    </div>
 
-    <div class="sous-entete">
-        <div class="profession">Journaliste Reporter</div>
-        <div class="organe">Radio Bénin Culture</div>
-    </div>
+<body class="nk-body bg-lighter npc-default has-sidebar  ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        {{ include('partials/sidebar.html.twig') }}
+        <!-- sidebar @e -->
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ms-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="{{ path('app_admin') }}" class="logo-link">
+                                <img class="logo-light logo-img" src="{{ asset('images/logo.png') }}" srcset="{{ asset('images/logo.png')}} 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="{{ asset('images/logo-dark.png') }}" srcset="{{ asset('images/logo-dark.png')}} 2x" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
 
-    <div class="bande-nationale"></div>
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
 
-    <div class="corps">
-        <div class="photo-section">
-            <img src="/images/photo.jpg" class="photo" alt="Photo">
-            <div class="numero-carte">N° 2025/001245</div>
+                                <li class="dropdown user-dropdown">
+                                    <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
+                                        <div class="user-toggle">
+                                            <div class="user-avatar sm">
+                                                <em class="icon ni ni-user-alt"></em>
+                                            </div>
+                                            <div class="user-info d-none d-xl-block">
+                                                <div class="user-status user-status-verified">
+                                                    {% if app.user %}
+                                                    {% if is_granted("ROLE_AGENT_TRAITEMENT") %}
+                                                    Agent traitant
+                                                    {% elseif is_granted('ROLE_AUTORITE') %}
+                                                    Autorité
+                                                    {% elseif is_granted('ROLE_IMPRIMEUR') %}
+                                                    Imprimeur
+                                                    {% elseif is_granted('ROLE_ADMIN') %}
+                                                    Administrateur
+                                                    {% elseif is_granted('ROLE_CHEF_SERVICE') %}
+                                                    Chef service
+
+                                                    {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="user-name dropdown-indicator">
+                                                    {% if app.user %}
+                                                    {{ app.user.prenoms }} {{ app.user.nom }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
+                                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <span>AB</span>
+                                                </div>
+                                                <div class="user-info">
+                                                    <span class="lead-text">
+                                                          {% if app.user %}
+                                                              {{ app.user.prenoms }} {{ app.user.nom }}
+                                                          {% endif %}
+                                                    </span>
+                                                    <span class="sub-text">
+                                                          {% if app.user %}
+                                                              {{ app.user.email }}
+                                                          {% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="{{ path('app_profil') }}"><em class="icon ni ni-user-alt"></em><span>Mon profi</span></a></li>
+                                                <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Thème sombre</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="{{ path('app_logout') }}"><em class="icon ni ni-signout"></em><span>Déconnexion</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head nk-block-head-sm">
+                                <div class="nk-block-between">
+                                    <div class="nk-block-head-content">
+                                        <h4 >{{ block('title') }}</h4>
+                                    </div><!-- .nk-block-head-content -->
+                                    <div class="nk-block-head-content">
+                                        <div class="toggle-wrap nk-block-tools-toggle">
+                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                            <div class="toggle-expand-content" data-content="pageMenu">
+                                                <ul class="nk-block-tools g-3">
+                                                    <li class="nk-block-tools-opt">
+                                                        {% block bouton %}  {% endblock %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head-content -->
+                                </div><!-- .nk-block-between -->
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="row g-gs">
+                                    <div class="col-xxl-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="nk-ecwg nk-ecwg6">
+                                                <div class="card-inner">
+                                                    {% block body %} {% endblock %}
+                                                </div><!-- .card-inner -->
+                                            </div><!-- .nk-ecwg -->
+                                        </div><!-- .card -->
+                                    </div><!-- .col -->
+                                </div><!-- .row -->
+                            </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content @e -->
+            <!-- footer @s -->
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright"> &copy; {{ date()|date('Y')}} HAAC.
+                        </div>
+                        <div class="nk-footer-links">
+                            <ul class="nav nav-sm">
+                                <li class="nav-item dropup">
+                                    <a href="https://www.haac.bj" class="nav-link"><span>Site HAAC</span></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer @e -->
         </div>
-        <div class="infos">
-            <p><strong>NPI :</strong> 123456789</p>
-            <p><strong>Nom :</strong> AGOSSOU</p>
-            <p><strong>Prénoms :</strong> Romain Michel</p>
-            <p><strong>Naissance :</strong> 12 Janvier 1985 à Parakou</p>
-            <p><strong>Nationalité :</strong> Béninoise</p>
-            <p><strong>Téléphone :</strong> +229 97 00 00 00</p>
-            <p><strong>Expiration :</strong> 31 Décembre 2025</p>
-        </div>
+        <!-- wrap @e -->
     </div>
+    <!-- main @e -->
 </div>
-<div class="carte verso">
-    <div class="entete">
-        <img src="/images/armoiries.png" class="armoiries" alt="Armoiries">
-        <img src="/images/logo_benin.png" class="logo-benin" alt="Couleurs nationales">
-    </div>
-
-    <div class="texte">
-        <p>Le titulaire de cette carte est professionnel des médias. Les autorités béninoises et celles des pays hôtes sont priées de faciliter au porteur de la présente carte l’exercice de sa profession.</p>
-        <p class="finale">Carte strictement personnelle</p>
-    </div>
-
-    <div class="signature-section">
-        <div class="signature">
-            <span>Le Président</span>
-            <img src="/images/signature.png" alt="Signature">
-            <div class="nom-president">Jean K. DOSSOU</div>
-        </div>
-        <div class="cachet">
-            <img src="/images/cachet_haac.png" alt="Cachet">
-        </div>
-        <div class="qr">
-            <img src="/images/qr_code.png" alt="QR Code" class="qr-code">
-        </div>
-    </div>
-
-    <div class="bande-pied">LAISSEZ PASSER</div>
-</div>
-
+<!-- app-root @e -->
+<!-- JavaScript -->
+{{ include('partials/script.html.twig') }}
 
 </body>
+
 </html>

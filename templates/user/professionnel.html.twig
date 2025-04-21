@@ -11,13 +11,12 @@
         <a href="{{ path('app_personnel_new') }}" class="btn btn-success">Ajouter un utilisateur</a>
     </div>
     <div class="">
-        <table class="table datatable-init table-hover table-bordered" >
+        <table id="myTable" class="table datatable-init table-hover table-bordered" >
             <thead>
             <tr>
                 <th>N°</th>
                 <th>Nom</th>
                 <th>Prénoms</th>
-                <th>Nom d'utilisateur</th>
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
@@ -28,69 +27,15 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ user.nom }}</td>
                     <td>{{ user.prenoms }}</td>
-                    <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detailsModal" data-id="{{ user.id }}" data-nom="{{ user.nom }}" data-prenoms="{{ user.prenoms }}" data-username="{{ user.username }}" data-email="{{ user.email }}">Détails</button>
+                        <a class="btn btn-success" href="{{ path('app_user_professionnel_show', {'id': user.id}) }}">Détails</a>
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="16">no records found</td>
-                </tr>
+
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Compte utilisateur</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Nom :</strong> <span id="modalUserNom"></span></p>
-                    <p><strong>Prénoms :</strong> <span id="modalUserPrenoms"></span></p>
-                    <p><strong>Nom d'utilisateur :</strong> <span id="modalUserUsername"></span></p>
-                    <p><strong>Email :</strong> <span id="modalUserEmail"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var detailsModal = document.getElementById('detailsModal');
-            detailsModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget; // Button that triggered the modal
-                var userId = button.getAttribute('data-id');
-                var userNom = button.getAttribute('data-nom');
-                var userPrenoms = button.getAttribute('data-prenoms');
-                var userUsername = button.getAttribute('data-username');
-                var userEmail = button.getAttribute('data-email');
-
-                // Update the modal's content.
-                var modalTitle = detailsModal.querySelector('.modal-title');
-                var modalUserNom = detailsModal.querySelector('#modalUserNom');
-                var modalUserPrenoms = detailsModal.querySelector('#modalUserPrenoms');
-                var modalUserUsername = detailsModal.querySelector('#modalUserUsername');
-                var modalUserEmail = detailsModal.querySelector('#modalUserEmail');
-
-                modalTitle.textContent = 'Détails de l\'utilisateur ID ' + userId;
-                modalUserNom.textContent = userNom;
-                modalUserPrenoms.textContent = userPrenoms;
-                modalUserUsername.textContent = userUsername;
-                modalUserEmail.textContent = userEmail;
-            });
-        });
-    </script>
 {% endblock %}

@@ -1,80 +1,136 @@
 <div class="row">
     <!-- Card 1: Total Demandes -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #f39c12;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Total des Demandes</h6>
-                <h2 class="card-text font-weight-bold" style="color: #f39c12;">{{ totalDemandes }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-folder icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ totalDemandes }}</h4>
+                </div>
+                <p class="mb-1">Total des Demandes</p>
             </div>
         </div>
     </div>
 
     <!-- Card 2: Demandes en Cours -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #3498db;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Demandes en Cours</h6>
-                <h2 class="card-text font-weight-bold" style="color: #3498db;">{{ demandesEnCours }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-hourglass icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ demandesEnCours }}</h4>
+                </div>
+                <p class="mb-1">Demandes en Cours</p>
             </div>
         </div>
     </div>
 
     <!-- Card 3: Demandes Rejetées -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #e74c3c;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Demandes Rejetées</h6>
-                <h2 class="card-text font-weight-bold" style="color: #e74c3c;">{{ demandesRejetees }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-x icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ demandesRejetees }}</h4>
+                </div>
+                <p class="mb-1">Demandes Rejetées</p>
             </div>
         </div>
     </div>
 
     <!-- Card 4: Lot de Demandes -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #8e44ad;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Lot de Demandes</h6>
-                <h2 class="card-text font-weight-bold" style="color: #8e44ad;">{{ lotDemande }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-archive icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ lotDemande }}</h4>
+                </div>
+                <p class="mb-1">Lot de Demandes</p>
             </div>
         </div>
     </div>
 
     <!-- Card 5: Demandes Validées -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #27ae60;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Demandes Validées</h6>
-                <h2 class="card-text font-weight-bold" style="color: #27ae60;">{{ demandesValidees }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-check icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ demandesValidees }}</h4>
+                </div>
+                <p class="mb-1">Demandes Validées</p>
             </div>
         </div>
     </div>
 
     <!-- Card 6: Cartes Imprimées -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #f1c40f;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Cartes Imprimées</h6>
-                <h2 class="card-text font-weight-bold" style="color: #f1c40f;">{{ totalImpressions }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-printer icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ totalImpressions }}</h4>
+                </div>
+                <p class="mb-1">Cartes Imprimées</p>
             </div>
         </div>
     </div>
 
     <!-- Card 7: Impression de l'Année Courante -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #2ecc71;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Impression de {{ date()|date('Y') }}</h6>
-                <h2 class="card-text font-weight-bold" style="color: #2ecc71;">{{ totalImpressionsCurrentYear }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-calendar icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ totalImpressionsCurrentYear }}</h4>
+                </div>
+                <p class="mb-1">Impression de {{ date()|date('Y') }}</p>
             </div>
         </div>
     </div>
 
     <!-- Card 8: Cartes Expirées -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm glassmorphic" style="border-left: 4px solid #c0392b;">
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Cartes Expirées</h6>
-                <h2 class="card-text font-weight-bold" style="color: #c0392b;">{{ cartesExpirees }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-clock icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0">{{ cartesExpirees }}</h4>
+                </div>
+                <p class="mb-1">Cartes Expirées</p>
             </div>
         </div>
     </div>
@@ -87,7 +143,7 @@
     <div class="card-body">
         <div class="form-group">
             <label for="year-select">Sélectionner une année :</label>
-            <select id="year-select" class="form-control border-dark">
+            <select id="year-select" class="form-select ">
                 {% for year in years %}
                     <option value="{{ year }}" {% if year == "now"|date("Y") %}selected{% endif %}>{{ year }}</option>
                 {% endfor %}

@@ -97,12 +97,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
+    /**
+     * @var Collection<int, PieceJointeAvisMembre>
+     */
+    #[ORM\OneToMany(targetEntity: PieceJointeAvisMembre::class, mappedBy: 'membre')]
+    private Collection $pieceJointeAvisMembres;
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
         $this->historiqueOrganeProfessionnels = new ArrayCollection();
         $this->demandesTraitant = new ArrayCollection();
         $this->cartes = new ArrayCollection();
+        $this->pieceJointeAvisMembres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -445,6 +452,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(?string $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PieceJointeAvisMembre>
+     */
+    public function getPieceJointeAvisMembres(): Collection
+    {
+        return $this->pieceJointeAvisMembres;
+    }
+
+    public function addPieceJointeAvisMembre(PieceJointeAvisMembre $pieceJointeAvisMembre): static
+    {
+        if (!$this->pieceJointeAvisMembres->contains($pieceJointeAvisMembre)) {
+            $this->pieceJointeAvisMembres->add($pieceJointeAvisMembre);
+            $pieceJointeAvisMembre->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePieceJointeAvisMembre(PieceJointeAvisMembre $pieceJointeAvisMembre): static
+    {
+        if ($this->pieceJointeAvisMembres->removeElement($pieceJointeAvisMembre)) {
+            // set the owning side to null (unless already changed)
+            if ($pieceJointeAvisMembre->getMembre() === $this) {
+                $pieceJointeAvisMembre->setMembre(null);
+            }
+        }
 
         return $this;
     }

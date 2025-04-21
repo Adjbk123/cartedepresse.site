@@ -1,34 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Détail du professionnel{% endblock %}
+{% block bouton %}
+<a href="{{ path('app_user_professionnel') }}" class="btn btn-outline-primary">Retour à la liste</a>
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
 
     <table class="table">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ user.id }}</td>
+            <th>Photo</th>
+            <td>
+                <img src="{{ absolute_url(asset(user.photo)) }}" alt="">
+            </td>
         </tr>
-        <tr>
-            <th>Username</th>
-            <td>{{ user.username }}</td>
-        </tr>
-        <tr>
-            <th>Roles</th>
-            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-        </tr>
-        <tr>
-            <th>Password</th>
-            <td>{{ user.password }}</td>
-        </tr>
+        
         <tr>
             <th>Nom</th>
             <td>{{ user.nom }}</td>
         </tr>
         <tr>
-            <th>Prenoms</th>
+            <th>Prénoms</th>
             <td>{{ user.prenoms }}</td>
         </tr>
         <tr>
@@ -40,7 +33,7 @@
             <td>{{ user.statut ? 'Yes' : 'No' }}</td>
         </tr>
         <tr>
-            <th>Email</th>
+            <th>Adresse Email</th>
             <td>{{ user.email }}</td>
         </tr>
         <tr>
@@ -63,16 +56,13 @@
             <th>Nationalite</th>
             <td>{{ user.nationalite }}</td>
         </tr>
-        <tr>
-            <th>Photo</th>
-            <td>{{ user.photo }}</td>
-        </tr>
+      
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier les informations </a>
+
+
 {% endblock %}

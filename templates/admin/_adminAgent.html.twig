@@ -1,44 +1,73 @@
 <div class="row">
-    <!-- Card 1 : Total des Demandes -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #f39c12;">
+    <!-- Card 1: Total des Demandes -->
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Total des Demandes</h6>
-                <h2 class="card-text font-weight-bold" style="color: #f39c12;">{{ totalDemandes }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-folder icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0" style="color: #f39c12;">{{ totalDemandes }}</h4>
+                </div>
+                <p class="mb-1">Total des Demandes</p>
             </div>
         </div>
     </div>
 
-    <!-- Card 2 : Demandes en Cours -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #3498db;">
+    <!-- Card 2: Demandes en Cours -->
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Demandes en Cours</h6>
-                <h2 class="card-text font-weight-bold" style="color: #3498db;">{{ demandesEnCours }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-hourglass icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0" style="color: #3498db;">{{ demandesEnCours }}</h4>
+                </div>
+                <p class="mb-1">Demandes en Cours</p>
             </div>
         </div>
     </div>
 
-    <!-- Card 3 : Demandes Rejetées -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #e74c3c;">
+    <!-- Card 3: Demandes Rejetées -->
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Demandes Rejetées</h6>
-                <h2 class="card-text font-weight-bold" style="color: #e74c3c;">{{ demandesRejetees }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-x icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0" style="color: #e74c3c;">{{ demandesRejetees }}</h4>
+                </div>
+                <p class="mb-1">Demandes Rejetées</p>
             </div>
         </div>
     </div>
 
-    <!-- Card 4 : Lot de demandes -->
-    <div class="col-sm-3 mb-3">
-        <div class="card shadow-sm" style="background-color: #ffffff; border-left: 4px solid #1abc9c;">
+    <!-- Card 4: Lot de Demandes -->
+    <div class="col-md-3 mb-3">
+        <div class="card card-border-shadow-primary h-100">
             <div class="card-body">
-                <h6 class="card-title text-muted">Lot de Demandes</h6>
-                <h2 class="card-text font-weight-bold" style="color: #1abc9c;">{{ lotDemande }}</h2>
+                <div class="d-flex align-items-center mb-1">
+                    <div class="avatar me-4">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-archive icon-28px"></i>
+                        </span>
+                    </div>
+                    <h4 class="mb-0" style="color: #1abc9c;">{{ lotDemande }}</h4>
+                </div>
+                <p class="mb-1">Lot de Demandes</p>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="card mt-4 shadow">
     <div class="card-header bg-light">
