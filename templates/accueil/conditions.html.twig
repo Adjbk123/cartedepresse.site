@@ -1,0 +1,110 @@
+{% extends 'baseAccueil2.html.twig' %}
+
+{% block title %}Conditions de Délivrance de la Carte de Presse{% endblock %}
+
+{% block body %}
+
+    <!-- Hero Start -->
+    <section class="bg-half-170 bg-light d-table w-100">
+        <div class="container">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="pages-heading">
+                        <h4 class="title mb-0">Conditions de Délivrance de la Carte de Presse</h4>
+                    </div>
+                </div>  <!--end col-->
+            </div><!--end row-->
+
+            <div class="position-breadcrumb">
+                <nav aria-label="breadcrumb" class="d-inline-block">
+                    <ul class="breadcrumb rounded shadow mb-0 px-4 py-2">
+                        <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+
+                        <li class="breadcrumb-item active" aria-current="page">Conditions d'attributions</li>
+                    </ul>
+                </nav>
+            </div>
+        </div> <!--end container-->
+    </section><!--end section-->
+    <!-- Hero End -->
+
+    <section class="section bg-light py-5">
+        <div class="container">
+
+            <div class="accordion" id="conditionsAccordion">
+                <!-- Première Attribution -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                            Première attribution de la carte de presse
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#conditionsAccordion">
+                        <div class="accordion-body">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item">Ouvrir un compte sur la plateforme numérique dédiée sur le site de la HAAC.</li>
+                                <li class="list-group-item">Un extrait du casier judiciaire datant de moins de <strong>3 mois</strong>.</li>
+                                <li class="list-group-item">Copie légalisée du dernier diplôme ou attestation légalisée.</li>
+                                <li class="list-group-item">Copie du <strong>Certificat d'Identification Personnel (CIP)</strong> ou de la carte d'identité biométrique.</li>
+                                <li class="list-group-item">Quittance de paiement de <span class="badge bg-success">5 000 FCFA</span> au Trésor Public.</li>
+                                <li class="list-group-item">Attestation de travail précisant l'activité du postulant et son numéro CNSS.</li>
+                                <li class="list-group-item">Pour pigistes et freelances : déclaration sur l'honneur + attestations de collaboration + copies de paies (3 derniers mois).</li>
+                                <li class="list-group-item">Pour journalistes en langues locales : preuve d'aptitude + attestations de formation.</li>
+                                <li class="list-group-item">Professionnels honoraires : fournir l’acte de mise à la retraite.</li>
+                                <li class="list-group-item">Photo d’identité numérique récente.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Renouvellement -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Renouvellement de la carte de presse
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#conditionsAccordion">
+                        <div class="accordion-body">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item">Accéder à son compte existant ou en créer un nouveau sur la plateforme.</li>
+                                <li class="list-group-item">Extrait du casier judiciaire datant de moins de <strong>3 mois</strong>.</li>
+                                <li class="list-group-item">Ancienne carte de presse ou sa copie.</li>
+                                <li class="list-group-item">Copie du <strong>CIP</strong> ou carte d'identité biométrique.</li>
+                                <li class="list-group-item">Quittance de paiement de <span class="badge bg-success">5 000 FCFA</span>.</li>
+                                <li class="list-group-item">Attestation de travail précisant l'activité du postulant et son numéro CNSS.</li>
+                                <li class="list-group-item">Pour pigistes/freelances : déclaration sur l'honneur + attestations + copies de paies (3 derniers mois).</li>
+                                <li class="list-group-item">Photo d'identité numérique récente.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicata -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            Demande de duplicata
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#conditionsAccordion">
+                        <div class="accordion-body">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item">Accéder à son compte sur la plateforme.</li>
+                                <li class="list-group-item">Certificat de perte.</li>
+                                <li class="list-group-item">Photo d'identité numérique récente.</li>
+                                <li class="list-group-item">Copie du <strong>CIP</strong> ou carte d'identité biométrique.</li>
+                                <li class="list-group-item">Extrait du casier judiciaire datant de moins de <strong>3 mois</strong>.</li>
+                                <li class="list-group-item">Quittance de paiement de <span class="badge bg-success">5 000 FCFA</span>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="small text-muted">Pour tout renseignement complémentaire, veuillez consulter le site officiel de la HAAC ou contacter le service compétent.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

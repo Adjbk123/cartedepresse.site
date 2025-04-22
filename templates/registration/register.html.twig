@@ -1,46 +1,62 @@
-
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="fr" dir="ltr">
 
 <head>
     <meta charset="utf-8">
     <title>Créer votre compte | Système Automatique de Gestion des Cartes de Presse</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse" />
-    <meta name="keywords" content="Carte de presse, Demande, HAAC" />
-    <meta name="author" content="HAAC" />
-    <meta name="email" content="contact@haac.bj" />
-    <meta name="website" content="https://haac.bj/" />
+    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse"/>
+    <meta name="keywords" content="Carte de presse, Demande, HAAC"/>
+    <meta name="author" content="HAAC"/>
+    <meta name="email" content="contact@haac.bj"/>
+    <meta name="website" content="https://haac.bj/"/>
 
-
-    <!-- favicon -->
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
-
-    <!-- Css -->
-    <!-- Bootstrap Css -->
+    <!-- CSS -->
+    <!-- Bootstrap CSS -->
     <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
-    <!-- Icons Css -->
+    <!-- Icons CSS -->
     <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
-    <!-- Style Css-->
+    <!-- Style CSS -->
     <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <style>
-        body{
-            font-family: "Montserrat", sans-serif; !important;
+        body {
+            font-family: "Montserrat", sans-serif !important;
         }
+
         @keyframes subtleShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-2px); }
-            50% { transform: translateX(2px); }
-            75% { transform: translateX(-2px); }
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-2px);
+            }
+            50% {
+                transform: translateX(2px);
+            }
+            75% {
+                transform: translateX(-2px);
+            }
         }
 
         .animated-message {
             animation: subtleShake 3s infinite ease-in-out;
         }
 
+        body {
+            background-image: url({{asset('images/bg-2.png')}});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        html, body, .container {
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -56,51 +72,62 @@
 </div>
 <!-- Loader -->
 
-
 <div class="back-to-home">
     <a href="" class="back-button btn btn-icon btn-primary"><i data-feather="arrow-left" class="icons"></i></a>
 </div>
 
 <!-- Hero Start -->
-<section class="bg-home d-flex align-items-center">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <p class="mb-4 fw-bold text-dark fs-5">
-                    Professionnel des médias ?<br>
+<section class="bg-home mt-5 ">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="row shadow mb-5 bg-primary rounded-3">
+            <div class="col-md-6 p-3 d-flex flex-column align-items-start justify-content-center text-start">
 
-                <div class="alert alert-light alert-pills text-dark" role="alert">
-                    <span class="badge rounded-pill bg-primary me-1">HAAC</span>
-                    <span class="content"> Créez un compte pour demander votre carte de presse.</span>
-                </div>
+                    <span class="bg-white text-primary p-1 badge rounded-pill">
+                        <i data-feather="users" class="fea icon-sm"></i>
+                    </span>
+                    <h2 class="text-white fw-bold mb-4">
+                        Professionnels des Médias ?
+                    </h2>
 
-                    Une fois inscrit, il vous suffira de compléter votre profil et d'envoyer votre demande de carte de presse en quelques clics.
-                </p>
+                    <div class="alert alert-light alert-pills text-dark" role="alert">
+                        <span class="badge rounded-pill bg-primary me-1"><i data-feather="alert-circle" class="fea icon-sm"></i></span>
+                        <span class="content">Demandez votre carte de presse en 3 étapes !</span>
+                    </div>
 
-                <img src="{{ asset('assets-landing/images/user/signup.png') }}" alt="Logo" class="img-fluid" style="max-height: 350px;" />
+                    <div class="mb-4 ms-5">
+                        <div class="d-flex align-items-center mb-3 text-white">
+                            <i data-feather="user-plus" class="fea icon-sm me-2"></i>
+                            <span class="fw-medium">1. Créez votre compte</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3 text-white">
+                            <i data-feather="edit-2" class="fea icon-sm me-2"></i>
+                            <span class="fw-medium">2. Complétez votre profil</span>
+                        </div>
+                        <div class="d-flex align-items-center text-white">
+                            <i data-feather="send" class="fea icon-sm me-2"></i>
+                            <span class="fw-medium">3. Envoyez votre demande</span>
+                        </div>
+                    </div>
+
+                    <p class="bg-primary text-white fw-medium p-3 mb-3 rounded-3 animated-message">
+                        🎯 Assurez-vous d'utiliser des informations exactes et un email fonctionnel pour valider votre demande.
+                    </p>
+
             </div>
 
+            <div class="col-lg-6 col-md-6 pt-5 pb-5 bg-body rounded-right">
 
-            <div class="col-lg-6 col-md-6">
-                <div class="card login-page shadow rounded border-0">
-                    <div class="card-body">
                         <div class="text-center">
                             <a href="{{ path('app_accueil') }}">
                                 <img src="{{ asset('assets/images/logo-haac.png') }}" alt="Logo HAAC" style="width: 100px;">
                             </a>
                         </div>
-
-                        <p class="bg-primary text-white fw-medium p-3 mb-3 text-center rounded-1 animated-message">
-                            Professionnels des médias, inscrivez-vous sur notre plateforme avec vos informations véridiques et un email fonctionnel pour faire votre demande de carte de presse.
-                        </p>
-
                         <h4 class="text-center" style="font-family: 'Montserrat', sans-serif !important;">Créer votre compte</h4>
 
                         <!-- Erreurs globales du formulaire -->
                         {{ form_errors(registrationForm) }}
 
                         {{ form_start(registrationForm) }}
-
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 {{ form_label(registrationForm.nom) }}
@@ -138,10 +165,11 @@
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     {{ form_label(registrationForm.plainPassword.first) }}
-                                    <button type="button" id="toggle-password" class="btn btn-link p-0 fw-medium">Afficher le mot de passe</button>
+                                    <button type="button" id="toggle-password" class="btn btn-link p-0 fw-medium">
+                                        Afficher le mot de passe
+                                    </button>
                                 </div>
                             </div>
-
                             <div class="form-icon position-relative">
                                 <i data-feather="lock" class="fea icon-sm icons"></i>
                                 {{ form_widget(registrationForm.plainPassword.first, { attr: {'placeholder': 'Mot de passe'} }) }}
@@ -167,19 +195,15 @@
                                 </button>
                             </div>
                         </div>
-
                         {{ form_end(registrationForm) }}
 
                         <div class="col-12 text-center">
                             <p class="mb-0 mt-3"><small class="text-dark me-2">Vous avez déjà un compte ? </small> <a href="{{ path('app_login') }}" class="text-primary fw-bold">Se connecter</a></p>
                         </div>
-
-                    </div>
-                </div><!---->
-            </div> <!--end col-->
-        </div><!--end row-->
-    </div> <!--end container-->
-</section><!--end section-->
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Hero End -->
 
 <!-- Switcher Start -->
@@ -190,7 +214,7 @@
 <div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header p-4 border-bottom">
         <h5 id="offcanvasLeftLabel" class="mb-0">
-            <img src="{{ asset('assets-landing/images/logo-dark.pn') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
             <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
         </h5>
         <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
@@ -198,7 +222,6 @@
     <div class="offcanvas-body p-4 pb-0">
         <div class="row">
             <div class="col-12">
-
                 <div class="text-center mt-4 pt-4">
                     <h6 class="fw-bold">Visitez notre site web</h6>
                     <ul class="text-center style-switcher list-unstyled mt-4">
@@ -208,12 +231,17 @@
             </div>
         </div>
     </div>
-
-
 </div>
+<!-- Switcher End -->
+
+<!-- JavaScript -->
+<script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script>
+<script src="{{ asset('assets-landing/js/app.js') }}"></script>
 <script>
     // Lorsque le bouton est cliqué
-    document.getElementById('toggle-password').addEventListener('click', function() {
+    document.getElementById('toggle-password').addEventListener('click', function () {
         // Récupérer les deux champs de mot de passe
         var passwordField1 = document.getElementById('registration_form_plainPassword_first');
         var passwordField2 = document.getElementById('registration_form_plainPassword_second');
@@ -232,15 +260,6 @@
         }
     });
 </script>
-
-<!-- Switcher End -->
-
-<!-- Javascript -->
-<!-- JAVASCRIPT -->
-<script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- Main Js -->
-<script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
-<script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
-<script src="{{ asset('assets-landing/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
 </body>
+
 </html>

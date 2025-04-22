@@ -4,47 +4,63 @@
 <head>
     <meta charset="utf-8">
     <title>Connexion | Système Automatique de Gestion des Cartes de Presse</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse" />
-    <meta name="keywords" content="Carte de presse, Demande, HAAC" />
-    <meta name="author" content="HAAC" />
-    <meta name="email" content="contact@haac.bj" />
-    <meta name="website" content="https://haac.bj/" />
+    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse"/>
+    <meta name="keywords" content="Carte de presse, Demande, HAAC"/>
+    <meta name="author" content="HAAC"/>
+    <meta name="email" content="contact@haac.bj"/>
+    <meta name="website" content="https://haac.bj/"/>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
     <!-- CSS -->
-    <link href="{{ asset('assets-landing/css/bootstrap-green.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-landing/css/style-green.css') }}" rel="stylesheet">
-
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+    <!-- Icons CSS -->
+    <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <style>
         body {
-            font-family: "Montserrat", sans-serif;
+            font-family: "Montserrat", sans-serif !important;
         }
 
-        .card.login-page {
-            animation: fadeInUp 0.8s ease-in-out;
+        @keyframes subtleShake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-2px);
+            }
+            50% {
+                transform: translateX(2px);
+            }
+            75% {
+                transform: translateX(-2px);
+            }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        .animated-message {
+            animation: subtleShake 3s infinite ease-in-out;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        body {
+            background-image: url({{asset('images/bg-2.png')}});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        html, body, .container {
+            height: 100%;
         }
     </style>
 </head>
 
 <body>
-
 <!-- Loader -->
 <div id="preloader">
     <div id="status">
@@ -54,139 +70,146 @@
         </div>
     </div>
 </div>
+<!-- Loader -->
 
-<!-- Back Button -->
 <div class="back-to-home">
-    <a href="#" class="back-button btn btn-icon btn-primary"><i data-feather="arrow-left" class="icons"></i></a>
+    <a href="" class="back-button btn btn-icon btn-primary"><i data-feather="arrow-left" class="icons"></i></a>
 </div>
 
-<!-- Main Section -->
-<section class="bg-home d-flex align-items-center">
-    <div class="container">
-        <div class="row align-items-center">
-
-            <!-- Left Block -->
-            <div class="col-lg-6 mb-4">
-                <div class="me-lg-5 text-center text-md-start">
-                    <p class="mb-4 fw-bold text-dark fs-5">
-                        Vous êtes un professionnel ?<br>
-                    <div class="alert alert-light alert-pills text-dark" role="alert">
-                        <span class="badge rounded-pill bg-primary me-1">HAAC</span>
-                        <span class="content">  Créez votre compte dès maintenant si vous n'en avez pas encore !</span>
-                    </div>
-
-
-                    </p>
-                    <a href="{{ path('app_register') }}" class="btn btn-outline-primary btn-sm mb-4">Créer un compte</a>
-                    <img src="{{ absolute_url(asset('assets-landing/images/user/login.png')) }}" alt="Connexion" class="img-fluid mx-auto d-block" style="width: 80%;">
+<!-- Hero Start -->
+<section class="bg-home mt-5">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="row shadow mb-5 bg-primary rounded-3">
+            <div class="col-md-6 p-3 d-flex flex-column align-items-start justify-content-center text-start">
+                <h2 class="text-white fw-bold mb-4">
+        <span class="bg-white text-primary p-1 rounded-2 text-center">
+            <i data-feather="users" class="fea icon-sm ms-2"></i>
+        </span>
+                    Professionnels des Médias ?
+                </h2>
+                <div class="alert alert-light alert-pills text-dark" role="alert">
+                    <span class="badge rounded-pill bg-primary me-1"><i data-feather="alert-circle" class="fea icon-sm"></i></span>
+                    <span class="content">Créez votre compte dès maintenant si vous n'en avez pas encore !</span>
+                    <a href="{{ path('app_register') }}">Cliquez-ici</a>
                 </div>
+
+                <div class="my-4 ms-5">
+                    <div class="d-flex align-items-center mb-3 text-white">
+                        <i data-feather="user-plus" class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">1. Créez votre compte</span>
+                    </div>
+                    <div class="d-flex align-items-center mb-3 text-white">
+                        <i data-feather="edit-2" class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">2. Complétez votre profil</span>
+                    </div>
+                    <div class="d-flex align-items-center text-white">
+                        <i data-feather="send" class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">3. Envoyez votre demande</span>
+                    </div>
+                </div>
+
+                <p class="bg-primary text-white fw-medium p-3 mb-3 rounded-3 animated-message">
+                    🎯 Assurez-vous d'utiliser des informations exactes et un email fonctionnel pour valider votre demande.
+                </p>
             </div>
 
-            <!-- Login Form -->
-            <div class="col-lg-6">
-                <div class="card login-page shadow rounded border-0">
-                    <div class="card-body">
 
-                        <!-- Logo -->
-                        <div class="text-center mb-4">
-                            <a href="{{ path('app_accueil') }}">
-                                <img src="{{ asset('assets/images/logo-haac.png') }}" alt="Logo HAAC" style="width: 100px;">
-                            </a>
-                            <h4 class="card-title mt-3">Connexion</h4>
-                            <p class="fw-bold">Entrez vos informations pour accéder à votre espace</p>
+            <div class="col-lg-6 col-md-6 pt-5 pb-5 bg-body rounded-right">
+                <div class="text-center">
+                    <a href="{{ path('app_accueil') }}">
+                        <img src="{{ asset('assets/images/logo-haac.png') }}" alt="Logo HAAC" style="width: 100px;">
+                    </a>
+                </div>
+                <h4 class="text-center" style="font-family: 'Montserrat', sans-serif !important;">Connexion</h4>
+                <p class="text-center fw-bold">Entrez vos informations pour accéder à votre espace</p>
+
+                <!-- Form -->
+                <form method="post" class="login-form mt-4">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Connecté en tant que {{ app.user.userIdentifier }},
+                            <a href="{{ path('app_logout') }}">Déconnexion</a>
                         </div>
+                    {% endif %}
 
-                        <!-- Form -->
-                        <form method="post" class="login-form mt-4">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                            {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
-
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    Connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-                                </div>
-                            {% endif %}
-
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Adresse email <span class="text-danger">*</span></label>
-                                <div class="form-icon position-relative">
-                                    <i data-feather="user" class="fea icon-sm icons"></i>
-                                    <input type="text" name="_username" id="username" value="{{ last_username }}"
-                                           placeholder="Adresse email" class="form-control ps-5" required autofocus>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mot de passe <span class="text-danger">*</span></label>
-                                <div class="form-icon position-relative">
-                                    <i data-feather="key" class="fea icon-sm icons"></i>
-                                    <input type="password" name="_password" id="password" placeholder="Mot de passe"
-                                           class="form-control ps-5" required>
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me" checked>
-                                    <label class="form-check-label" for="_remember_me">Se souvenir de moi</label>
-                                </div>
-                                <a href="#" class="text-primary fw-bold">Mot de passe oublié ?</a>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Connexion</button>
-                            </div>
-
-                            <div class="text-center mt-3">
-                                <small class="text-dark me-2">Pas encore de compte ?</small>
-                                <a href="{{ path('app_register') }}" class="text-primary fw-bold">S'inscrire</a>
-                            </div>
-
-                        </form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Adresse email <span class="text-danger">*</span></label>
+                        <div class="form-icon position-relative">
+                            <i data-feather="user" class="fea icon-sm icons"></i>
+                            <input type="text" name="_username" id="username" value="{{ last_username }}" placeholder="Adresse email" class="form-control ps-5" required autofocus>
+                        </div>
                     </div>
-                </div>
-            </div>
 
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe <span class="text-danger">*</span></label>
+                        <div class="form-icon position-relative">
+                            <i data-feather="key" class="fea icon-sm icons"></i>
+                            <input type="password" name="_password" id="password" placeholder="Mot de passe" class="form-control ps-5" required>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me" checked>
+                            <label class="form-check-label" for="_remember_me">Se souvenir de moi</label>
+                        </div>
+                        <a href="#" class="text-primary fw-bold">Mot de passe oublié ?</a>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Connexion</button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <small class="text-dark me-2">Pas encore de compte ?</small>
+                        <a href="{{ path('app_register') }}" class="text-primary fw-bold">S'inscrire</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
+<!-- Hero End -->
 
-<!-- Switcher / Sidebar -->
-<a href="javascript:void(0)" class="card switcher-btn shadow-md text-primary d-md-inline-flex d-none"
-   data-bs-toggle="offcanvas" data-bs-target="#switcher-sidebar">
+<!-- Switcher Start -->
+<a href="javascript:void(0)" class="card switcher-btn shadow-md text-primary z-index-1 d-md-inline-flex d-none" data-bs-toggle="offcanvas" data-bs-target="#switcher-sidebar">
     <i class="mdi mdi-cog mdi-24px mdi-spin align-middle"></i>
 </a>
 
-<div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar">
+<div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header p-4 border-bottom">
-        <h5 class="mb-0">
-            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" class="light-version" height="24" alt="">
-            <img src="{{ asset('assets-landing/images/logo-light.png') }}" class="dark-version" height="24" alt="">
+        <h5 id="offcanvasLeftLabel" class="mb-0">
+            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-            <i class="uil uil-times fs-4"></i>
-        </button>
+        <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
     </div>
     <div class="offcanvas-body p-4 pb-0">
-        <div class="text-center mt-4 pt-4">
-            <h6 class="fw-bold">Visitez notre site web</h6>
-            <a href="https://haac.bj/" class="d-block mt-3">
-                <img src="{{ asset('assets-landing/images/demos/rtl.png') }}" class="img-fluid rounded shadow" style="width: 240px;" alt="">
-                <span class="text-dark fw-medium d-block mt-2">Accueil</span>
-            </a>
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mt-4 pt-4">
+                    <h6 class="fw-bold">Visitez notre site web</h6>
+                    <ul class="text-center style-switcher list-unstyled mt-4">
+                        <li class="d-grid"><a href="https://haac.bj/" class="rtl-version t-rtl-light"><img src="{{ asset('assets-landing/images/demos/rtl.png') }}" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 240px;" alt=""><span class="text-dark fw-medium mt-3 d-block">Accueil</span></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<!-- Switcher End -->
 
-<!-- JS -->
+<!-- JavaScript -->
 <script src="{{ asset('assets-landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets-landing/libs/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('assets-landing/js/plugins.init.js') }}"></script>
 <script src="{{ asset('assets-landing/js/app.js') }}"></script>
-
 </body>
+
 </html>

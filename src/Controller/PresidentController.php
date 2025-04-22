@@ -78,7 +78,29 @@ class PresidentController extends AbstractController
         $form = $this->createForm(PresidentType::class, $president);
         $form->handleRequest($request);
 
+        // Sauvegarder l'ancienne signature si besoin
+        $ancienneSignature = $president->getSignature();
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $fileSignature = $form['signature']->getData();
+            $directory = "uploads";
+
+            if ($fileSignature) {
+                $nomFichier = $fileSignature->getClientOriginalName();
+                $fileSignature->move($directory, $nomFichier);
+                $president->setSignature($directory.'/'.$nomFichier);
+
+                // Optionnel : supprimer l'ancienne signature du disque si nécessaire
+                if ($ancienneSignature && file_exists($ancienneSignature)) {
+                    unlink($ancienneSignature);
+                }
+            } else {
+                // Si aucun nouveau fichier, garder l’ancienne signature
+                $president->setSignature($ancienneSignature);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_president_index', [], Response::HTTP_SEE_OTHER);

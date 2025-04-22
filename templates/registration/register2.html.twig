@@ -1,0 +1,159 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title> TechAuth - Authentication Pages Tailwind CSS 3 HTML Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inscrivz-vous |Système Automatique de Gestion des Cartes de Presse" />
+    <meta name="keywords" content="Carte de presse, Demande, HAAC" />
+    <meta name="author" content="HAAC" />
+    <meta name="email" content="contact@haac.bj" />
+    <meta name="website" content="https://haac.bj/" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Style css -->
+    <link href="{{ asset('assets-form/css/style.min.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<section class="h-screen flex items-center justify-center bg-no-repeat inset-0 bg-cover bg-[url('../images/bg-2.png')]">
+    <div class="container 2xl:px-80 xl:px-52">
+        <div class="bg-white rounded-lg p-5" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <div class="grid xl:grid-cols-5 lg:grid-cols-3 gap-6">
+
+                <div class="xl:col-span-2 lg:col-span-1 hidden lg:block">
+                    <div class="bg-sky-600 text-white rounded-lg flex flex-col justify-between gap-10 h-full w-full p-7">
+
+                        <span class="font-semibold tracking-widest uppercase">HAAC </span>
+
+                        <div>
+                            <h1 class="text-3xl/tight mb-4">  Professionnel des médias ?</h1>
+                            <p class="text-gray-200 font-normal leading-relaxed"> Créez un compte pour demander votre carte de presse.</p>
+                            <p>
+
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="bg-sky-700/50 rounded-lg p-5">
+                                <p class="text-gray-200 text-sm font-normal leading mb-4"> Une fois inscrit, il vous suffira de compléter votre profil et d'envoyer votre demande de carte de presse en quelques clics.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="xl:col-span-3 lg:col-span-2 lg:m-10">
+                    <div>
+                        <h1 class="text-2xl/tight mb-3">Sign Up</h1>
+                        <p class="text-sm font-medium leading-relaxed">We are here to help you and we'd love to connect with you.</p>
+                    </div>
+
+                    <div class="space-y-5 mt-10">
+
+                        {# Affichage des erreurs globales du formulaire #}
+                        {{ form_errors(registrationForm) }}
+
+                        {{ form_start(registrationForm) }}
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_label(registrationForm.nom, null, {'label_attr': {'class': 'font-medium text-sm block mb-2'}}) }}
+                                <div class="form-icon position-relative">
+                                    <i data-feather="user" class="fea icon-sm icons"></i>
+                                    {{ form_widget(registrationForm.nom, {
+                                        'attr': {
+                                            'class': 'text-gray-500 border border-gray-300 focus:ring-0 focus:border-gray-400 text-sm rounded-lg py-2.5 px-4 w-full',
+                                            'placeholder': 'Nom'
+                                        }
+                                    }) }}
+                                    {{ form_errors(registrationForm.nom) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_label(registrationForm.prenoms, null, {'label_attr': {'class': 'font-medium text-sm block mb-2'}}) }}
+                                <div class="form-icon position-relative">
+                                    <i data-feather="users" class="fea icon-sm icons"></i>
+                                    {{ form_widget(registrationForm.prenoms, {
+                                        'attr': {
+                                            'class': 'text-gray-500 border border-gray-300 focus:ring-0 focus:border-gray-400 text-sm rounded-lg py-2.5 px-4 w-full',
+                                            'placeholder': 'Prénoms'
+                                        }
+                                    }) }}
+                                    {{ form_errors(registrationForm.prenoms) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'font-medium text-sm block mb-2'}}) }}
+                                <div class="form-icon position-relative">
+                                    <i data-feather="mail" class="fea icon-sm icons"></i>
+                                    {{ form_widget(registrationForm.email, {
+                                        'attr': {
+                                            'class': 'text-gray-500 border border-gray-300 focus:ring-0 focus:border-gray-400 text-sm rounded-lg py-2.5 px-4 w-full',
+                                            'placeholder': 'Enter Your Email'
+                                        }
+                                    }) }}
+                                    {{ form_errors(registrationForm.email) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'font-medium text-sm block mb-2'}}) }}
+                                    <button type="button" id="toggle-password" class="btn btn-link p-0 fw-medium">Afficher le mot de passe</button>
+                                </div>
+                            </div>
+                            <div class="form-icon position-relative">
+                                <i data-feather="lock" class="fea icon-sm icons"></i>
+                                {{ form_widget(registrationForm.plainPassword.first, {
+                                    'attr': {
+                                        'class': 'text-gray-500 border border-gray-300 focus:ring-0 focus:border-gray-400 text-sm rounded-lg py-2.5 px-4 w-full',
+                                        'placeholder': 'Mot de passe'
+                                    }
+                                }) }}
+                                {{ form_errors(registrationForm.plainPassword.first) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'font-medium text-sm block mb-2'}}) }}
+                            <div class="form-icon position-relative">
+                                <i data-feather="lock" class="fea icon-sm icons"></i>
+                                {{ form_widget(registrationForm.plainPassword.second, {
+                                    'attr': {
+                                        'class': 'text-gray-500 border border-gray-300 focus:ring-0 focus:border-gray-400 text-sm rounded-lg py-2.5 px-4 w-full',
+                                        'placeholder': 'Confirmer le mot de passe'
+                                    }
+                                }) }}
+                                {{ form_errors(registrationForm.plainPassword.second) }}
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-6 mt-8">
+                            <button type="submit" class="bg-sky-600 text-white text-sm rounded-lg px-6 py-2.5">    Créer le compte</button>
+                            <p class="text-sm font-medium text-gray-500">Compte existant ? <a href="{{ path('app_login') }}" class="ms-2 underline text-sky-600">Se connecter</a></p>
+                        </div>
+
+                        {{ form_end(registrationForm) }}
+
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

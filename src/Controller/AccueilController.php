@@ -123,4 +123,13 @@ class AccueilController extends AbstractController
 
     }
 
+    // src/Controller/CartePresseController.php
+
+    #[Route('/carte-presse-conditions', name: 'carte_presse_conditions')]
+    public function conditions(): Response
+    {
+        return $this->render('accueil/conditions.html.twig');
+    }
+
+
 }
