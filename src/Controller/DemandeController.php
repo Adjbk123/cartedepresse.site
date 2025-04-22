@@ -20,6 +20,7 @@ use App\Service\EmailNotificationService;
 use App\Service\NumEnregistrementService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -435,6 +436,7 @@ class DemandeController extends AbstractController
         return $nationalites;
 
     }
+    #[IsGranted(new Expression('is_granted("ROLE_PROFESSIONNEL")'))]
     #[Route('/nouvelle-demande', name: 'app_demande_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,
                         UserRepository $userRepository,
@@ -537,7 +539,7 @@ class DemandeController extends AbstractController
             "typePieces" => $typePiece,
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/traitee', name: 'app_demande_traitee', methods: ['GET'])]
     public function indexDemandeTraitee(DemandeRepository $demandeRepository): Response
     {
@@ -545,6 +547,7 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findBy(['statut'=>"Validée"]),
         ]);
     }
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/rejetee', name: 'app_demande_rejetee', methods: ['GET'])]
     public function indexDemandeRejetee(DemandeRepository $demandeRepository): Response
     {
@@ -552,7 +555,7 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findBy(['statut'=>"Rejetée"]),
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_PROFESSIONNEL")'))]
     #[Route('/{id}/piece-reupload', name: 'app_piece_reupload', methods: ['POST'])]
     public function reuploadPieceJointe(
         PieceJointe $pieceJointe,
@@ -611,7 +614,7 @@ class DemandeController extends AbstractController
             'demandes' => $demandeRepository->findBy(['statut'=>"En attente"]),
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/{id}/traiter', name: 'app_demande_traiter', methods: ['GET'])]
     public function traiter(Demande $demande, PieceJointeRepository $pieceJointeRepository, UserRepository $userRepository): Response
     {
@@ -639,7 +642,7 @@ class DemandeController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/{id}', name: 'app_demande_show', methods: ['GET'])]
     public function show(Demande $demande): Response
     {
@@ -647,6 +650,7 @@ class DemandeController extends AbstractController
             'demande' => $demande,
         ]);
     }
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/{id}/fichier-valider', name: 'app_fichier_valider', methods: ['POST'])]
     public function validerFichier(
         PieceJointe $pieceJointe,
@@ -736,7 +740,7 @@ class DemandeController extends AbstractController
         $this->addFlash('success', 'Votre avis favorable a été enregistré.');
         return $this->redirectToRoute('app_demande_traiter', ['id' => $demande->getId()]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/{id}/fichier-rejeter', name: 'app_fichier_rejeter', methods: ['POST'])]
     public function rejeterFichier(
         PieceJointe $pieceJointe,
