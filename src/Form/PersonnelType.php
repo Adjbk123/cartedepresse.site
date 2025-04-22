@@ -45,6 +45,7 @@ class PersonnelType extends AbstractType
                     'Agent de traitement de dossier' => 'ROLE_AGENT_TRAITEMENT',
                     'Chef service' => 'ROLE_CHEF_SERVICE',
                     'Autorité'=> 'ROLE_AUTORITE',
+                    'Membre comité'=>"ROLE_COMITE_MEMBRE"
 
                 ],
 
