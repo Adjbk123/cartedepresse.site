@@ -22,6 +22,10 @@
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
     {{ include('partials_admin/_stylesheets.html.twig') }}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+
 </head>
 
 <body>
