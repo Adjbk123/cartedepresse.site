@@ -21,7 +21,6 @@ class PresidentController extends AbstractController
             'presidents' => $presidentRepository->findAll(),
         ]);
     }
-
     #[Route('/new', name: 'app_president_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -29,19 +28,28 @@ class PresidentController extends AbstractController
         $form = $this->createForm(PresidentType::class, $president);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // Désactiver l'ancien président
+            $dernierPresident = $entityManager->getRepository(President::class)
+                ->findOneBy(['isPresident' => true]);
 
+            if ($dernierPresident) {
+                $dernierPresident->setIsPresident(false);
+                $entityManager->persist($dernierPresident);
+            }
+
+            // Activer le nouveau président
+            $president->setPresident(true);
+
+            // Gestion du fichier de signature
             $fileSignature = $form['signature']->getData();
-
             $directory = "uploads";
 
-            if ($fileSignature)
-                $nomFichier= $fileSignature->getClientOriginalName();
+            if ($fileSignature) {
+                $nomFichier = $fileSignature->getClientOriginalName();
                 $fileSignature->move($directory, $nomFichier);
                 $president->setSignature($directory.'/'.$nomFichier);
-
-
+            }
 
             $entityManager->persist($president);
             $entityManager->flush();
@@ -54,6 +62,7 @@ class PresidentController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_president_show', methods: ['GET'])]
     public function show(President $president): Response
