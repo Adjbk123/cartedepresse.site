@@ -7,12 +7,15 @@ use App\Repository\CarteRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\LotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class AdminController extends AbstractController
 {
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/admin', name: 'app_admin')]
     public function index(DemandeRepository $demandeRepository, LotRepository $lotRepository, CarteRepository $carteRepository): Response
     {

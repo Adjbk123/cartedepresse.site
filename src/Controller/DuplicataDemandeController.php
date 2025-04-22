@@ -9,12 +9,15 @@ use App\Repository\DemandeRepository;
 use App\Repository\DuplicataDemandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DuplicataDemandeController extends AbstractController
 {
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/duplicata-demande', name: 'app_duplicata_demande_index', methods: ['GET'])]
     public function index(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
@@ -23,6 +26,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/duplis/valides', name: 'app_duplicata_demande_validee', methods: ['GET'])]
     public function validee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
@@ -31,7 +35,7 @@ class DuplicataDemandeController extends AbstractController
             'duplicatas' => $validatedDuplicatas,
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/dp/rejetees', name: 'app_duplicata_demande_rejetee', methods: ['GET'])]
     public function rejetee(DuplicataDemandeRepository $duplicataDemandeRepository): Response
     {
@@ -41,6 +45,7 @@ class DuplicataDemandeController extends AbstractController
             'duplicatas' => $rejectedDuplicatas,
         ]);
     }
+    #[IsGranted(new Expression('is_granted("ROLE_PROFESSIONNEL")'))]
     #[Route('/duplicata-demande/new', name: 'app_duplicata_demande_new')]
     public function demandeDuplicata(Request $request,DemandeRepository $carteRepository, EntityManagerInterface $em): Response
     {
@@ -90,7 +95,7 @@ class DuplicataDemandeController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/duplicata-demande/valider/{id}', name: 'valider_duplicata')]
     public function validerDuplicata(DuplicataDemande $duplicataDemande, EntityManagerInterface $em): Response
     {
@@ -100,7 +105,7 @@ class DuplicataDemandeController extends AbstractController
         $this->addFlash('success', 'La demande a été validée.');
         return $this->redirectToRoute('app_duplicata_demande_index');
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/duplicata-demande/rejeter/{id}', name: 'rejeter_duplicata')]
     public function rejeterDuplicata(DuplicataDemande $duplicataDemande, EntityManagerInterface $em): Response
     {
@@ -110,7 +115,7 @@ class DuplicataDemandeController extends AbstractController
         $this->addFlash('error', 'La demande a été rejetée.');
         return $this->redirectToRoute('app_duplicata_demande_index');
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/duplicata-demande/{id}', name: 'app_duplicata_demande_show', methods: ['GET'])]
     public function show(DuplicataDemande $duplicataDemande): Response
     {
@@ -118,7 +123,7 @@ class DuplicataDemandeController extends AbstractController
             'duplicata_demande' => $duplicataDemande,
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
     #[Route('/duplicata-demande/{id}/edit', name: 'app_duplicata_demande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DuplicataDemande $duplicataDemande, EntityManagerInterface $entityManager): Response
     {

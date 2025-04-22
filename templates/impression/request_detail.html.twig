@@ -107,18 +107,18 @@
                         <h1 class="font-weight-bold">Vérification de carte</h1>
                     </div>
                     <div class="card-header card-header-custom text-center">
-                        Détails pour la carte <strong>{{ carte.numDemande }} </strong> delivrée le <strong>{{ carte.dateExpiration|date('d/m/Y') }}</strong>
+                        Détails pour la carte <strong>{{ carte.numCarte }} </strong> delivrée le <strong>{{ carte.dateExpiration|date('d/m/Y') }}</strong>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img width="100%" src="{{ absolute_url(asset('uploads/') )}}{{ carte.professionnel.photo }}" alt="Photo de {{ carte.professionnel.nom }}">
+                                <img width="100%" src="{{ absolute_url(asset('uploads/') )}}{{ carte.demande.professionnel.photo }}" alt="Photo de {{ carte.demande.professionnel.nom }}">
                             </div>
                             <div class="col-md-8 fs-4 mt-4">
-                                <p class="card-text"><strong>Nom :</strong> {{ carte.professionnel.nom }}</p>
-                                <p class="card-text"><strong>Prénoms :</strong> {{ carte.professionnel.prenoms }}</p>
-                                <p class="card-text"><strong>Profession :</strong> {{ carte.historiqueOrganeActuel.profession.libelle }}</p>
-                                <p class="card-text"><strong>Organe :</strong> {{ carte.historiqueOrganeActuel.organe.designation }}</p>
+                                <p class="card-text"><strong>Nom :</strong> {{ carte.demande.professionnel.nom }}</p>
+                                <p class="card-text"><strong>Prénoms :</strong> {{ carte.demande.professionnel.prenoms }}</p>
+                                <p class="card-text"><strong>Profession :</strong> {{ carte.demande.historiqueOrganeActuel.profession.libelle }}</p>
+                                <p class="card-text"><strong>Organe :</strong> {{ carte.demande.historiqueOrganeActuel.organe.designation }}</p>
                                 <p class="card-text"><strong>Date d'Expiration :</strong> {{ carte.dateExpiration|date('d/m/Y')}}</p>
                                 <p class="card-text"><strong>Statut :</strong>
                                     {% if carte.dateExpiration < date() %}

@@ -19,12 +19,15 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ImpressionController extends AbstractController
 {
+    #[IsGranted(new Expression('is_granted("ROLE_IMPRIMEUR")'))]
     #[Route('/impression', name: 'app_impression')]
     public function index(CarteRepository $carteRepository): Response
     {
@@ -37,7 +40,7 @@ class ImpressionController extends AbstractController
     }
 
 
-
+    #[IsGranted(new Expression('is_granted("ROLE_IMPRIMEUR")'))]
     #[Route('/print/card/test/{id}', name: 'app_print_card_test')]
     public function testCardGeneration(
         Carte $carte,
@@ -102,7 +105,7 @@ class ImpressionController extends AbstractController
             'haacInfo' => $haacInfo,
         ], [0, 0, 242.65, 153.98]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_IMPRIMEUR")'))]
     #[Route('/print/card/save/{id}', name: 'app_print_card_second')]
     public function saveCardSecond(
         Carte $carte,
@@ -177,6 +180,7 @@ class ImpressionController extends AbstractController
         $entityManager->flush();
     }
 
+    #[IsGranted(new Expression('is_granted("ROLE_IMPRIMEUR")'))]
     #[Route('/print/card/preview/{id}', name: 'app_print_card_preview')]
     public function previewCard(
         Carte $carte,
@@ -237,7 +241,7 @@ class ImpressionController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted(new Expression('is_granted("ROLE_IMPRIMEUR")'))]
     #[Route('/impression/apercu/{id}', name: 'app_impression_apercu')]
     public function impressionApercu(Carte $carte): Response
     {
@@ -247,40 +251,40 @@ class ImpressionController extends AbstractController
     }
 
     #[Route('/card/detail/{numDemande?}', name: 'app_card_detail')]
-    public function cardRequestDetail(?string $numDemande, DemandeRepository $demandeRepository): Response
+    public function cardRequestDetail(?string $numCarte, CarteRepository $carteRepository): Response
     {
         // Vérifier si le numDemande est fourni
-        if (is_null($numDemande)) {
+        if (is_null($numCarte)) {
             // Retourner une vue avec un message d'erreur si numDemande est vide
             return $this->render('impression/request_detail.html.twig', [
                 'carte' => null,
-                'numDemande' => null,
+                'numCarte' => null,
                 'error' => 'Le numéro de demande n\'a pas été fourni.'
             ]);
         }
 
-        $numDemande = str_replace('-', '/', $numDemande);
 
         // Rechercher la demande à partir du numéro de demande
-        $demande = $demandeRepository->findOneBy(['numDemande' => $numDemande]);
+        $carte = $carteRepository->findOneBy(['numCarte' => $numCarte]);
 
         // Vérifier si la demande existe
-        if (!$demande) {
+        if (!$carte) {
             // Retourner une vue avec un message d'erreur si la demande n'existe pas
             return $this->render('impression/request_detail.html.twig', [
                 'carte' => null,
-                'numDemande' => $numDemande,
+                'numCarte' => $numCarte,
                 'error' => 'La demande avec le numéro fourni est introuvable.'
             ]);
         }
 
         // Retourner une vue avec les détails de la demande de carte
         return $this->render('impression/request_detail.html.twig', [
-            'carte' => $demande,
-            'numDemande' => $numDemande,
+            'carte' => $carte,
+            'numCarte' => $numCarte,
             'error' => null
         ]);
     }
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/cartes-imprimees', name: 'app_printed_cards')]
     public function printedCards(CarteRepository $carteRepository): Response
     {
