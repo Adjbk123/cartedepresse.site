@@ -170,19 +170,27 @@ class UserController extends AbstractController
             $user->setNationalite($request->request->get('nationalite'));
             $user->setSexe($request->request->get('sexe'));
 
-            // Récupérer le fichier téléchargé
-            $fichier = $request->files->get('photo');
-            if ($fichier) {
-                $repertoire = "uploads";
-                $nomOriginal = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = $fichier->guessExtension();
-                $nomCompletUtilisateur = $user->getNom() . '_' . $user->getPrenoms();
-                $date = (new \DateTime())->format('Ymd_His');
-                $nomFichierSecurise = $slugger->slug($nomCompletUtilisateur . '_' . $date . '_' . $nomOriginal);
+            $croppedPhoto = $request->files->get('photo');
+
+            if ($croppedPhoto && $croppedPhoto->isValid()) {
+                $repertoire = 'uploads';
+
+                if (!file_exists($repertoire)) {
+                    mkdir($repertoire, 0777, true);
+                }
+
+                $nomCompletUtilisateur = $user->getNom() . '-' . $user->getPrenoms();
+                $date = (new \DateTime())->format('Ymd-His');
+                $nomFichierSecurise = $slugger->slug($nomCompletUtilisateur . '-' . $date);
+
+                $extension = $croppedPhoto->guessExtension();
                 $nouveauNomFichier = $nomFichierSecurise . '.' . $extension;
-                $fichier->move($repertoire, $nouveauNomFichier);
+
+                $croppedPhoto->move($repertoire, $nouveauNomFichier);
+
                 $user->setPhoto($nouveauNomFichier);
             }
+
 
             // Gestion de l'organe
             if ($request->request->get('organe') === 'autre') {
@@ -225,6 +233,7 @@ class UserController extends AbstractController
             'professions' => $professionRepository->findBy([], ['libelle'=>'ASC']),
         ]);
     }
+
 
     public function getPays()
     {

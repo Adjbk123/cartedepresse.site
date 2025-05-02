@@ -1,7 +1,7 @@
 {% extends 'baseAccueil.html.twig' %}
 
 {% block title %}Mon compte{% endblock %}
-{% block breadcrumb %} Compléter mon profil{% endblock %}
+{% block breadcrumb %}Compléter mon profil{% endblock %}
 
 {% block body %}
     <form id="profileForm" action="{{ path('app_professionnel_edit', {'id': user.id}) }}" method="POST" enctype="multipart/form-data">
@@ -110,15 +110,9 @@
                 <div class="form-group">
                     <div class="mb-3">
                         <label class="form-label" for="photo">Votre photo</label>
-                        <div class="dropzone-container" data-controller="symfony--ux-dropzone--dropzone">
-                            <input type="file" id="photo" name="photo" required="required" placeholder="Drag and drop a file or click to browse" data-controller="" class="dropzone-input" data-symfony--ux-dropzone--dropzone-target="input" style="display: block;" accept="image/*">
-                            <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder" style="display: block;">Faites glisser et déposez un fichier ou cliquez pour parcourir</div>
-                            <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
-                                <button class="dropzone-preview-button" type="button" data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
-                                <div class="dropzone-preview-image" style="display: none; background-image: none;" data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
-                                <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
-                            </div>
-                        </div>
+                        <input type="file" id="photo" class="form-control mb-2" name="photo" accept="image/*" required>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <div id="cropper-container" style="width: 100%; max-width: 600px; margin-top: 20px;"></div>
                     </div>
                 </div>
             </div>
@@ -127,6 +121,8 @@
             <button type="submit" id="submitButton" class="btn btn-primary">Enregistrer les mises à jour</button>
         </div>
     </form>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
     <script>
         document.getElementById('organe').addEventListener('change', function () {
@@ -185,4 +181,70 @@
         });
     </script>
 
+    <script>
+        const photoInput = document.getElementById('photo');
+        const canvas = document.getElementById('canvas');
+        const cropperContainer = document.getElementById('cropper-container');
+        let cropper;
+
+        photoInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+
+                        // Initialize Cropper.js with fixed dimensions
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                        cropper = new Cropper(canvas, {
+                            aspectRatio: 413 / 531,
+                            viewMode: 1,
+                            preview: cropperContainer,
+                            cropBoxResizable: false, // Disable resizing of the crop box
+                            cropBoxMovable: true,    // Allow moving the crop box
+                            dragMode: 'move',       // Allow moving the image
+                            autoCropArea: 1,        // Automatically set the crop box to cover the entire image
+                            background: false       // Hide the grid background
+                        });
+
+                        // Set the initial crop box to the desired dimensions
+                        cropper.setCropBoxData({
+                            left: 0,
+                            top: 0,
+                            width: 413,
+                            height: 531
+                        });
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function (event) {
+            if (cropper) {
+                event.preventDefault(); // ✋ Empêche soumission immédiate
+
+                const croppedCanvas = cropper.getCroppedCanvas({ width: 413, height: 531 });
+                croppedCanvas.toBlob((blob) => {
+                    const file = new File([blob], 'cropped_photo.jpg', { type: 'image/jpeg' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    const fileInput = document.getElementById('photo');
+                    fileInput.files = dataTransfer.files;
+
+                    // 🔁 Soumet le formulaire manuellement une fois prêt
+                    event.target.submit();
+                }, 'image/jpeg');
+            }
+        });
+
+    </script>
 {% endblock %}
