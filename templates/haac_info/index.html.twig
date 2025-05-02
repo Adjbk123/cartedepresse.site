@@ -6,7 +6,7 @@
     <table class="table table-bordered align-middle">
         <thead class="table-secondary">
         <tr>
-            <th>#</th>
+
             <th>Logo</th>
             <th>Armoirie</th>
             <th>Cachet</th>
@@ -18,7 +18,7 @@
         <tbody>
         {% for haac_info in haac_infos %}
             <tr>
-                <td>{{ haac_info.id }}</td>
+
                 <td>
                     {% if haac_info.logoPath %}
                         <img src="{{ asset(haac_info.logoPath) }}" alt="Logo" width="60">
