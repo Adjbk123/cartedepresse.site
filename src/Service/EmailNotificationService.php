@@ -157,8 +157,8 @@ class EmailNotificationService
             'email' => $recipientEmail,
             'password' => $password,
             'numeroDemande' => $numeroDemande,
-            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
-            'lienSuiviDemande' => 'https://cartedepresse.net/demande/suivie'
+            'lienConnexion' => 'https://cartedepresse.haac.bj/connexion-compte',
+            'lienSuiviDemande' => 'https://cartedepresse.haac.bj/demande/suivie'
         ];
 
         // Rendu du contenu de l'email à partir du template Twig
@@ -190,7 +190,7 @@ class EmailNotificationService
             'observation' => $observation,
             'piece'=> $piece,
             "professionnel"=>$professionnel,
-            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
+            'lienConnexion' => 'https://cartedepresse.haac.bj/connexion-compte',
         ];
         $htmlContent = $this->twig->render($htmlTemplate, $context);
 
@@ -219,7 +219,7 @@ class EmailNotificationService
             $htmlContent = $this->twig->render($htmlTemplate, [
                 'lot' => $lot,
                 'user' => $user,
-                'lien' => 'https://cartedepresse.net',
+                'lien' => 'https://cartedepresse.haac.bj',
             ]);
 
             $email = (new Email())
@@ -254,7 +254,7 @@ class EmailNotificationService
             'nom' => $nom,
             'prenoms' => $prenoms,
             'email' => $recipientEmail,
-            'lienConnexion' => 'https://cartedepresse.net/connexion-compte',
+            'lienConnexion' => 'https://cartedepresse.haac.bj/connexion-compte',
 
         ];
 
