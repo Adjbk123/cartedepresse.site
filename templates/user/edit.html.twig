@@ -124,7 +124,7 @@
             </div>
         </div>
         <div class="text-center">
-            <button type="submit" id="submitButton" class="btn btn-primary" disabled>Enregistrer les mises à jour</button>
+            <button type="submit" id="submitButton" class="btn btn-primary">Enregistrer les mises à jour</button>
         </div>
     </form>
 
@@ -139,46 +139,6 @@
             nouvelleProfession.style.display = (this.value === 'autre') ? 'block' : 'none';
         });
 
-        const form = document.getElementById('profileForm');
-        const photoInput = document.getElementById('photo');
-        const submitButton = document.getElementById('submitButton');
-
-        // Vérifier les dimensions de l'image lorsqu'une nouvelle photo est sélectionnée
-        photoInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = function () {
-                    if (this.width === 413 && this.height === 531) {
-                        submitButton.disabled = false; // Activer le bouton si les dimensions sont correctes
-                    } else {
-                        toastr.error('La photo doit mesurer 413x531 pixels.', 'Erreur', { timeOut: 5000 });
-                        submitButton.disabled = true; // Désactiver le bouton si les dimensions sont incorrectes
-                        photoInput.value = ''; // Réinitialiser le champ de fichier
-                    }
-                };
-            }
-        });
-
-        // Vérifier les dimensions de l'image avant de soumettre le formulaire
-        form.addEventListener('submit', function (event) {
-            const file = photoInput.files[0];
-            if (file) {
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = function () {
-                    if (this.width !== 413 || this.height !== 531) {
-                        event.preventDefault(); // Empêcher la soumission du formulaire si les dimensions sont incorrectes
-                        toastr.error('La photo doit mesurer 413x531 pixels.', 'Erreur', { timeOut: 5000 });
-                        submitButton.disabled = true; // Désactiver le bouton
-                        photoInput.value = ''; // Réinitialiser le champ de fichier
-                    }
-                };
-            }
-        });
-    </script>
-    <script>
         const phoneInput = document.getElementById('telephone');
         const fixedPrefix = '+229 01';
 

@@ -49,4 +49,11 @@ return [
     'chart.js' => [
         'version' => '3.9.1',
     ],
+    'cropperjs' => [
+        'version' => '1.6.2',
+    ],
+    'cropperjs/dist/cropper.min.css' => [
+        'version' => '1.6.2',
+        'type' => 'css',
+    ],
 ];
