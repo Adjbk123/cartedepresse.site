@@ -34,7 +34,7 @@ class PresidentController extends AbstractController
                 ->findOneBy(['isPresident' => true]);
 
             if ($dernierPresident) {
-                $dernierPresident->setIsPresident(false);
+                $dernierPresident->setPresident(false);
                 $entityManager->persist($dernierPresident);
             }
 
