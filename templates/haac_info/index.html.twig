@@ -3,38 +3,55 @@
 {% block title %}Informations HAAC{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_haac_info_new') }}">Create new</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-
-                <th>LogoPath</th>
-                <th>AmoiriePath</th>
-                <th>CachetPath</th>
-                <th>TextIntro</th>
-                <th>MentionFinale</th>
-                <th>actions</th>
-            </tr>
+    <table class="table table-bordered align-middle">
+        <thead class="table-secondary">
+        <tr>
+            <th>#</th>
+            <th>Logo</th>
+            <th>Armoirie</th>
+            <th>Cachet</th>
+            <th>Texte Introductif</th>
+            <th>Mention Finale</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for haac_info in haac_infos %}
             <tr>
                 <td>{{ haac_info.id }}</td>
-                <td>{{ haac_info.logoPath }}</td>
-                <td>{{ haac_info.amoiriePath }}</td>
-                <td>{{ haac_info.cachetPath }}</td>
-                <td>{{ haac_info.textIntro }}</td>
-                <td>{{ haac_info.mentionFinale }}</td>
                 <td>
-                    <a href="{{ path('app_haac_info_show', {'id': haac_info.id}) }}">show</a>
-                    <a href="{{ path('app_haac_info_edit', {'id': haac_info.id}) }}">edit</a>
+                    {% if haac_info.logoPath %}
+                        <img src="{{ asset(haac_info.logoPath) }}" alt="Logo" width="60">
+                    {% else %}
+                        <span class="text-muted">Aucun</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if haac_info.amoiriePath %}
+                        <img src="{{ asset(haac_info.amoiriePath) }}" alt="Armoirie" width="60">
+                    {% else %}
+                        <span class="text-muted">Aucune</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if haac_info.cachetPath %}
+                        <img src="{{ asset(haac_info.cachetPath) }}" alt="Cachet" width="60">
+                    {% else %}
+                        <span class="text-muted">Aucun</span>
+                    {% endif %}
+                </td>
+                <td>{{ haac_info.textIntro|u.truncate(60, '...') }}</td>
+                <td>{{ haac_info.mentionFinale|u.truncate(60, '...') }}</td>
+                <td>
+                    <a href="{{ path('app_haac_info_show', {'id': haac_info.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_haac_info_edit', {'id': haac_info.id}) }}" class="btn btn-success btn-sm">Éditer</a>
                 </td>
             </tr>
-
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-center text-muted">Aucune information enregistrée.</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
-
-
 {% endblock %}
