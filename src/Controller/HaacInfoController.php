@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted(new Expression('is_granted("ROLE_COMITE_MEMBRE")'))]
 #[Route('/haac/info')]
 class HaacInfoController extends AbstractController
 {
+    #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     #[Route('/', name: 'app_haac_info_index', methods: ['GET'])]
     public function index(HaacInfoRepository $haacInfoRepository): Response
     {
@@ -24,6 +24,7 @@ class HaacInfoController extends AbstractController
             'haac_infos' => $haacInfoRepository->findAll(),
         ]);
     }
+    #[IsGranted(new Expression('is_granted("ROLE_ADMIN")'))]
 
     #[Route('/new', name: 'app_haac_info_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
