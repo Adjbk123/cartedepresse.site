@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Créer votre compte | Système Automatique de Gestion des Cartes de Presse</title>
+    <title>Créer votre compte | Système Automatique de Gestion des Cartes de
+        Presse</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Système Automatique de Gestion des Cartes de Presse"/>
+    <meta name="description"
+          content="Système Automatique de Gestion des Cartes de Presse"/>
     <meta name="keywords" content="Carte de presse, Demande, HAAC"/>
     <meta name="author" content="HAAC"/>
     <meta name="email" content="contact@haac.bj"/>
@@ -16,20 +18,70 @@
 
     <!-- CSS -->
     <!-- Bootstrap CSS -->
-    <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/css/bootstrap-green.min.css') }}"
+          id="bootstrap-style" class="theme-opt" rel="stylesheet"
+          type="text/css">
     <!-- Icons CSS -->
-    <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets-landing/libs/@mdi/font/css/materialdesignicons.min.css') }}"
+          rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/libs/@iconscout/unicons/css/line.css') }}"
+          type="text/css" rel="stylesheet">
     <!-- Style CSS -->
-    <link href="{{ asset('assets-landing/css/style-green.min.css') }}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets-landing/css/style-green.min.css') }}"
+          id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     <style>
         body {
             font-family: "Montserrat", sans-serif !important;
+            background-image: url({{ asset('images/bg-2.png') }});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #0E406E, #0E6258);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #0E6258, #0E406E);
+            box-shadow: 0 4px 10px rgba(14, 64, 110, 0.3);
+        }
+
+        .text-primary {
+            color: #0E406E !important;
+        }
+
+        .breadcrumb-item.active {
+            color: #0E6258 !important;
+            font-weight: 600;
+        }
+
+        .back-button {
+            background: linear-gradient(to right, #0E406E, #0E6258);
+            border-radius: 50%;
+            color: white !important;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(to right, #0E6258, #0E406E);
+        }
+
+        .bg-body {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(2px);
+        }
+
+        .animated-message {
+            animation: subtleShake 3s infinite ease-in-out;
         }
 
         @keyframes subtleShake {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateX(0);
             }
             25% {
@@ -43,25 +95,18 @@
             }
         }
 
-        .animated-message {
-            animation: subtleShake 3s infinite ease-in-out;
-        }
-
-        body {
-            background-image: url({{asset('images/bg-2.png')}});
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
         html, body, .container {
             height: 100%;
+        }
+
+        .bg-primary {
+            background: linear-gradient(to right, #0E6258, #0E406E) !important;
         }
     </style>
 </head>
 
 <body>
-<!-- Loader -->
+<!-- Loader
 <div id="preloader">
     <div id="status">
         <div class="spinner">
@@ -69,11 +114,12 @@
             <div class="double-bounce2"></div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- Loader -->
 
 <div class="back-to-home">
-    <a href="" class="back-button btn btn-icon btn-primary"><i data-feather="arrow-left" class="icons"></i></a>
+    <a href="" class="back-button btn btn-icon btn-primary"><i
+                data-feather="arrow-left" class="icons"></i></a>
 </div>
 
 <!-- Hero Start -->
@@ -81,125 +127,141 @@
     <div class="container d-flex align-items-center justify-content-center">
         <div class="row shadow mb-5 bg-primary rounded-3">
             <div class="col-md-6 p-3 d-flex flex-column align-items-start justify-content-center text-start">
+                <h2 class="text-white fw-bold mb-4 d-flex align-items-center gap-3">
+    <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+          style="width: 45px; height: 45px; background: #fff;">
+        <i data-feather="users" class="fea icon-sm text-primary"></i>
+    </span>
+                    Professionnels des Médias ?
+                </h2>
 
-                    <span class="bg-white text-primary p-1 badge rounded-pill">
-                        <i data-feather="users" class="fea icon-sm"></i>
-                    </span>
-                    <h2 class="text-white fw-bold mb-4">
-                        Professionnels des Médias ?
-                    </h2>
+                <div class="alert alert-light alert-pills text-dark"
+                     role="alert">
+                    <span class="badge rounded-pill bg-primary me-1"><i
+                                data-feather="alert-circle"
+                                class="fea icon-sm"></i></span>
+                    <span class="content">Demandez votre carte de presse en 3 étapes !</span>
+                </div>
 
-                    <div class="alert alert-light alert-pills text-dark" role="alert">
-                        <span class="badge rounded-pill bg-primary me-1"><i data-feather="alert-circle" class="fea icon-sm"></i></span>
-                        <span class="content">Demandez votre carte de presse en 3 étapes !</span>
+                <div class="mb-4 ms-5">
+                    <div class="d-flex align-items-center mb-3 text-white">
+                        <i data-feather="user-plus"
+                           class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">1. Créez votre compte</span>
                     </div>
-
-                    <div class="mb-4 ms-5">
-                        <div class="d-flex align-items-center mb-3 text-white">
-                            <i data-feather="user-plus" class="fea icon-sm me-2"></i>
-                            <span class="fw-medium">1. Créez votre compte</span>
-                        </div>
-                        <div class="d-flex align-items-center mb-3 text-white">
-                            <i data-feather="edit-2" class="fea icon-sm me-2"></i>
-                            <span class="fw-medium">2. Complétez votre profil</span>
-                        </div>
-                        <div class="d-flex align-items-center text-white">
-                            <i data-feather="send" class="fea icon-sm me-2"></i>
-                            <span class="fw-medium">3. Envoyez votre demande</span>
-                        </div>
+                    <div class="d-flex align-items-center mb-3 text-white">
+                        <i data-feather="edit-2" class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">2. Complétez votre profil</span>
                     </div>
+                    <div class="d-flex align-items-center text-white">
+                        <i data-feather="send" class="fea icon-sm me-2"></i>
+                        <span class="fw-medium">3. Envoyez votre demande</span>
+                    </div>
+                </div>
 
-                    <p class="bg-primary text-white fw-medium p-3 mb-3 rounded-3 animated-message">
-                        🎯 Assurez-vous d'utiliser des informations exactes et un email fonctionnel pour valider votre demande.
-                    </p>
+                <p class="bg-primary text-white fw-medium p-3 mb-3 rounded-3 animated-message">
+                    🎯 Assurez-vous d'utiliser des informations exactes et un
+                    email fonctionnel pour valider votre demande.
+                </p>
 
             </div>
 
-            <div class="col-lg-6 col-md-6 pt-5 pb-5 bg-body rounded-right">
+            <div class="col-lg-6 col-md-6 p-5 bg-body rounded-right">
 
-                        <div class="text-center">
-                            <a href="{{ path('app_accueil') }}">
-                                <img src="{{ asset('assets/images/logo-haac.png') }}" alt="Logo HAAC" style="width: 100px;">
-                            </a>
+                <div class="text-center">
+                    <a href="{{ path('app_accueil') }}">
+                        <img src="{{ asset('assets/images/logo-haac.png') }}"
+                             alt="Logo HAAC" style="width: 100px;">
+                    </a>
+                </div>
+                <h4 class="text-center"
+                    style="font-family: 'Montserrat', sans-serif !important;">
+                    Créer votre compte</h4>
+
+                <!-- Erreurs globales du formulaire -->
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_label(registrationForm.nom) }}
+                        <div class="form-icon position-relative">
+                            <i data-feather="user"
+                               class="fea icon-sm icons"></i>
+                            {{ form_widget(registrationForm.nom) }}
+                            <!-- Erreurs spécifiques au champ 'nom' -->
+                            {{ form_errors(registrationForm.nom) }}
                         </div>
-                        <h4 class="text-center" style="font-family: 'Montserrat', sans-serif !important;">Créer votre compte</h4>
-
-                        <!-- Erreurs globales du formulaire -->
-                        {{ form_errors(registrationForm) }}
-
-                        {{ form_start(registrationForm) }}
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                {{ form_label(registrationForm.nom) }}
-                                <div class="form-icon position-relative">
-                                    <i data-feather="user" class="fea icon-sm icons"></i>
-                                    {{ form_widget(registrationForm.nom) }}
-                                    <!-- Erreurs spécifiques au champ 'nom' -->
-                                    {{ form_errors(registrationForm.nom) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                {{ form_label(registrationForm.prenoms) }}
-                                <div class="form-icon position-relative">
-                                    <i data-feather="users" class="fea icon-sm icons"></i>
-                                    {{ form_widget(registrationForm.prenoms) }}
-                                    <!-- Erreurs spécifiques au champ 'prenoms' -->
-                                    {{ form_errors(registrationForm.prenoms) }}
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(registrationForm.prenoms) }}
+                        <div class="form-icon position-relative">
+                            <i data-feather="users"
+                               class="fea icon-sm icons"></i>
+                            {{ form_widget(registrationForm.prenoms) }}
+                            <!-- Erreurs spécifiques au champ 'prenoms' -->
+                            {{ form_errors(registrationForm.prenoms) }}
                         </div>
+                    </div>
+                </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                {{ form_label(registrationForm.email) }}
-                                <div class="form-icon position-relative">
-                                    <i data-feather="mail" class="fea icon-sm icons"></i>
-                                    {{ form_widget(registrationForm.email) }}
-                                    <!-- Erreurs spécifiques au champ 'email' -->
-                                    {{ form_errors(registrationForm.email) }}
-                                </div>
-                            </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_label(registrationForm.email) }}
+                        <div class="form-icon position-relative">
+                            <i data-feather="mail"
+                               class="fea icon-sm icons"></i>
+                            {{ form_widget(registrationForm.email) }}
+                            <!-- Erreurs spécifiques au champ 'email' -->
+                            {{ form_errors(registrationForm.email) }}
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group mb-3">
-                            <div class="col-lg-12">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    {{ form_label(registrationForm.plainPassword.first) }}
-                                    <button type="button" id="toggle-password" class="btn btn-link p-0 fw-medium">
-                                        Afficher le mot de passe
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-icon position-relative">
-                                <i data-feather="lock" class="fea icon-sm icons"></i>
-                                {{ form_widget(registrationForm.plainPassword.first, { attr: {'placeholder': 'Mot de passe'} }) }}
-                                <!-- Erreurs spécifiques au champ 'plainPassword.first' -->
-                                {{ form_errors(registrationForm.plainPassword.first) }}
-                            </div>
+                <div class="form-group mb-3">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{ form_label(registrationForm.plainPassword.first) }}
+                            <button type="button" id="toggle-password"
+                                    class="btn btn-link p-0 fw-medium">
+                                Afficher le mot de passe
+                            </button>
                         </div>
+                    </div>
+                    <div class="form-icon position-relative">
+                        <i data-feather="lock" class="fea icon-sm icons"></i>
+                        {{ form_widget(registrationForm.plainPassword.first, { attr: {'placeholder': 'Mot de passe'} }) }}
+                        <!-- Erreurs spécifiques au champ 'plainPassword.first' -->
+                        {{ form_errors(registrationForm.plainPassword.first) }}
+                    </div>
+                </div>
 
-                        <div class="form-group mb-3">
-                            {{ form_label(registrationForm.plainPassword.second) }}
-                            <div class="form-icon position-relative">
-                                <i data-feather="lock" class="fea icon-sm icons"></i>
-                                {{ form_widget(registrationForm.plainPassword.second, { attr: {'placeholder': 'Confirmer le mot de passe'} }) }}
-                                <!-- Erreurs spécifiques au champ 'plainPassword.second' -->
-                                {{ form_errors(registrationForm.plainPassword.second) }}
-                            </div>
-                        </div>
+                <div class="form-group mb-3">
+                    {{ form_label(registrationForm.plainPassword.second) }}
+                    <div class="form-icon position-relative">
+                        <i data-feather="lock" class="fea icon-sm icons"></i>
+                        {{ form_widget(registrationForm.plainPassword.second, { attr: {'placeholder': 'Confirmer le mot de passe'} }) }}
+                        <!-- Erreurs spécifiques au champ 'plainPassword.second' -->
+                        {{ form_errors(registrationForm.plainPassword.second) }}
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <div class="fxt-transformY-50 fxt-transition-delay-4">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    Créer le compte
-                                </button>
-                            </div>
-                        </div>
-                        {{ form_end(registrationForm) }}
+                <div class="form-group">
+                    <div class="fxt-transformY-50 fxt-transition-delay-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Créer le compte
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(registrationForm) }}
 
-                        <div class="col-12 text-center">
-                            <p class="mb-0 mt-3"><small class="text-dark me-2">Vous avez déjà un compte ? </small> <a href="{{ path('app_login') }}" class="text-primary fw-bold">Se connecter</a></p>
-                        </div>
+                <div class="col-12 text-center">
+                    <p class="mb-0 mt-3"><small class="text-dark me-2">Vous avez
+                            déjà un compte ? </small> <a
+                                href="{{ path('app_login') }}"
+                                class="text-primary fw-bold">Se connecter</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -207,17 +269,25 @@
 <!-- Hero End -->
 
 <!-- Switcher Start -->
-<a href="javascript:void(0)" class="card switcher-btn shadow-md text-primary z-index-1 d-md-inline-flex d-none" data-bs-toggle="offcanvas" data-bs-target="#switcher-sidebar">
+<a href="javascript:void(0)"
+   class="card switcher-btn shadow-md text-primary z-index-1 d-md-inline-flex d-none"
+   data-bs-toggle="offcanvas" data-bs-target="#switcher-sidebar">
     <i class="mdi mdi-cog mdi-24px mdi-spin align-middle"></i>
 </a>
 
-<div class="offcanvas offcanvas-start shadow border-0" tabindex="-1" id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
+<div class="offcanvas offcanvas-start shadow border-0" tabindex="-1"
+     id="switcher-sidebar" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header p-4 border-bottom">
         <h5 id="offcanvasLeftLabel" class="mb-0">
-            <img src="{{ asset('assets-landing/images/logo-dark.png') }}" height="24" class="light-version" alt="">
-            <img src="{{ asset('assets-landing/images/logo-light.png') }}" height="24" class="dark-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-dark.png') }}"
+                 height="24" class="light-version" alt="">
+            <img src="{{ asset('assets-landing/images/logo-light.png') }}"
+                 height="24" class="dark-version" alt="">
         </h5>
-        <button type="button" class="btn-close d-flex align-items-center text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="uil uil-times fs-4"></i></button>
+        <button type="button"
+                class="btn-close d-flex align-items-center text-dark"
+                data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="uil uil-times fs-4"></i></button>
     </div>
     <div class="offcanvas-body p-4 pb-0">
         <div class="row">
@@ -225,7 +295,13 @@
                 <div class="text-center mt-4 pt-4">
                     <h6 class="fw-bold">Visitez notre site web</h6>
                     <ul class="text-center style-switcher list-unstyled mt-4">
-                        <li class="d-grid"><a href="https://haac.bj/" class="rtl-version t-rtl-light"><img src="{{ asset('assets-landing/images/demos/rtl.png') }}" class="img-fluid rounded-md shadow-md d-block mx-auto" style="width: 240px;" alt=""><span class="text-dark fw-medium mt-3 d-block">Accueil</span></a></li>
+                        <li class="d-grid"><a href="https://haac.bj/"
+                                              class="rtl-version t-rtl-light"><img
+                                        src="{{ asset('assets-landing/images/demos/rtl.png') }}"
+                                        class="img-fluid rounded-md shadow-md d-block mx-auto"
+                                        style="width: 240px;" alt=""><span
+                                        class="text-dark fw-medium mt-3 d-block">Accueil</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>

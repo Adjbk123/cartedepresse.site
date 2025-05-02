@@ -1,12 +1,10 @@
 {% extends 'baseAccueil2.html.twig' %}
 {% block title %}
-Accueil
+    Accueil
 {% endblock %}
 
-
-
 {% block body %}
-    <section class="bg-half-260 d-table w-100 jarallax" data-jarallax data-speed="0.5" style="background:url('{{ asset('images/bg.jpg') }}') top">
+    <section class="bg-half-260 d-table w-100 jarallax h-auto " data-jarallax data-speed="0.5" style="background:url('{{ asset('images/bg.jpg') }}') top">
         <div class="bg-overlay opacity-6"></div>
         <div class="container">
             <div class="row">
@@ -14,12 +12,22 @@ Accueil
                     <div class="title-heading">
                         <div class="alert alert-light alert-pills text-dark" role="alert">
                             <span class="badge rounded-pill bg-primary me-1">HAAC</span>
-                            <span class="content">Gestion fiable et sécurisée des cartes de presse</span>
+                            <span class="content">
+                            <a href="{{ path('carte_presse_conditions') }}" class="text-dark text-decoration-underline fw-bold">
+                                Conditions d’attribution
+                            </a>
+                        </span>
                         </div>
-                        <h1 class="heading fw-bold mb-3 text-white">Facilitez l'accès aux <span class="text-primary text-decoration-underline typewrite bg-white" data-period="2000" data-type='["professionnels des médias" ]'> <span class="wrap"></span> </span> <br> avec notre solution dédiée</h1>
+                        <h3 class="heading fw-bold mb-3 text-white">
+                            Facilitez l'accès aux
+                            <span class="text-primary text-decoration-underline typewrite bg-white" data-period="2000" data-type='["professionnels des médias"]'>
+                            <span class="wrap"></span>
+                        </span>
+                        </h3>
                         <p class="para-desc text-white">Soumettez et gérez vos demandes de carte de presse grâce à notre plateforme sécurisée dédiée aux professionnels des médias.</p>
-                        <div class="mt-4 pt-2">
+                        <div class="mt-4 pt-2 d-flex gap-3 flex-wrap">
                             <a href="{{ path('app_demande_new') }}" class="btn btn-primary">Demander une carte de presse</a>
+                            <a href="{{ path('app_demande_suivi') }}" class="btn btn-light ">Voir mes demandes</a>
                         </div>
                     </div>
                 </div><!--end col-->
@@ -28,4 +36,3 @@ Accueil
     </section><!--end section-->
     <!-- End Hero -->
 {% endblock %}
-

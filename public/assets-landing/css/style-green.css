@@ -235,10 +235,10 @@ p {
 #topnav .navigation-menu > li > a {
   display: block;
   color: #212529;
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing:1.2px;
   background-color: transparent !important;
   font-weight: 700;
-
   line-height: 24px;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
@@ -754,7 +754,7 @@ p {
 /*         Footer                */
 /*===============================*/
 .footer {
-  background: #202942;
+  background: linear-gradient(to right, #0E406E,#0E6258 );
   position: relative;
   color: #adb5bd;
 }
@@ -5880,7 +5880,7 @@ html[dir=rtl] .tns-visually-hidden {
   line-height: 26px;
 }
 .title-heading .heading {
-  font-size: 45px !important;
+  font-size: 35px !important;
   letter-spacing: 1px;
 }
 .title-heading .heading.heading-lg {
@@ -5888,7 +5888,7 @@ html[dir=rtl] .tns-visually-hidden {
 }
 @media (max-width: 768px) {
   .title-heading .heading {
-    font-size: 35px !important;
+    font-size: 30px !important;
   }
 }
 .title-heading .para-desc {
