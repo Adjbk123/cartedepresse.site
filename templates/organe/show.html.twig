@@ -2,17 +2,19 @@
 
 {% block title %}Détail de l'organe{% endblock %}
 {% block breadcrumb %}Organe {% endblock %}
+{% block bouton %}
+
+    <a href="{{ path('app_organe_index') }}" class="btn btn-outline-secondary">Retour</a>
+
+{% endblock %}
 
 
 {% block body %}
-    <h1>Organe</h1>
+
 
     <table id="myTable" class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ organe.id }}</td>
-            </tr>
+
             <tr>
                 <th>Designation</th>
                 <td>{{ organe.designation }}</td>
@@ -40,9 +42,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_organe_index') }}">back to list</a>
 
-    <a href="{{ path('app_organe_edit', {'id': organe.id}) }}">edit</a>
+    <a href="{{ path('app_organe_edit', {'id': organe.id}) }}" class="btn btn-primary">Mettre à jour</a>
 
-    {{ include('organe/_delete_form.html.twig') }}
 {% endblock %}

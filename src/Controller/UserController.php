@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/compte')]
@@ -38,7 +39,7 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
   #[Route('/professionnel', name: 'app_user_professionnel', methods: ['GET'])]
     public function indexProfessionnel(UserRepository $userRepository): Response
     {
@@ -47,6 +48,7 @@ class UserController extends AbstractController
             'users' => $professionnels,
         ]);
     }
+    #[IsGranted("ROLE_USER")]
     #[Route('/professionnel/{id}', name: 'app_user_professionnel_show', methods: ['GET'])]
     public function indexProfessionnelShow(User $user): Response
     {
@@ -141,7 +143,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -149,6 +151,7 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+    #[IsGranted("ROLE_USER")]
     #[Route('/{id}/modifier-compte', name: 'app_professionnel_edit', methods: ['GET', 'POST'])]
     public function editProfessionnel(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository, SluggerInterface $slugger, OrganeRepository $organeRepository, ProfessionRepository $professionRepository): Response
     {
@@ -416,7 +419,7 @@ class UserController extends AbstractController
         return $nationalites;
 
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -434,7 +437,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {

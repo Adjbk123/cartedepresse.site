@@ -10,10 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class OrganeController extends AbstractController
 {
+    #[IsGranted("ROLE_USER")]
     #[Route('/liste-organe', name: 'app_organe_index', methods: ['GET'])]
     public function index(OrganeRepository $organeRepository): Response
     {
@@ -21,7 +23,7 @@ class OrganeController extends AbstractController
             'organes' => $organeRepository->findAll(),
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/organe/toggle/{id}', name: 'app_organe_toggle', methods: ['GET'])]
     public function toggleActivation(Organe $organe, EntityManagerInterface $entityManager): Response
     {
@@ -32,7 +34,7 @@ class OrganeController extends AbstractController
 
         return $this->redirectToRoute('app_organe_index');
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/organe-nouveau', name: 'app_organe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -53,6 +55,7 @@ class OrganeController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/organe/{id}', name: 'app_organe_show', methods: ['GET'])]
     public function show(Organe $organe): Response
     {
@@ -60,7 +63,7 @@ class OrganeController extends AbstractController
             'organe' => $organe,
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/organe/{id}/edit', name: 'app_organe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Organe $organe, EntityManagerInterface $entityManager): Response
     {
@@ -78,7 +81,7 @@ class OrganeController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/organe/{id}', name: 'app_organe_delete', methods: ['POST'])]
     public function delete(Request $request, Organe $organe, EntityManagerInterface $entityManager): Response
     {

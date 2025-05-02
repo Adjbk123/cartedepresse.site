@@ -42,21 +42,26 @@
                 <td>
                     <div class="dropdown mt-4 mt-sm-0">
                         <a href="#" class="btn btn-outline-light btn-sm dropdown-toggle border" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="icon ni ni-opt-dot-alt"></i>
+                            <i class="icon-base ti tabler-dots-vertical"></i>
                         </a>
-                        <div class="dropdown-menu" style="">
-                            <a class="dropdown-item link-info" href="{{ path('app_organe_show', {'id': organe.id}) }}">Voir</a>
-                            <a class="dropdown-item link-success" href="{{ path('app_organe_edit', {'id': organe.id}) }}">Editer</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item link-info" href="{{ path('app_organe_show', {'id': organe.id}) }}">
+                                <i class="icon-base ti tabler-eye me-1"></i> Voir
+                            </a>
+                            <a class="dropdown-item link-success" href="{{ path('app_organe_edit', {'id': organe.id}) }}">
+                                <i class="icon-base ti tabler-edit me-1"></i> Éditer
+                            </a>
                             <a class="dropdown-item link-warning" href="{{ path('app_organe_toggle', {'id': organe.id}) }}">
                                 {% if organe.isActif %}
-                                    Désactiver
+                                    <i class="icon-base ti tabler-circle-x me-1"></i> Désactiver
                                 {% else %}
-                                    Activer
+                                    <i class="icon-base ti tabler-circle-check me-1"></i> Activer
                                 {% endif %}
                             </a>
                         </div>
                     </div>
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>
